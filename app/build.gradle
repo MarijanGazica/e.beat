@@ -23,11 +23,14 @@ android {
 dependencies {
     def room = "2.1.0-alpha01"
     def navigation = "1.0.0-alpha06"
+    def koin = '1.0.1'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+
+    implementation "org.koin:koin-androidx-viewmodel:$koin"
 
     implementation "android.arch.navigation:navigation-fragment:$navigation"
     implementation "android.arch.navigation:navigation-ui:$navigation"

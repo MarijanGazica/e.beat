@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#cccc33">
+
+    <NumberPicker
+        android:id="@+id/systolicValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toStartOf="@id/diastolicValue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <NumberPicker
+        android:id="@+id/diastolicValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@id/pulseValue"
+        app:layout_constraintStart_toEndOf="@id/systolicValue"
+        app:layout_constraintTop_toTopOf="@id/systolicValue" />
+
+    <NumberPicker
+        android:id="@+id/pulseValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/diastolicValue"
+        app:layout_constraintTop_toTopOf="@id/systolicValue" />
+
+    <TextView
+        android:id="@+id/timeValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="#aaaaaa"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@id/dateValue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/systolicValue"
+        tools:text="21:34" />
+
+    <TextView
+        android:id="@+id/dateValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#aaaaaa"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/timeValue"
+        app:layout_constraintTop_toTopOf="@id/timeValue"
+        tools:text="21.10.2018." />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

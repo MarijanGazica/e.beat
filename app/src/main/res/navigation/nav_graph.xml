@@ -9,7 +9,7 @@
         android:id="@+id/pressureInputFragment"
         android:name="studio.nodroid.bloodpressurehelper.ui.pressureInput.PressureInputFragment"
         android:label="PressureInputFragment"
-        tools:layout="@layout/fragment_pressure_input" />
+        tools:layout="@layout/view_pressure_input" />
     <fragment
         android:id="@+id/inputHistoryFragment"
         android:name="studio.nodroid.bloodpressurehelper.ui.inputHistory.InputHistoryFragment"
