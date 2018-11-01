@@ -6,5 +6,6 @@ data class PressureData(
     val pulse: Int,
     val date: Date,
     val time: Time,
+    val timestamp: Long,
     val description: String = ""
 )

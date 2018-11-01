@@ -1,5 +1,6 @@
 package studio.nodroid.bloodpressurehelper.ui.pressureInput
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,11 @@ class PressureInputFragment : Fragment() {
 
     private val viewModel: PressureInputViewModel by viewModel()
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        viewModel.selectedUser.observe(this, Observer { userName.text = it.name })
+        viewModel.allUsers.observe(this, Observer { viewModel.findLastUser() })
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_pressure_input, container, false)
@@ -24,8 +30,7 @@ class PressureInputFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         pressureInput.fragmentManager = childFragmentManager
-        pressureInput.pressureData.observe(this, Observer { viewModel.pressureDataChanged(it) })
-
-        saveReading.setOnClickListener { viewModel.saveReading() }
+        saveReading.setOnClickListener { viewModel.saveReading(pressureInput.pressureData) }
     }
+
 }

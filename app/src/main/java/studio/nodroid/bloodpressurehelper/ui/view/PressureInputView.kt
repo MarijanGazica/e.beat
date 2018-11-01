@@ -1,11 +1,12 @@
 package studio.nodroid.bloodpressurehelper.ui.view
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.MutableLiveData
 import kotlinx.android.synthetic.main.view_pressure_input.view.*
 import studio.nodroid.bloodpressurehelper.R
 import studio.nodroid.bloodpressurehelper.model.Date
@@ -32,19 +33,25 @@ class PressureInputView(context: Context, attrs: AttributeSet? = null) :
 
     private val onTimeChosen: (Time) -> Unit = {
         timeValue.text = it.toString()
-        pressureData.value = pressureData.value?.copy(time = it)
+        time = it
+        setState()
     }
 
     private val onDateChosen: (Date) -> Unit = {
         dateValue.text = it.toString()
-        pressureData.value = pressureData.value?.copy(date = it)
+        date = it
+        setState()
     }
 
     private val timeFormat by lazy { SimpleDateFormat("HH:mm", Locale.getDefault()) }
     private val dateFormat by lazy { SimpleDateFormat("dd.MM.yy", Locale.getDefault()) }
 
-    val pressureData = MutableLiveData<PressureData>()
+    var pressureData: PressureData? = null
     var fragmentManager: FragmentManager? = null
+
+    private var date: Date
+    private var time: Time
+    private var description = ""
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_pressure_input, this, true)
@@ -57,26 +64,18 @@ class PressureInputView(context: Context, attrs: AttributeSet? = null) :
         pulseValue.maxValue = 300
 
         val calendar = Calendar.getInstance()
-        val date = Date(
+        date = Date(
             calendar.get(Calendar.DAY_OF_MONTH),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.YEAR)
         )
-        val time = Time(
+        time = Time(
             calendar.get(Calendar.HOUR_OF_DAY),
             calendar.get(Calendar.MINUTE)
         )
 
         timeValue.text = timeFormat.format(calendar.time)
         dateValue.text = dateFormat.format(calendar.time)
-
-        pressureData.value = PressureData(
-            systolicValue.value,
-            diastolicValue.value,
-            pulseValue.value,
-            date,
-            time
-        )
 
         timeValue.setOnClickListener {
             fragmentManager?.run {
@@ -91,15 +90,49 @@ class PressureInputView(context: Context, attrs: AttributeSet? = null) :
         }
 
         systolicValue.setOnValueChangedListener { _, _, newValue ->
-            pressureData.value = pressureData.value?.copy(systolic = newValue)
+            pressureData = pressureData?.copy(systolic = newValue)
         }
 
         diastolicValue.setOnValueChangedListener { _, _, newValue ->
-            pressureData.value = pressureData.value?.copy(diastolic = newValue)
+            pressureData = pressureData?.copy(diastolic = newValue)
         }
 
         pulseValue.setOnValueChangedListener { _, _, newValue ->
-            pressureData.value = pressureData.value?.copy(pulse = newValue)
+            pressureData = pressureData?.copy(pulse = newValue)
         }
+
+        inputDescription.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                s?.run {
+                    description = this.toString()
+                }
+            }
+        })
+
+        setState()
     }
+
+    private fun setState() {
+        pressureData = PressureData(
+            systolicValue.value,
+            diastolicValue.value,
+            pulseValue.value,
+            date,
+            time,
+            timestampFromTime(date, time),
+            description
+        )
+    }
+}
+
+fun timestampFromTime(date: Date, time: Time): Long {
+    val timestampDate = Calendar.getInstance()
+    timestampDate.set(date.year, date.month, date.day, time.hour, time.minute)
+    return timestampDate.timeInMillis
 }
