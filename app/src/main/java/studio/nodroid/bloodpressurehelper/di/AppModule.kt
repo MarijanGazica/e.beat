@@ -9,6 +9,7 @@ import org.koin.dsl.module.module
 import studio.nodroid.bloodpressurehelper.room.*
 import studio.nodroid.bloodpressurehelper.sharedPrefs.SharedPrefs
 import studio.nodroid.bloodpressurehelper.sharedPrefs.SharedPrefsImpl
+import studio.nodroid.bloodpressurehelper.ui.view.UserPickerViewModel
 import studio.nodroid.bloodpressurehelper.vm.PressureInputViewModel
 
 private const val DATABASE_NAME = "app_database"
@@ -17,6 +18,7 @@ private const val SHARED_PREFS_NAME = "shared_prefs"
 val appModule = module {
 
     viewModel { PressureInputViewModel(get(), get(), get()) }
+    viewModel { UserPickerViewModel(get()) }
 
     single<SharedPreferences> { androidApplication().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE) }
 

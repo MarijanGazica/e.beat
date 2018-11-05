@@ -5,4 +5,7 @@
     <string name="menu_settings">Settings</string>
     <string name="save_reading">Save</string>
     <string name="input_description">Input description</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="are_you_sure">Are you sure</string>
 </resources>

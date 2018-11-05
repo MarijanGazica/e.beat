@@ -7,7 +7,7 @@ import studio.nodroid.bloodpressurehelper.model.PressureDataDB
 @Dao
 interface PressureDataDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPressureData(data: PressureDataDB)
 
     @Query("SELECT * FROM PressureDataDB")
