@@ -13,8 +13,8 @@ interface PressureDataDao {
     @Query("SELECT * FROM PressureDataDB")
     fun getAllPressureData(): LiveData<List<PressureDataDB>>
 
-    @Query("SELECT * FROM PressureDataDB WHERE id = :userId")
-    fun getUserPressureData(userId: Int): LiveData<List<PressureDataDB>>
+    @Query("SELECT * FROM PressureDataDB WHERE userId = :userId")
+    fun getUserPressureData(userId: Int): List<PressureDataDB>
 
     @Delete
     fun deletePressureData(data: PressureDataDB)

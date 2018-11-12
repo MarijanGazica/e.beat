@@ -8,10 +8,13 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.view_pressure_input.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import studio.nodroid.bloodpressurehelper.R
+import studio.nodroid.bloodpressurehelper.model.*
 import studio.nodroid.bloodpressurehelper.model.Date
-import studio.nodroid.bloodpressurehelper.model.PressureData
-import studio.nodroid.bloodpressurehelper.model.Time
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,6 +35,11 @@ class PressureInputView(context: Context, attrs: AttributeSet? = null) :
     }
 
     private val onTimeChosen: (Time) -> Unit = {
+        setTime(it)
+        timer.cancel()
+    }
+
+    private fun setTime(it: Time) {
         timeValue.text = it.toString()
         time = it
         setState()
@@ -44,7 +52,7 @@ class PressureInputView(context: Context, attrs: AttributeSet? = null) :
     }
 
     private val timeFormat by lazy { SimpleDateFormat("HH:mm", Locale.getDefault()) }
-    private val dateFormat by lazy { SimpleDateFormat("dd.MM.yy", Locale.getDefault()) }
+    private val dateFormat by lazy { SimpleDateFormat("d.MM.yy", Locale.getDefault()) }
 
     var pressureData: PressureData? = null
     var fragmentManager: FragmentManager? = null
@@ -52,6 +60,13 @@ class PressureInputView(context: Context, attrs: AttributeSet? = null) :
     private var date: Date
     private var time: Time
     private var description = ""
+
+    private var timer = GlobalScope.launch(Dispatchers.Main) {
+        while (true) {
+            setTime(System.currentTimeMillis().timestampToTime())
+            delay(5000)
+        }
+    }
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_pressure_input, this, true)
@@ -129,10 +144,16 @@ class PressureInputView(context: Context, attrs: AttributeSet? = null) :
             description
         )
     }
+
+    fun setData(data: PressureInfo?) = data?.run {
+        systolicValue.value = systolic
+        diastolicValue.value = diastolic
+        pulseValue.value = pulse
+    }
 }
 
 fun timestampFromTime(date: Date, time: Time): Long {
     val timestampDate = Calendar.getInstance()
-    timestampDate.set(date.year, date.month, date.day, time.hour, time.minute)
+    timestampDate.set(date.year, date.month - 1, date.day, time.hour, time.minute)
     return timestampDate.timeInMillis
 }

@@ -17,7 +17,9 @@ import studio.nodroid.bloodpressurehelper.vm.PressureInputViewModel
 class PressureInputFragment : Fragment() {
 
     private val viewModel: PressureInputViewModel by viewModel()
+
     private val userPickerDialog by lazy { UserPickerDialog() }
+
     private val saveReadingDialog by lazy {
         AlertDialog.Builder(requireContext())
             .setPositiveButton(R.string.yes) { _, _ -> viewModel.saveReading(pressureInput.pressureData) }
@@ -30,8 +32,7 @@ class PressureInputFragment : Fragment() {
         super.onAttach(context)
         viewModel.selectedUser.observe(this, Observer { userName.text = it.name })
         viewModel.allUsers.observe(this, Observer { viewModel.findLastUser() })
-
-        viewModel.pressureDataRepository.getAllReadings().observe(this, Observer { })
+        viewModel.lastReading.observe(this, Observer { pressureInput.setData(it) })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#cc33cc">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/userName"
@@ -20,10 +19,59 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="John Doe" />
 
+    <ImageView
+        android:id="@+id/prevMonth"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_weight"
+        app:layout_constraintEnd_toStartOf="@id/activeMonth"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userName" />
+
+    <TextView
+        android:id="@+id/activeMonth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/prevMonth"
+        app:layout_constraintEnd_toStartOf="@id/nextMonth"
+        app:layout_constraintStart_toEndOf="@id/prevMonth"
+        app:layout_constraintTop_toTopOf="@id/prevMonth" />
+
+    <ImageView
+        android:id="@+id/nextMonth"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_weight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/activeMonth"
+        app:layout_constraintTop_toBottomOf="@id/userName" />
+
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="100dp"
+        app:compactCalendarCurrentDayIndicatorStyle="no_fill_large_indicator"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="#8aff6666"
+        app:compactCalendarCurrentSelectedDayIndicatorStyle="fill_large_indicator"
+        app:compactCalendarDisplayOtherMonthDays="true"
+        app:compactCalendarEventIndicatorStyle="no_fill_large_indicator"
+        app:compactCalendarMultiEventIndicatorColor="@color/colorAccent"
+        app:compactCalendarOtherMonthDaysTextColor="#ccc"
+        app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="false"
+        app:compactCalendarTextSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/prevMonth" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/readingList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userName" />
 

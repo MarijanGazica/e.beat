@@ -54,7 +54,6 @@ class UserPickerListAdapter(val onListItemSelected: (User) -> Unit) : RecyclerVi
     fun setData(users: List<User>) {
         data.clear()
         data.addAll(users)
-        data.add(User(name = "ivo"))
         notifyDataSetChanged()
     }
 
