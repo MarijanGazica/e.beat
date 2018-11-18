@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
@@ -46,13 +47,18 @@ class PressureInputView(context: Context, attrs: AttributeSet? = null) :
     }
 
     private val onDateChosen: (Date) -> Unit = {
+        setDate(it.copy(month = it.month - 1))
+        timer.cancel()
+    }
+
+    private fun setDate(it: Date) {
         dateValue.text = it.toString()
         date = it
         setState()
     }
 
     private val timeFormat by lazy { SimpleDateFormat("HH:mm", Locale.getDefault()) }
-    private val dateFormat by lazy { SimpleDateFormat("d.MM.yy", Locale.getDefault()) }
+    private val dateFormat by lazy { SimpleDateFormat("d.MM.yyyy", Locale.getDefault()) }
 
     var pressureData: PressureData? = null
     var fragmentManager: FragmentManager? = null
@@ -80,9 +86,9 @@ class PressureInputView(context: Context, attrs: AttributeSet? = null) :
 
         val calendar = Calendar.getInstance()
         date = Date(
-            calendar.get(Calendar.DAY_OF_MONTH),
+            calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.YEAR)
+            calendar.get(Calendar.DAY_OF_MONTH)
         )
         time = Time(
             calendar.get(Calendar.HOUR_OF_DAY),
@@ -133,6 +139,11 @@ class PressureInputView(context: Context, attrs: AttributeSet? = null) :
         setState()
     }
 
+    override fun onDetachedFromWindow() {
+        timer.cancel()
+        super.onDetachedFromWindow()
+    }
+
     private fun setState() {
         pressureData = PressureData(
             systolicValue.value,
@@ -154,6 +165,7 @@ class PressureInputView(context: Context, attrs: AttributeSet? = null) :
 
 fun timestampFromTime(date: Date, time: Time): Long {
     val timestampDate = Calendar.getInstance()
-    timestampDate.set(date.year, date.month - 1, date.day, time.hour, time.minute)
+    timestampDate.set(date.year, date.month, date.day, time.hour, time.minute)
+    Log.d("findme", date.month.toString())
     return timestampDate.timeInMillis
 }

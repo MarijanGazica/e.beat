@@ -13,6 +13,7 @@ import com.github.sundeepk.compactcalendarview.domain.Event
 import kotlinx.android.synthetic.main.fragment_input_history.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.bloodpressurehelper.R
+import studio.nodroid.bloodpressurehelper.ui.view.ReadingHistoryListDialog
 import studio.nodroid.bloodpressurehelper.ui.view.UserPickerDialog
 import studio.nodroid.bloodpressurehelper.vm.InputHistoryViewModel
 import java.util.*
@@ -22,6 +23,7 @@ class InputHistoryFragment : Fragment() {
     private val viewModel: InputHistoryViewModel by viewModel()
     private val readingHistoryAdapter by lazy { ReadingHistoryAdapter() }
     private val userPickerDialog by lazy { UserPickerDialog() }
+    private val readingHistoryListDialog by lazy { ReadingHistoryListDialog() }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -56,6 +58,10 @@ class InputHistoryFragment : Fragment() {
 
         calendarView.setListener(object : CompactCalendarView.CompactCalendarViewListener {
             override fun onDayClick(dateClicked: Date?) {
+                dateClicked?.run {
+                    readingHistoryListDialog.date = this
+                    readingHistoryListDialog.show(childFragmentManager, "")
+                }
             }
 
             override fun onMonthScroll(selectedMonth: Date?) {

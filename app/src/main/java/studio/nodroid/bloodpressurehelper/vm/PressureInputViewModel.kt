@@ -23,6 +23,10 @@ class PressureInputViewModel(
     val selectedUser = MutableLiveData<User>()
     val lastReading = MutableLiveData<PressureInfo>()
 
+    init {
+        loadLastReading()
+    }
+
     val userSelected: (User) -> Unit = {
         selectedUser.value = it
         sharedPrefs.saveLastUserId(it.id)
@@ -70,8 +74,12 @@ class PressureInputViewModel(
         selectedUser.value?.let {
             GlobalScope.launch(Dispatchers.Main) {
                 val readingList = pressureDataRepository.getReadingsForUser(it.id)
-                val latest = readingList.sortedBy { value -> value.timestamp }.last()
-                lastReading.value = PressureInfo(latest.systolic, latest.diastolic, latest.pulse)
+                if (readingList.isEmpty()) {
+                    lastReading.value = PressureInfo(130, 60, 60)
+                } else {
+                    val latest = readingList.sortedBy { value -> value.timestamp }.last()
+                    lastReading.value = PressureInfo(latest.systolic, latest.diastolic, latest.pulse)
+                }
             }
         }
     }

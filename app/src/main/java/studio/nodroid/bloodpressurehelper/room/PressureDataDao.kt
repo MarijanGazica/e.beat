@@ -11,7 +11,10 @@ interface PressureDataDao {
     fun insertPressureData(data: PressureDataDB)
 
     @Query("SELECT * FROM PressureDataDB")
-    fun getAllPressureData(): LiveData<List<PressureDataDB>>
+    fun getAllPressureDataLive(): LiveData<List<PressureDataDB>>
+
+    @Query("SELECT * FROM PressureDataDB")
+    fun getAllPressureData(): List<PressureDataDB>
 
     @Query("SELECT * FROM PressureDataDB WHERE userId = :userId")
     fun getUserPressureData(userId: Int): List<PressureDataDB>
@@ -21,4 +24,7 @@ interface PressureDataDao {
 
     @Update
     fun updatePressureData(data: PressureDataDB)
+
+    @Query("SELECT * FROM PressureDataDB WHERE timestamp > :start AND timestamp < :end")
+    fun getDataForRange(start: Long, end: Long): List<PressureDataDB>
 }
