@@ -160,6 +160,7 @@ class PressureInputView(context: Context, attrs: AttributeSet? = null) :
         systolicValue.value = systolic
         diastolicValue.value = diastolic
         pulseValue.value = pulse
+        setState()
     }
 }
 

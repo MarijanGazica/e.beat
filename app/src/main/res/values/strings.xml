@@ -9,4 +9,6 @@
     <string name="no">No</string>
     <string name="are_you_sure">Are you sure</string>
     <string name="add_reading">Add reading</string>
+    <string name="current_weight">Current weight</string>
+    <string name="set">Set</string>
 </resources>

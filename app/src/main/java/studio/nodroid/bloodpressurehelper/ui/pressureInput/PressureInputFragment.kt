@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.fragment_pressure_input.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.bloodpressurehelper.R
 import studio.nodroid.bloodpressurehelper.ui.view.UserPickerDialog
+import studio.nodroid.bloodpressurehelper.ui.view.WeightEntryDialog
 import studio.nodroid.bloodpressurehelper.vm.PressureInputViewModel
 
 class PressureInputFragment : Fragment() {
@@ -19,6 +20,8 @@ class PressureInputFragment : Fragment() {
     private val viewModel: PressureInputViewModel by viewModel()
 
     private val userPickerDialog by lazy { UserPickerDialog() }
+
+    private val weightEntryDialog by lazy { WeightEntryDialog() }
 
     private val saveReadingDialog by lazy {
         AlertDialog.Builder(requireContext())
@@ -44,10 +47,11 @@ class PressureInputFragment : Fragment() {
 
         pressureInput.fragmentManager = childFragmentManager
         saveReading.setOnClickListener { saveReadingDialog.show() }
+        weightInput.setOnClickListener { weightEntryDialog.show(childFragmentManager, "weight") }
 
         userName.setOnClickListener {
             userPickerDialog.onSelect = viewModel.userSelected
-            userPickerDialog.show(fragmentManager, "tag")
+            userPickerDialog.show(childFragmentManager, "user")
         }
     }
 
