@@ -22,8 +22,11 @@ class InputHistoryFragment : Fragment() {
 
     private val viewModel: InputHistoryViewModel by viewModel()
     private val readingHistoryAdapter by lazy { ReadingHistoryAdapter() }
-    private val userPickerDialog by lazy { UserPickerDialog() }
+    private val userPickerDialog by lazy { UserPickerDialog().apply { onAddUserSelected = addUserSelected } }
     private val readingHistoryListDialog by lazy { ReadingHistoryListDialog() }
+
+    private val addUserSelected: () -> Unit = {
+    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

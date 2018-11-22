@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.dialog_user_picker.*
 import kotlinx.android.synthetic.main.dialog_user_picker.view.*
 import kotlinx.android.synthetic.main.item_user_picker.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,6 +25,8 @@ class UserPickerDialog : DialogFragment() {
     private val viewModel: UserPickerViewModel by viewModel()
 
     var onSelect: (User) -> Unit = {}
+    var onAddUserSelected: () -> Unit = {}
+    var onEditUsersSelected: () -> Unit = {}
 
     private val onListItemSelected: (User) -> Unit = {
         onSelect(it)
@@ -40,6 +43,13 @@ class UserPickerDialog : DialogFragment() {
         view.userList.layoutManager = LinearLayoutManager(requireContext())
         view.userList.adapter = userListAdapter
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        addUser.setOnClickListener { onAddUserSelected() }
+        editUsers.setOnClickListener { onEditUsersSelected() }
     }
 }
 

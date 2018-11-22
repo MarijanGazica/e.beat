@@ -18,4 +18,7 @@ interface UserDao {
 
     @Update
     fun updateUser(user: User)
+
+    @Query("SELECT * FROm User WHERE id = :userId LIMIT 1")
+    fun getUserById(userId: Int): LiveData<User>
 }

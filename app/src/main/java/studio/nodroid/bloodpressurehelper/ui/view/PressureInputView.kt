@@ -79,10 +79,13 @@ class PressureInputView(context: Context, attrs: AttributeSet? = null) :
 
         systolicValue.minValue = 30
         systolicValue.maxValue = 300
+        systolicValue.value = 130
         diastolicValue.minValue = 30
         diastolicValue.maxValue = 300
+        diastolicValue.value = 60
         pulseValue.minValue = 30
         pulseValue.maxValue = 300
+        pulseValue.value = 60
 
         val calendar = Calendar.getInstance()
         date = Date(

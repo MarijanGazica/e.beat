@@ -9,15 +9,18 @@
         android:id="@+id/pressureInputFragment"
         android:name="studio.nodroid.bloodpressurehelper.ui.pressureInput.PressureInputFragment"
         android:label="PressureInputFragment"
-        tools:layout="@layout/view_pressure_input" />
+        tools:layout="@layout/view_pressure_input"></fragment>
+
     <fragment
         android:id="@+id/inputHistoryFragment"
         android:name="studio.nodroid.bloodpressurehelper.ui.inputHistory.InputHistoryFragment"
         android:label="InputHistoryFragment"
-        tools:layout="@layout/fragment_input_history" />
+        tools:layout="@layout/fragment_input_history"></fragment>
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="studio.nodroid.bloodpressurehelper.ui.settings.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings" />
+
 </navigation>

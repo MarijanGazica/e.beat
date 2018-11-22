@@ -28,6 +28,18 @@ class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
             userDao.insert(User(name = "Default"))
         }
     }
+
+    override fun getUserById(userId: Int): LiveData<User> {
+        return userDao.getUserById(userId)
+    }
+
+    override fun updateUser(copy: User?) {
+        GlobalScope.launch {
+            copy?.run {
+                userDao.updateUser(this)
+            }
+        }
+    }
 }
 
 interface UserRepository {
@@ -35,4 +47,6 @@ interface UserRepository {
     fun getAllUsers(): LiveData<List<User>>
     fun addUser(user: User)
     fun addDefaultUser()
+    fun getUserById(userId: Int): LiveData<User>
+    fun updateUser(copy: User?)
 }

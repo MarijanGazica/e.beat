@@ -2,7 +2,6 @@ package studio.nodroid.bloodpressurehelper.ui.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,7 +59,6 @@ class ReadingHistoryListViewModel(
         GlobalScope.launch(Dispatchers.Main) {
             readings.value = pressureDataRepository.getReadingsForDate(this@run)
                 .filter { it.userId == sharedPreferences.getLastUserId() }
-                .also { Log.d("findme", "$it") }
         }
     }
 

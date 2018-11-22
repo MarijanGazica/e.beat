@@ -12,5 +12,5 @@ data class PressureDataDB(
     val timestamp: Long,
     val description: String?,
     val userId: Int,
-    val weight: Int = 0
+    val weight: Double = 0.0
 )

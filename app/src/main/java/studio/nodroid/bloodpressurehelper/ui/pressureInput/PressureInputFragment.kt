@@ -19,7 +19,7 @@ class PressureInputFragment : Fragment() {
 
     private val viewModel: PressureInputViewModel by viewModel()
 
-    private val userPickerDialog by lazy { UserPickerDialog() }
+    private val userPickerDialog by lazy { UserPickerDialog().apply { onAddUserSelected = addUserSelected } }
 
     private val weightEntryDialog by lazy { WeightEntryDialog() }
 
@@ -29,6 +29,9 @@ class PressureInputFragment : Fragment() {
             .setNegativeButton(R.string.no) { _, _ -> }
             .setTitle(R.string.are_you_sure)
             .create()
+    }
+
+    private val addUserSelected: () -> Unit = {
     }
 
     override fun onAttach(context: Context?) {
@@ -54,5 +57,6 @@ class PressureInputFragment : Fragment() {
             userPickerDialog.show(childFragmentManager, "user")
         }
     }
+
 
 }

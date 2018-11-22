@@ -11,4 +11,6 @@
     <string name="add_reading">Add reading</string>
     <string name="current_weight">Current weight</string>
     <string name="set">Set</string>
+    <string name="edit_users">Edit users</string>
+    <string name="add_user">Add a user</string>
 </resources>
