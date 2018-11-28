@@ -13,4 +13,10 @@
     <string name="set">Set</string>
     <string name="edit_users">Edit users</string>
     <string name="add_user">Add a user</string>
+    <string name="time_description">Time</string>
+    <string name="date_description">Date</string>
+    <string name="systolic">Systolic</string>
+    <string name="diastolic">Diastolic</string>
+    <string name="pulse">Pulse</string>
+    <string name="numberInputInvalid">Only numbers allowed</string>
 </resources>

@@ -2,16 +2,15 @@ package studio.nodroid.bloodpressurehelper.vm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import studio.nodroid.bloodpressurehelper.model.PressureData
+import studio.nodroid.bloodpressurehelper.model.Date
 import studio.nodroid.bloodpressurehelper.model.PressureDataDB
-import studio.nodroid.bloodpressurehelper.model.PressureInfo
+import studio.nodroid.bloodpressurehelper.model.Time
 import studio.nodroid.bloodpressurehelper.model.User
 import studio.nodroid.bloodpressurehelper.room.PressureDataRepository
 import studio.nodroid.bloodpressurehelper.room.UserRepository
 import studio.nodroid.bloodpressurehelper.sharedPrefs.SharedPrefs
+import studio.nodroid.bloodpressurehelper.utils.timestampFromTime
+import java.util.*
 
 class PressureInputViewModel(
     private val userRepository: UserRepository,
@@ -21,16 +20,44 @@ class PressureInputViewModel(
 
     val allUsers = userRepository.getAllUsers()
     val selectedUser = MutableLiveData<User>()
-    val lastReading = MutableLiveData<PressureInfo>()
+    val selectedTime = MutableLiveData<String>()
+    val selectedDate = MutableLiveData<String>()
+
+    private var date: Date
+    private var time: Time
+    var systolicValue: Int = 0
+    var diastolicValue: Int = 0
+    var pulseValue: Int = 0
+    var description: String = ""
 
     init {
-        loadLastReading()
+        val calendar = Calendar.getInstance()
+        date = Date(
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        time = Time(
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE)
+        )
+        selectedTime.value = time.toString()
+        selectedDate.value = date.toString()
     }
 
     val userSelected: (User) -> Unit = {
         selectedUser.value = it
         sharedPrefs.saveLastUserId(it.id)
-        loadLastReading()
+    }
+
+    val timeChosen: (Time) -> Unit = {
+        time = it
+        selectedTime.value = it.toString()
+    }
+
+    val dateChosen: (Date) -> Unit = {
+        date = it.copy(month = it.month - 1)
+        selectedDate.value = date.toString()
     }
 
     fun findLastUser() {
@@ -38,7 +65,6 @@ class PressureInputViewModel(
         val lastUser = allUsers.value?.firstOrNull { it.id == id }
         lastUser?.run {
             selectedUser.value = this
-            loadLastReading()
         } ?: setFirstUserActive()
     }
 
@@ -53,34 +79,17 @@ class PressureInputViewModel(
         }
     }
 
-    fun saveReading(value: PressureData?) {
+    fun saveReading() {
         selectedUser.value?.let {
-            value?.run {
-                val reading = PressureDataDB(
-                    systolic = systolic,
-                    diastolic = diastolic,
-                    pulse = pulse,
-                    weight = it.weight,
-                    timestamp = timestamp,
-                    description = description,
-                    userId = it.id
-                )
-                pressureDataRepository.addReading(reading)
-            }
-        }
-    }
-
-    private fun loadLastReading() {
-        selectedUser.value?.let {
-            GlobalScope.launch(Dispatchers.Main) {
-                val readingList = pressureDataRepository.getReadingsForUser(it.id)
-                if (readingList.isEmpty()) {
-                    lastReading.value = PressureInfo(130, 60, 60)
-                } else {
-                    val latest = readingList.sortedBy { value -> value.timestamp }.last()
-                    lastReading.value = PressureInfo(latest.systolic, latest.diastolic, latest.pulse)
-                }
-            }
+            val reading = PressureDataDB(
+                systolic = systolicValue,
+                diastolic = diastolicValue,
+                pulse = pulseValue,
+                timestamp = timestampFromTime(date, time),
+                description = description,
+                userId = it.id
+            )
+            pressureDataRepository.addReading(reading)
         }
     }
 

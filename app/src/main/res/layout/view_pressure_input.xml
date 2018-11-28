@@ -3,72 +3,134 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/timeValue"
-        style="@style/InfoBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/time_description"
         app:layout_constraintEnd_toStartOf="@id/dateValue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="21:34" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:text="21:34" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dateValue"
-        style="@style/InfoBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:hint="@string/date_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/timeValue"
-        app:layout_constraintTop_toTopOf="@id/timeValue"
-        tools:text="21.10.2018." />
+        app:layout_constraintTop_toBottomOf="@id/systolicValue"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.shawnlin.numberpicker.NumberPicker
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:text="21.10.2018." />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/systolicValue"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/systolic"
         app:layout_constraintEnd_toStartOf="@id/diastolicValue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timeValue"
-        app:np_dividerColor="@color/colorAccent"
-        app:np_fadingEdgeEnabled="true"
-        app:np_max="300"
-        app:np_min="30"
-        app:np_selectedTextColor="@color/colorAccent"
-        app:np_textColor="@color/colorAccent"
-        app:np_textSize="22sp"
-        app:np_value="130"
-        app:np_wheelItemCount="5" />
+        app:layout_constraintTop_toBottomOf="@id/timeValue">
 
-    <com.shawnlin.numberpicker.NumberPicker
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="12dp"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="3"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:text="130" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/diastolicValue"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:hint="@string/diastolic"
         app:layout_constraintEnd_toStartOf="@id/pulseValue"
         app:layout_constraintStart_toEndOf="@id/systolicValue"
-        app:layout_constraintTop_toTopOf="@id/systolicValue" />
+        app:layout_constraintTop_toTopOf="@id/systolicValue">
 
-    <com.shawnlin.numberpicker.NumberPicker
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="12dp"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="3"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:text="67" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/pulseValue"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:hint="@string/pulse"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/diastolicValue"
-        app:layout_constraintTop_toTopOf="@id/systolicValue" />
+        app:layout_constraintTop_toTopOf="@id/systolicValue">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="12dp"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="3"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:text="67" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputDescription"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -77,7 +139,7 @@
         android:hint="@string/input_description"
         app:counterEnabled="true"
         app:counterMaxLength="200"
-        app:layout_constraintTop_toBottomOf="@id/systolicValue">
+        app:layout_constraintTop_toBottomOf="@id/pulseValue">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

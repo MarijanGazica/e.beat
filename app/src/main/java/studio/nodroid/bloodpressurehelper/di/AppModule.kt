@@ -11,7 +11,6 @@ import studio.nodroid.bloodpressurehelper.sharedPrefs.SharedPrefs
 import studio.nodroid.bloodpressurehelper.sharedPrefs.SharedPrefsImpl
 import studio.nodroid.bloodpressurehelper.ui.view.ReadingHistoryListViewModel
 import studio.nodroid.bloodpressurehelper.ui.view.UserPickerViewModel
-import studio.nodroid.bloodpressurehelper.ui.view.WeightEntryViewModel
 import studio.nodroid.bloodpressurehelper.vm.InputHistoryViewModel
 import studio.nodroid.bloodpressurehelper.vm.PressureInputViewModel
 
@@ -24,7 +23,6 @@ val appModule = module {
     viewModel { InputHistoryViewModel(get(), get(), get()) }
     viewModel { UserPickerViewModel(get()) }
     viewModel { ReadingHistoryListViewModel(get(), get()) }
-    viewModel { WeightEntryViewModel(get(), get()) }
 
     single<SharedPreferences> { androidApplication().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE) }
 

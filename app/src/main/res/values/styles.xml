@@ -1,37 +1,17 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="toolbarStyle">@style/Widget.Toolbar</item>
     </style>
 
-    <style name="H6">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/textOnLight</item>
-    </style>
-
-    <style name="Body1">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/textOnLight</item>
-    </style>
-
-    <style name="Body2">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/textOnLight</item>
-    </style>
-
-    <style name="InfoBox">
-        <item name="android:textAppearance">@style/Body2</item>
-        <item name="android:textColor">@color/textOnAccent</item>
-        <item name="android:gravity">center</item>
-        <item name="android:padding">4dp</item>
-        <item name="android:background">@drawable/accent_background</item>
+    <style name="Widget.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextColor">@color/textOnPrimary</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
 </resources>
