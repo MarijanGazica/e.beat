@@ -1,24 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipChildren="false">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:paddingBottom="16dp">
 
         <include
             android:id="@+id/pressureInput"
             layout="@layout/view_pressure_input" />
 
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="6dp"
+            app:cardBackgroundColor="#6c6"
+            app:cardCornerRadius="4dp"
+            app:cardPreventCornerOverlap="true"
+            app:layout_constraintBottom_toBottomOf="@id/saveReading"
+            app:layout_constraintEnd_toStartOf="@id/saveReading"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/saveReading">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="OK"
+                android:textColor="@color/textOnPrimary" />
+        </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saveReading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
             android:layout_margin="16dp"
-            android:text="@string/save_reading" />
+            android:text="@string/save_reading"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pressureInput" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

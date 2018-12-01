@@ -5,9 +5,9 @@
     <color name="colorAccent">#d50000</color>
 
     <color name="textOnPrimary">#ffffff</color>
-    <color name="textOnLight">#333333</color>
-    <color name="textOnLightInactive">#77333333</color>
-    <color name="drawableInactive">#77333333</color>
+    <color name="textOnLight">#888888</color>
+    <color name="textOnLightInactive">#77888888</color>
+    <color name="drawableInactive">#77888888</color>
     <color name="white">#ffffff</color>
 
 </resources>

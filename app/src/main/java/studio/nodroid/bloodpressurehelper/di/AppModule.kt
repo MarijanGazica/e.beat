@@ -11,6 +11,7 @@ import studio.nodroid.bloodpressurehelper.sharedPrefs.SharedPrefs
 import studio.nodroid.bloodpressurehelper.sharedPrefs.SharedPrefsImpl
 import studio.nodroid.bloodpressurehelper.ui.view.ReadingHistoryListViewModel
 import studio.nodroid.bloodpressurehelper.ui.view.UserPickerViewModel
+import studio.nodroid.bloodpressurehelper.utils.KeyboardVisibilityProvider
 import studio.nodroid.bloodpressurehelper.vm.InputHistoryViewModel
 import studio.nodroid.bloodpressurehelper.vm.PressureInputViewModel
 
@@ -35,5 +36,7 @@ val appModule = module {
 
     single<UserRepository> { UserRepositoryImpl(get()) }
     single<PressureDataRepository> { PressureDataRepositoryImpl(get()) }
+
+    factory { KeyboardVisibilityProvider(get()) }
 
 }

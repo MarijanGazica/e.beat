@@ -4,6 +4,7 @@ import android.graphics.PorterDuff
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
 import androidx.core.graphics.drawable.DrawableCompat
 import com.google.android.material.textfield.TextInputLayout
@@ -73,6 +74,30 @@ fun TextInputLayout.setSelectedListener(action: () -> Unit) {
     }
 }
 
+fun View.animateVisibility(visible: Boolean) {
+    if (translationY == 0f && visible) {
+        return
+    }
+
+//    translationY = if (visible) height.toFloat() else 0f
+
+    animate().apply {
+        duration = 300
+        translationY(if (visible) 0f else height.toFloat())
+        withStartAction {
+            if (visible) {
+                visibility = View.VISIBLE
+            }
+        }
+        withEndAction {
+            if (!visible) {
+                visibility = View.GONE
+            }
+        }
+    }
+}
+
+
 fun TextInputLayout.activateDrawableTinter() {
 
     fun setDrawableAndColor(hasFocus: Boolean, view: EditText) {
@@ -97,5 +122,5 @@ fun TextInputLayout.activateDrawableTinter() {
         }
         setDrawableAndColor(hasFocus(), this)
     }
-
 }
+
