@@ -20,4 +20,15 @@
     <string name="pulse">Pulse</string>
     <string name="numberInputInvalid">Only numbers allowed</string>
     <string name="reading_section">Reading</string>
+    <string name="select_user">Select user</string>
+    <string name="severity_error">Input error</string>
+    <string name="severity_normal">Pressure normal</string>
+    <string name="severity_elevated">Elevated pressure</string>
+    <string name="severity_hypertension1">Hypertension stage 1</string>
+    <string name="severity_hypertension2">Hypertension level 2</string>
+    <string name="severity_crisis">Hypertensive crisis</string>
+    <string name="choose_user_title">Choose a user</string>
+    <string name="severity_waiting">Awaiting input</string>
+    <string name="reading_saved">Reading sucessfully saved</string>
+    <string name="username">User name</string>
 </resources>

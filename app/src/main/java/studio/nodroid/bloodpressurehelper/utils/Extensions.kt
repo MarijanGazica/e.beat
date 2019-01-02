@@ -9,16 +9,6 @@ import android.widget.EditText
 import androidx.core.graphics.drawable.DrawableCompat
 import com.google.android.material.textfield.TextInputLayout
 import studio.nodroid.bloodpressurehelper.R
-import java.math.BigDecimal
-import java.math.RoundingMode
-
-fun Double.roundTo(places: Int): Double {
-    if (places < 0) throw IllegalArgumentException()
-
-    var bd = BigDecimal(this)
-    bd = bd.setScale(places, RoundingMode.HALF_UP)
-    return bd.toDouble()
-}
 
 fun TextInputLayout.onTextChanged(onChange: (String) -> Unit) {
     this.editText?.addTextChangedListener(object : TextWatcher {
@@ -39,6 +29,7 @@ fun TextInputLayout.onIntInputChanged(onChange: (Int) -> Unit) {
         override fun afterTextChanged(s: Editable?) {
             if (s.toString().isBlank()) {
                 error = null
+                onChange(-1)
                 return
             }
             try {

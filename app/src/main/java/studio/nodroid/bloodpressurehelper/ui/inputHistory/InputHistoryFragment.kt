@@ -11,22 +11,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import com.github.sundeepk.compactcalendarview.domain.Event
 import kotlinx.android.synthetic.main.fragment_input_history.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.bloodpressurehelper.R
 import studio.nodroid.bloodpressurehelper.ui.view.ReadingHistoryListDialog
-import studio.nodroid.bloodpressurehelper.ui.view.UserPickerDialog
 import studio.nodroid.bloodpressurehelper.vm.InputHistoryViewModel
+import studio.nodroid.bloodpressurehelper.vm.UserPickerViewModel
 import java.util.*
 
 class InputHistoryFragment : Fragment() {
 
     private val viewModel: InputHistoryViewModel by viewModel()
+    private val userViewModel: UserPickerViewModel by sharedViewModel()
     private val readingHistoryAdapter by lazy { ReadingHistoryAdapter() }
-    private val userPickerDialog by lazy { UserPickerDialog().apply { onAddUserSelected = addUserSelected } }
     private val readingHistoryListDialog by lazy { ReadingHistoryListDialog() }
-
-    private val addUserSelected: () -> Unit = {
-    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -37,8 +35,7 @@ class InputHistoryFragment : Fragment() {
                 Event(R.color.colorAccent, it.timestamp)
             })
         })
-        viewModel.selectedUser.observe(this, Observer { userName.text = it.name })
-        viewModel.allUsers.observe(this, Observer { viewModel.findLastUser() })
+        userViewModel.activeUser.observe(this, Observer { userName.text = it?.name })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,11 +46,6 @@ class InputHistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         readingList.layoutManager = LinearLayoutManager(requireContext())
         readingList.adapter = readingHistoryAdapter
-
-        userName.setOnClickListener {
-            userPickerDialog.onSelect = viewModel.userSelected
-            userPickerDialog.show(fragmentManager, "tag")
-        }
 
         prevMonth.setOnClickListener { calendarView.scrollLeft() }
         nextMonth.setOnClickListener { calendarView.scrollRight() }

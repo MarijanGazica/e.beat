@@ -13,12 +13,15 @@ interface UserDao {
     @Query("SELECT * FROM User")
     fun getAllUsers(): LiveData<List<User>>
 
+    @Query("SELECT * FROM User")
+    fun getAllUsersNow(): List<User>
+
     @Delete
     fun deleteUser(user: User)
 
     @Update
     fun updateUser(user: User)
 
-    @Query("SELECT * FROm User WHERE id = :userId LIMIT 1")
-    fun getUserById(userId: Int): LiveData<User>
+    @Query("SELECT * FROM User WHERE id = :userId LIMIT 1")
+    fun getUserById(userId: Int): User
 }

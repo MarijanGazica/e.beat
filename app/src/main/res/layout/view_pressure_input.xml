@@ -7,6 +7,26 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
+    <View
+        android:id="@+id/topBackground"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/triangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/triangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_triangle"
+        app:layout_constraintBottom_toTopOf="@id/severityText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/timeValue"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -54,30 +74,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/readingGroup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp"
-        android:paddingBottom="2dp"
-        android:text="@string/reading_section"
-        android:textColor="@color/textOnLight"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timeValue" />
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/textOnLight"
-        app:layout_constraintBottom_toBottomOf="@id/readingGroup"
-        app:layout_constraintEnd_toEndOf="@id/readingGroup"
-        app:layout_constraintStart_toStartOf="@id/readingGroup" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/systolicValue"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -89,7 +85,7 @@
         android:hint="@string/systolic"
         app:layout_constraintEnd_toStartOf="@id/diastolicValue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/readingGroup">
+        app:layout_constraintTop_toBottomOf="@id/dateValue">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -152,6 +148,23 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/severityText"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pulseValue"
+        tools:text="OK" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputDescription"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -163,7 +176,7 @@
         android:hint="@string/input_description"
         app:counterEnabled="true"
         app:counterMaxLength="200"
-        app:layout_constraintTop_toBottomOf="@id/pulseValue">
+        app:layout_constraintTop_toBottomOf="@id/severityText">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

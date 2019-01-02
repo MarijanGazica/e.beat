@@ -26,6 +26,9 @@ class ViewHeightAnimator(val view: View) {
             val layoutParams = view.layoutParams
             layoutParams.height = it.animatedValue as Int
             view.layoutParams = layoutParams
+            if (view.visibility != View.VISIBLE) {
+                view.visibility = View.VISIBLE
+            }
         }
         heightAnim.start()
     }
@@ -37,6 +40,9 @@ class ViewHeightAnimator(val view: View) {
             val layoutParams = view.layoutParams
             layoutParams.height = it.animatedValue as Int
             view.layoutParams = layoutParams
+            if (it.animatedFraction == 1f) {
+                view.visibility = View.INVISIBLE
+            }
         }
         heightAnim.start()
     }

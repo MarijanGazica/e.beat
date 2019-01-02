@@ -1,15 +1,22 @@
 package studio.nodroid.bloodpressurehelper.room
 
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import studio.nodroid.bloodpressurehelper.model.User
 
 class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
 
-    override fun deleteUser(user: User) {
-        GlobalScope.launch {
-            userDao.deleteUser(user)
+    init {
+        GlobalScope.launch(Dispatchers.Default) {
+            if (userDao.getAllUsersNow().isEmpty()) {
+                addDefaultUser()
+            }
+        }
+    }
+
+    private fun addDefaultUser() {
+        GlobalScope.launch(Dispatchers.Default) {
+            userDao.insert(User(name = "Default"))
         }
     }
 
@@ -17,36 +24,26 @@ class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
         return userDao.getAllUsers()
     }
 
-    override fun addUser(user: User) {
-        GlobalScope.launch {
+    override suspend fun deleteUser(user: User) = coroutineScope {
+        userDao.deleteUser(user)
+    }
+
+    override suspend fun addUser(user: User) = coroutineScope {
+        launch {
             userDao.insert(user)
         }
     }
 
-    override fun addDefaultUser() {
-        GlobalScope.launch {
-            userDao.insert(User(name = "Default"))
-        }
-    }
-
-    override fun getUserById(userId: Int): LiveData<User> {
-        return userDao.getUserById(userId)
-    }
-
-    override fun updateUser(copy: User?) {
-        GlobalScope.launch {
-            copy?.run {
-                userDao.updateUser(this)
-            }
+    override suspend fun updateUser(copy: User?) = coroutineScope {
+        copy?.run {
+            userDao.updateUser(this)
         }
     }
 }
 
 interface UserRepository {
-    fun deleteUser(user: User)
+    suspend fun deleteUser(user: User)
     fun getAllUsers(): LiveData<List<User>>
-    fun addUser(user: User)
-    fun addDefaultUser()
-    fun getUserById(userId: Int): LiveData<User>
-    fun updateUser(copy: User?)
+    suspend fun addUser(user: User): Job
+    suspend fun updateUser(copy: User?): Unit?
 }

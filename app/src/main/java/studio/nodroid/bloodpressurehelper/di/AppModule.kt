@@ -10,20 +10,22 @@ import studio.nodroid.bloodpressurehelper.room.*
 import studio.nodroid.bloodpressurehelper.sharedPrefs.SharedPrefs
 import studio.nodroid.bloodpressurehelper.sharedPrefs.SharedPrefsImpl
 import studio.nodroid.bloodpressurehelper.ui.view.ReadingHistoryListViewModel
-import studio.nodroid.bloodpressurehelper.ui.view.UserPickerViewModel
+import studio.nodroid.bloodpressurehelper.ui.view.UserListViewModel
 import studio.nodroid.bloodpressurehelper.utils.KeyboardVisibilityProvider
 import studio.nodroid.bloodpressurehelper.vm.InputHistoryViewModel
 import studio.nodroid.bloodpressurehelper.vm.PressureInputViewModel
+import studio.nodroid.bloodpressurehelper.vm.UserPickerViewModel
 
 private const val DATABASE_NAME = "app_database"
 private const val SHARED_PREFS_NAME = "shared_prefs"
 
 val appModule = module {
 
-    viewModel { PressureInputViewModel(get(), get(), get()) }
+    viewModel { PressureInputViewModel(get()) }
     viewModel { InputHistoryViewModel(get(), get(), get()) }
-    viewModel { UserPickerViewModel(get()) }
+    viewModel { UserListViewModel(get()) }
     viewModel { ReadingHistoryListViewModel(get(), get()) }
+    viewModel { UserPickerViewModel(get(), get()) }
 
     single<SharedPreferences> { androidApplication().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE) }
 

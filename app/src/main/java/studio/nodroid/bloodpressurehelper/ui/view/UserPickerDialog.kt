@@ -13,22 +13,33 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.dialog_user_picker.*
 import kotlinx.android.synthetic.main.dialog_user_picker.view.*
 import kotlinx.android.synthetic.main.item_user_picker.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.bloodpressurehelper.R
 import studio.nodroid.bloodpressurehelper.model.User
 import studio.nodroid.bloodpressurehelper.room.UserRepository
+import studio.nodroid.bloodpressurehelper.sharedPrefs.SharedPrefs
+import studio.nodroid.bloodpressurehelper.utils.hideKeyboard
+import studio.nodroid.bloodpressurehelper.utils.showKeyboard
 
 class UserPickerDialog : DialogFragment() {
 
     private val userListAdapter by lazy { UserPickerListAdapter(onListItemSelected) }
 
-    private val viewModel: UserPickerViewModel by viewModel()
+    private val viewModel: UserListViewModel by viewModel()
+    private val sharedPrefs: SharedPrefs by inject()
 
     var onSelect: (User) -> Unit = {}
-    var onAddUserSelected: () -> Unit = {}
-    var onEditUsersSelected: () -> Unit = {}
+
+    var onAddUserSelected: () -> Unit = {
+    }
 
     private val onListItemSelected: (User) -> Unit = {
+        sharedPrefs.saveLastUserId(it.id)
         onSelect(it)
         dismiss()
     }
@@ -42,22 +53,54 @@ class UserPickerDialog : DialogFragment() {
         val view = inflater.inflate(R.layout.dialog_user_picker, container, false)
         view.userList.layoutManager = LinearLayoutManager(requireContext())
         view.userList.adapter = userListAdapter
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        addUser.setOnClickListener {
+            addUserContainer.visibility = View.VISIBLE
+            addUser.visibility = View.GONE
+            showKeyboard(userText)
+        }
+        cancelAdd.setOnClickListener {
+            addUserContainer.visibility = View.GONE
+            addUser.visibility = View.VISIBLE
+            userText.text?.clear()
+            hideKeyboard(userText)
+        }
+        saveUser.setOnClickListener {
+            userText.text?.run {
+                if (this.isNotBlank()) {
+                    viewModel.addUser(userText.text.toString())
+                    userText.text?.clear()
+                    addUserContainer.visibility = View.GONE
+                    addUser.visibility = View.VISIBLE
+                    hideKeyboard(userText)
+                }
+            }
+        }
 
-        addUser.setOnClickListener { onAddUserSelected() }
-        editUsers.setOnClickListener { onEditUsersSelected() }
+    }
+
+}
+
+class UserListViewModel(private val userRepository: UserRepository) : ViewModel() {
+
+    val allUsers = userRepository.getAllUsers()
+
+    private val job = Job()
+    private val dispatcher = CoroutineScope(Dispatchers.Default + job)
+
+    fun addUser(name: String) {
+        dispatcher.launch {
+            userRepository.addUser(User(name = name))
+        }
     }
 }
 
-class UserPickerViewModel(userRepository: UserRepository) : ViewModel() {
-    val allUsers = userRepository.getAllUsers()
-}
-
-class UserPickerListAdapter(val onListItemSelected: (User) -> Unit) : RecyclerView.Adapter<UserPickerViewHolder>() {
+class UserPickerListAdapter(private val onListItemSelected: (User) -> Unit) : RecyclerView.Adapter<UserPickerViewHolder>() {
 
     private val data = mutableListOf<User>()
 

@@ -40,8 +40,8 @@ dependencies {
 
     implementation "org.koin:koin-androidx-viewmodel:$koin"
 
-    implementation "android.arch.navigation:navigation-fragment:$navigation"
-    implementation "android.arch.navigation:navigation-ui:$navigation"
+    implementation "android.arch.navigation:navigation-fragment-ktx:$navigation"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navigation"
     implementation "androidx.room:room-runtime:$room"
     kapt "androidx.room:room-compiler:$room"
 
