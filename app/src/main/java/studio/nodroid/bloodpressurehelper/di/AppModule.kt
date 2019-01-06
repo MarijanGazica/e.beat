@@ -22,7 +22,7 @@ private const val SHARED_PREFS_NAME = "shared_prefs"
 val appModule = module {
 
     viewModel { PressureInputViewModel(get()) }
-    viewModel { InputHistoryViewModel(get(), get(), get()) }
+    viewModel { InputHistoryViewModel(get()) }
     viewModel { UserListViewModel(get()) }
     viewModel { ReadingHistoryListViewModel(get(), get()) }
     viewModel { UserPickerViewModel(get(), get()) }

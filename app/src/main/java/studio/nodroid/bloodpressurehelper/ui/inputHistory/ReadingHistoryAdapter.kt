@@ -22,7 +22,6 @@ class ReadingHistoryAdapter : RecyclerView.Adapter<ReadingHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReadingHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_reading, parent, false)
-
         return ReadingHolder(view)
     }
 
@@ -35,5 +34,7 @@ class ReadingHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(reading: PressureDataDB) {
         view.systolic.text = reading.systolic.toString()
+        view.diastolic.text = reading.diastolic.toString()
+        view.pulse.text = reading.pulse.toString()
     }
 }

@@ -1,8 +1,9 @@
 package studio.nodroid.bloodpressurehelper.room
 
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import studio.nodroid.bloodpressurehelper.model.PressureDataDB
 import java.util.*
@@ -11,14 +12,14 @@ class PressureDataRepositoryImpl(private val pressureDataDao: PressureDataDao) :
 
     private val day = 1000 * 60 * 60 * 24
 
-    override fun addReading(reading: PressureDataDB) {
-        GlobalScope.launch { pressureDataDao.insertPressureData(reading) }
+    override suspend fun addReading(reading: PressureDataDB) = coroutineScope {
+        launch { pressureDataDao.insertPressureData(reading) }
     }
 
     override fun getAllReadings(): LiveData<List<PressureDataDB>> = pressureDataDao.getAllPressureDataLive()
 
-    override suspend fun getReadingsForDate(date: Date): List<PressureDataDB> {
-        return GlobalScope.async {
+    override suspend fun getReadingsForDate(date: Date): List<PressureDataDB> = coroutineScope {
+        return@coroutineScope async {
             val cal = Calendar.getInstance()
             cal.time = date
             cal.set(Calendar.HOUR_OF_DAY, 0)
@@ -35,15 +36,15 @@ class PressureDataRepositoryImpl(private val pressureDataDao: PressureDataDao) :
         }.await()
     }
 
-    override suspend fun getReadingsForUser(id: Int): List<PressureDataDB> {
-        return GlobalScope.async {
+    override suspend fun getReadingsForUser(id: Int): List<PressureDataDB> = coroutineScope {
+        return@coroutineScope async {
             pressureDataDao.getUserPressureData(id)
         }.await()
     }
 }
 
 interface PressureDataRepository {
-    fun addReading(reading: PressureDataDB)
+    suspend fun addReading(reading: PressureDataDB): Job
 
     fun getAllReadings(): LiveData<List<PressureDataDB>>
 

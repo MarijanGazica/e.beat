@@ -2,6 +2,7 @@ package studio.nodroid.bloodpressurehelper.ui.view
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
@@ -11,6 +12,7 @@ import java.util.*
 class DatePickerView : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     var onDateChosen: (Date) -> Unit = {}
+    var onDismiss: () -> Unit = {}
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Use the current date as the default date in the picker
@@ -25,5 +27,10 @@ class DatePickerView : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         onDateChosen(Date(year, month + 1, day))
+    }
+
+    override fun onDismiss(dialog: DialogInterface?) {
+        super.onDismiss(dialog)
+        onDismiss()
     }
 }

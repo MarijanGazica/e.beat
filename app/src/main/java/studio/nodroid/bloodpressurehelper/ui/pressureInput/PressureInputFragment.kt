@@ -124,7 +124,7 @@ class PressureInputFragment : Fragment() {
     }
 
     private fun notifyDataSaved() {
-        Snackbar.make(scrollRoot, R.string.reading_saved, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(coordinator, R.string.reading_saved, Snackbar.LENGTH_SHORT).show()
 
         systolicValue.editText?.text?.clear()
         diastolicValue.editText?.text?.clear()

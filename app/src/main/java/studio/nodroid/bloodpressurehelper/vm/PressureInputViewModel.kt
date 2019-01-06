@@ -2,6 +2,10 @@ package studio.nodroid.bloodpressurehelper.vm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import studio.nodroid.bloodpressurehelper.model.*
 import studio.nodroid.bloodpressurehelper.model.Date
 import studio.nodroid.bloodpressurehelper.room.PressureDataRepository
@@ -10,6 +14,9 @@ import studio.nodroid.bloodpressurehelper.utils.timestampFromTime
 import java.util.*
 
 class PressureInputViewModel(private val pressureDataRepository: PressureDataRepository) : ViewModel() {
+
+    private val job = Job()
+    private val scope = CoroutineScope(Dispatchers.Default + job)
 
     var selectedUser: User? = null
     val selectedTime = MutableLiveData<String>()
@@ -90,7 +97,10 @@ class PressureInputViewModel(private val pressureDataRepository: PressureDataRep
                 description = description,
                 userId = it.id
             )
-            pressureDataRepository.addReading(reading)
+
+            scope.launch {
+                pressureDataRepository.addReading(reading)
+            }
             screenState.value = ScreenState.READING_SAVED
         }
     }

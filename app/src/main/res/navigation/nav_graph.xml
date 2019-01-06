@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/inputHistoryFragment"
-        android:name="studio.nodroid.bloodpressurehelper.ui.inputHistory.InputHistoryFragment"
+        android:name="studio.nodroid.bloodpressurehelper.ui.inputHistory.ReadingHistoryFragment"
         android:label="InputHistoryFragment"
         tools:layout="@layout/fragment_input_history"></fragment>
 

@@ -29,6 +29,10 @@
     <string name="severity_crisis">Hypertensive crisis</string>
     <string name="choose_user_title">Choose a user</string>
     <string name="severity_waiting">Awaiting input</string>
-    <string name="reading_saved">Reading sucessfully saved</string>
+    <string name="reading_saved">Reading successfully saved</string>
     <string name="username">User name</string>
+    <string name="week">This week</string>
+    <string name="month">This month</string>
+    <string name="all_time">All time</string>
+    <string name="date">Date</string>
 </resources>

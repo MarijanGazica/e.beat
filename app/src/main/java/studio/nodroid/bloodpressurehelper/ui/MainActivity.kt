@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavView.setupWithNavController(findNavController(this, R.id.navigationHostFragment))
 
         NavHostFragment.findNavController(navigationHostFragment)
-            .addOnNavigatedListener { _, destination ->
+            .addOnDestinationChangedListener { _, destination, _ ->
                 when (destination.id) {
                     R.id.inputHistoryFragment, R.id.settingsFragment, R.id.pressureInputFragment -> {
                         bottomNavView.visibility = View.VISIBLE
