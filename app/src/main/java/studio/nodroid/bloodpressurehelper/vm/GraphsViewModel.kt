@@ -9,7 +9,7 @@ import studio.nodroid.bloodpressurehelper.model.User
 import studio.nodroid.bloodpressurehelper.room.PressureDataRepository
 import studio.nodroid.bloodpressurehelper.utils.getPeriodTimestamps
 
-class InputHistoryViewModel(pressureDataRepo: PressureDataRepository) : ViewModel() {
+class GraphsViewModel constructor(pressureDataRepo: PressureDataRepository) : ViewModel() {
 
     val allUserReadings = pressureDataRepo.getAllReadings()
     val selectedUserReadings = MutableLiveData<List<PressureDataDB>>()

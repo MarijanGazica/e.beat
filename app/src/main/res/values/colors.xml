@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1798A7</color>
-    <color name="colorPrimaryDark">#12848F</color>
-    <color name="colorAccent">#1798A7</color>
-    <color name="lightPrimary">#E9EFEF</color>
+    <color name="colorPrimary">@color/petroleum</color>
+    <color name="colorPrimaryDark">@color/petroleumDark</color>
+    <color name="colorAccent">@color/petroleum</color>
+    <color name="lightPrimary">#E8EEEF</color>
+
+    <color name="petroleum">#0097A7</color>
+    <color name="petroleumDark">#00838F</color>
 
     <color name="lightGray">#77888888</color>
-    <color name="darkOnPrimary">#05434A</color>
+    <color name="darkOnPrimary">#00454C</color>
     <color name="textOnPrimary">#ffffff</color>
     <color name="lightTextOnLight">#888888</color>
     <color name="textOnLight">#333333</color>
     <color name="drawableInactive">#77888888</color>
     <color name="white">#ffffff</color>
     <color name="severity_blue">#1565c0</color>
-    <color name="severity_red">#d50000</color>
-    <color name="severity_green">#64dd17</color>
-    <color name="severity_yellow">#ffc400</color>
-    <color name="severity_orange">#fb8c00</color>
-    <color name="severity_dark_orange">#e65100</color>
+    <color name="severity_red">#BB0A1F</color>
+    <color name="severity_green">#B8E986</color>
+    <color name="severity_yellow">#F4EB79</color>
+    <color name="severity_orange">#F5A623</color>
+    <color name="severity_dark_orange">#E74F26</color>
 
 </resources>

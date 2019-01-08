@@ -9,9 +9,9 @@ import org.koin.dsl.module.module
 import studio.nodroid.bloodpressurehelper.room.*
 import studio.nodroid.bloodpressurehelper.sharedPrefs.SharedPrefs
 import studio.nodroid.bloodpressurehelper.sharedPrefs.SharedPrefsImpl
-import studio.nodroid.bloodpressurehelper.ui.view.ReadingHistoryListViewModel
 import studio.nodroid.bloodpressurehelper.ui.view.UserListViewModel
 import studio.nodroid.bloodpressurehelper.utils.KeyboardVisibilityProvider
+import studio.nodroid.bloodpressurehelper.vm.GraphsViewModel
 import studio.nodroid.bloodpressurehelper.vm.InputHistoryViewModel
 import studio.nodroid.bloodpressurehelper.vm.PressureInputViewModel
 import studio.nodroid.bloodpressurehelper.vm.UserPickerViewModel
@@ -24,7 +24,7 @@ val appModule = module {
     viewModel { PressureInputViewModel(get()) }
     viewModel { InputHistoryViewModel(get()) }
     viewModel { UserListViewModel(get()) }
-    viewModel { ReadingHistoryListViewModel(get(), get()) }
+    viewModel { GraphsViewModel(get()) }
     viewModel { UserPickerViewModel(get(), get()) }
 
     single<SharedPreferences> { androidApplication().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE) }

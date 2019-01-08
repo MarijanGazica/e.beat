@@ -19,8 +19,8 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="studio.nodroid.bloodpressurehelper.ui.settings.SettingsFragment"
+        android:name="studio.nodroid.bloodpressurehelper.ui.graphs.GraphsFragment"
         android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_graphs" />
 
 </navigation>

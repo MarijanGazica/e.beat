@@ -60,16 +60,24 @@ class PressureInputFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        saveReading.setOnClickListener { viewModel.saveReadingPressed() }
+        saveReading.setOnClickListener {
+            hideKeyboard(it)
+            viewModel.saveReadingPressed()
+        }
+
+        coordinator.setOnClickListener {
+            hideKeyboard(it)
+        }
 
         systolicValue.onIntInputChanged { viewModel.setSystolicValue(it) }
         diastolicValue.onIntInputChanged { viewModel.setDiastolicValue(it) }
         pulseValue.onIntInputChanged { viewModel.setPulseValue(it) }
 
         inputDescription.onTextChanged { viewModel.setDescription(it) }
-        inputDescription.editText?.setOnEditorActionListener { _, actionId, _ ->
+        inputDescription.editText?.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                saveReadingDialog.show()
+                viewModel.saveReadingPressed()
+                hideKeyboard(view)
                 return@setOnEditorActionListener true
             }
             false

@@ -45,7 +45,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room"
     kapt "androidx.room:room-compiler:$room"
 
-    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'

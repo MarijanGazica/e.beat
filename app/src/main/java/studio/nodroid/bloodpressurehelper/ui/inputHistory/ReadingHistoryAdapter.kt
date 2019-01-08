@@ -7,6 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_reading.view.*
 import studio.nodroid.bloodpressurehelper.R
 import studio.nodroid.bloodpressurehelper.model.PressureDataDB
+import studio.nodroid.bloodpressurehelper.model.PressureSeverity
+import studio.nodroid.bloodpressurehelper.utils.getPressureRating
+import studio.nodroid.bloodpressurehelper.utils.setBackgroundColorCompat
+import studio.nodroid.bloodpressurehelper.utils.toDate
+import studio.nodroid.bloodpressurehelper.utils.toTime
 
 class ReadingHistoryAdapter : RecyclerView.Adapter<ReadingHolder>() {
 
@@ -36,5 +41,25 @@ class ReadingHolder(val view: View) : RecyclerView.ViewHolder(view) {
         view.systolic.text = reading.systolic.toString()
         view.diastolic.text = reading.diastolic.toString()
         view.pulse.text = reading.pulse.toString()
+
+        view.date.text = reading.timestamp.toDate()
+        view.time.text = reading.timestamp.toTime()
+        view.description.text = reading.description
+        if (reading.description.isNullOrBlank()) {
+            view.description.visibility = View.GONE
+        } else {
+            view.description.visibility = View.VISIBLE
+        }
+
+        val severityColor = when (getPressureRating(reading.systolic, reading.diastolic)) {
+            PressureSeverity.NORMAL -> R.color.severity_green
+            PressureSeverity.ELEVATED -> R.color.severity_yellow
+            PressureSeverity.HYPERTENSION_1 -> R.color.severity_orange
+            PressureSeverity.HYPERTENSION_2 -> R.color.severity_dark_orange
+            PressureSeverity.HYPERTENSION_CRISIS -> R.color.severity_red
+            else -> R.color.severity_green
+        }
+        view.severity.setBackgroundColorCompat(severityColor)
+
     }
 }

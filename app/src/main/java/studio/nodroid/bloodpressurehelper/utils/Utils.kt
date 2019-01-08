@@ -9,6 +9,7 @@ import studio.nodroid.bloodpressurehelper.model.Date
 import studio.nodroid.bloodpressurehelper.model.DateRange
 import studio.nodroid.bloodpressurehelper.model.PressureSeverity
 import studio.nodroid.bloodpressurehelper.model.Time
+import java.text.SimpleDateFormat
 import java.util.*
 
 const val DAY = 1000 * 60 * 60 * 24
@@ -46,13 +47,18 @@ fun showKeyboard(view: View) {
     imm.showSoftInput(view, 0)
 }
 
-fun Long.inDate(date: Date): Boolean {
-    val timestampDate = Calendar.getInstance()
-    timestampDate.set(date.year, date.month - 1, date.day, 0, 0, 0)
-    val startStamp = timestampDate.timeInMillis
-    timestampDate.set(date.year, date.month - 1, date.day, 23, 59, 59)
-    val endStamp = timestampDate.timeInMillis
-    return this in startStamp..endStamp
+fun Long.toDate(): String {
+    val cal = Calendar.getInstance()
+    cal.timeInMillis = this
+    val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+    return sdf.format(cal.time)
+}
+
+fun Long.toTime(): String {
+    val cal = Calendar.getInstance()
+    cal.timeInMillis = this
+    val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+    return sdf.format(cal.time)
 }
 
 fun getPeriodTimestamps(dayPeriod: Int, date: Date? = null): DateRange {

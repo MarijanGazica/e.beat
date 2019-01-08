@@ -6,23 +6,58 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <View
+        android:id="@+id/severity"
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/severity_red" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/time"
+        app:layout_constraintStart_toEndOf="@id/severity"
+        app:layout_constraintTop_toTopOf="@+id/systolicTitle"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        tools:text="12.02.2019." />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/systolic"
+        app:layout_constraintStart_toStartOf="@id/date"
+        app:layout_constraintTop_toBottomOf="@id/date"
+        tools:text="12:02" />
+
     <TextView
         android:id="@+id/systolicTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/systolic"
         android:textSize="14sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/diastolicTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/date"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/systolic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/description"
         app:layout_constraintEnd_toEndOf="@id/systolicTitle"
         app:layout_constraintStart_toStartOf="@id/systolicTitle"
         app:layout_constraintTop_toBottomOf="@id/systolicTitle"
@@ -34,7 +69,6 @@
         android:layout_height="wrap_content"
         android:text="@string/diastolic"
         android:textSize="14sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/pulseTitle"
         app:layout_constraintStart_toEndOf="@id/systolicTitle"
         app:layout_constraintTop_toTopOf="@id/systolicTitle" />
@@ -43,7 +77,7 @@
         android:id="@+id/diastolic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/diastolicTitle"
         app:layout_constraintStart_toStartOf="@id/diastolicTitle"
         app:layout_constraintTop_toBottomOf="@id/diastolicTitle"
@@ -55,7 +89,6 @@
         android:layout_height="wrap_content"
         android:text="@string/pulse"
         android:textSize="14sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/diastolicTitle"
         app:layout_constraintTop_toTopOf="@id/systolicTitle" />
@@ -64,10 +97,28 @@
         android:id="@+id/pulse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/pulseTitle"
         app:layout_constraintStart_toStartOf="@id/pulseTitle"
         app:layout_constraintTop_toBottomOf="@id/pulseTitle"
         tools:text="123" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/date" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/lightGray"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

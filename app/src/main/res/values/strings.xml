@@ -31,8 +31,9 @@
     <string name="severity_waiting">Awaiting input</string>
     <string name="reading_saved">Reading successfully saved</string>
     <string name="username">User name</string>
-    <string name="week">This week</string>
-    <string name="month">This month</string>
+    <string name="week">7 days</string>
+    <string name="month">30 days</string>
     <string name="all_time">All time</string>
     <string name="date">Date</string>
+    <string name="no_entries_for_period">No entries for selected period</string>
 </resources>
