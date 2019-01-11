@@ -10,7 +10,7 @@ interface PressureDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPressureData(data: PressureDataDB)
 
-    @Query("SELECT * FROM PressureDataDB")
+    @Query("SELECT * FROM PressureDataDB ORDER BY timestamp")
     fun getAllPressureDataLive(): LiveData<List<PressureDataDB>>
 
     @Query("SELECT * FROM PressureDataDB")

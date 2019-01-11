@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -17,6 +19,7 @@ import studio.nodroid.bloodpressurehelper.R
 import studio.nodroid.bloodpressurehelper.ui.view.DateAxisFormatter
 import studio.nodroid.bloodpressurehelper.ui.view.DatePickerView
 import studio.nodroid.bloodpressurehelper.ui.view.FilterView
+import studio.nodroid.bloodpressurehelper.utils.DAY
 import studio.nodroid.bloodpressurehelper.utils.getPeriodTimestamps
 import studio.nodroid.bloodpressurehelper.vm.GraphsViewModel
 import studio.nodroid.bloodpressurehelper.vm.UserPickerViewModel
@@ -35,37 +38,42 @@ class GraphsFragment : Fragment() {
         }
     }
 
+    private val systolicDataSet by lazy {
+        val set = LineDataSet(mutableListOf(), resources.getString(R.string.systolic))
+        set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+        set.color = ResourcesCompat.getColor(resources, R.color.severity_red, requireActivity().theme)
+        set.setCircleColor(ResourcesCompat.getColor(resources, R.color.severity_red, requireActivity().theme))
+        set.lineWidth = 2f
+        set.isHighlightEnabled = false
+        set.setDrawValues(false)
+        return@lazy set
+    }
+
+    private val diastolicDataSet by lazy {
+        val set = LineDataSet(mutableListOf(), resources.getString(R.string.diastolic))
+        set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+        set.color = ResourcesCompat.getColor(resources, R.color.petroleum, requireActivity().theme)
+        set.setCircleColor(ResourcesCompat.getColor(resources, R.color.petroleum, requireActivity().theme))
+        set.lineWidth = 2f
+        set.isHighlightEnabled = false
+        set.setDrawValues(false)
+        return@lazy set
+    }
+
+    private val pulseDataSet by lazy {
+        val set = LineDataSet(mutableListOf(), resources.getString(R.string.pulse))
+        set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+        set.color = ResourcesCompat.getColor(resources, R.color.severity_green, requireActivity().theme)
+        set.setCircleColor(ResourcesCompat.getColor(resources, R.color.severity_green, requireActivity().theme))
+        set.lineWidth = 2f
+        set.isHighlightEnabled = false
+        set.setDrawValues(false)
+        return@lazy set
+    }
+
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         userViewModel.activeUser.observe(this, Observer { viewModel.userSelected(it) })
-
-        viewModel.selectedUserReadings.observe(this, Observer {
-            it?.run {
-                val lineDataSet = LineDataSet(
-                    this.sortedBy { it.timestamp }
-                        .map {
-                            Entry(it.timestamp.toFloat(), it.systolic.toFloat())
-                        },
-                    resources.getString(R.string.systolic)
-                )
-
-                lineDataSet.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
-                lineDataSet.color = R.color.severity_green
-                lineDataSet.lineWidth = 5f
-                lineDataSet.setDrawValues(false)
-                lineChart.data = LineData(lineDataSet)
-                lineChart.invalidate()
-            }
-        })
-
-        viewModel.allUserReadings.observe(this, Observer { viewModel.readingsReady() })
-        viewModel.selectedDate.observe(this, Observer { filters.setDateText(it ?: resources.getString(R.string.date)) })
-        viewModel.selectedFilter.observe(this, Observer { it?.run { filters.markSelection(this) } })
-        viewModel.userReadingsForDate.observe(this, Observer {
-            it?.run {
-                // todo show data in graph
-            }
-        })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -74,8 +82,8 @@ class GraphsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        filters.onFilterSelected {
 
+        filters.onFilterSelected {
             when (it) {
                 FilterView.Selection.WEEK -> {
                     viewModel.rangeSelected(getPeriodTimestamps(7))
@@ -92,12 +100,43 @@ class GraphsFragment : Fragment() {
                 FilterView.Selection.DATE -> {
                     datePickerDialog.show(childFragmentManager, "")
                 }
-
             }
         }
-        lineChart.xAxis.granularity = 1f
+
+        lineChart.isAutoScaleMinMaxEnabled = true
+        lineChart.description = null
+
+        lineChart.legend.form = Legend.LegendForm.CIRCLE
+        lineChart.legend.xEntrySpace = 16f
+
+        lineChart.xAxis.granularity = DAY.toFloat()
+        lineChart.xAxis.setAvoidFirstLastClipping(false)
         lineChart.xAxis.valueFormatter = DateAxisFormatter()
 
+        viewModel.selectedUserReadings.observe(viewLifecycleOwner, Observer {
+            it?.run {
+                systolicDataSet.clear()
+                diastolicDataSet.clear()
+                pulseDataSet.clear()
+
+                systolicDataSet.values = this.map { pressureData -> Entry(pressureData.timestamp.toFloat(), pressureData.systolic.toFloat()) }
+                diastolicDataSet.values = this.map { pressureData -> Entry(pressureData.timestamp.toFloat(), pressureData.diastolic.toFloat()) }
+                pulseDataSet.values = this.map { pressureData -> Entry(pressureData.timestamp.toFloat(), pressureData.pulse.toFloat()) }
+
+                lineChart.data = LineData(systolicDataSet, diastolicDataSet, pulseDataSet)
+                lineChart.xAxis.granularity = 1f
+                lineChart.invalidate()
+            }
+        })
+
+        viewModel.allUserReadings.observe(this, Observer { viewModel.readingsReady() })
+        viewModel.selectedDate.observe(this, Observer { filters.setDateText(it ?: resources.getString(R.string.date)) })
+        viewModel.selectedFilter.observe(this, Observer { it?.run { filters.markSelection(this) } })
+        viewModel.userReadingsForDate.observe(this, Observer {
+            it?.run {
+                // todo show data in graph
+            }
+        })
     }
 
 }

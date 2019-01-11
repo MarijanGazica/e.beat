@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Blood Pressure Helper</string>
+    <string name="app_name">e.beat</string>
     <string name="menu_pressure_input">New input</string>
     <string name="menu_input_history">History</string>
     <string name="menu_settings">Settings</string>
