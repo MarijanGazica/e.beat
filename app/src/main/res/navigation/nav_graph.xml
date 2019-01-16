@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/pressureInputFragment"
-        android:name="studio.nodroid.bloodpressurehelper.ui.pressureInput.PressureInputFragment"
+        android:name="studio.nodroid.ebeat.ui.pressureInput.PressureInputFragment"
         android:label="PressureInputFragment"
         tools:layout="@layout/view_pressure_input"></fragment>
 
     <fragment
         android:id="@+id/inputHistoryFragment"
-        android:name="studio.nodroid.bloodpressurehelper.ui.inputHistory.ReadingHistoryFragment"
+        android:name="studio.nodroid.ebeat.ui.inputHistory.ReadingHistoryFragment"
         android:label="InputHistoryFragment"
         tools:layout="@layout/fragment_input_history"></fragment>
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="studio.nodroid.bloodpressurehelper.ui.graphs.GraphsFragment"
+        android:name="studio.nodroid.ebeat.ui.graphs.GraphsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_graphs" />
 
