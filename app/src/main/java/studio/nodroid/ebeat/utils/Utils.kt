@@ -61,6 +61,18 @@ fun Long.toTime(): String {
     return sdf.format(cal.time)
 }
 
+fun Date.toTimestampStart(): Long {
+    val calendar = Calendar.getInstance()
+    calendar.set(year, month - 1, day, 0, 0, 0)
+    return calendar.timeInMillis
+}
+
+fun Date.toTimestampEnd(): Long {
+    val calendar = Calendar.getInstance()
+    calendar.set(year, month - 1, day, 23, 59, 59)
+    return calendar.timeInMillis
+}
+
 fun getPeriodTimestamps(dayPeriod: Int, date: Date? = null): DateRange {
     val calendar = Calendar.getInstance()
     date?.run {

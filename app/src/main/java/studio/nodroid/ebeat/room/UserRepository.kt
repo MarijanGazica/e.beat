@@ -25,25 +25,30 @@ class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
     }
 
     override suspend fun deleteUser(user: User) = coroutineScope {
-        userDao.deleteUser(user)
+        async(Dispatchers.Default) {
+            userDao.deleteUser(user)
+        }.await()
     }
 
     override suspend fun addUser(user: User) = coroutineScope {
-        launch {
+        launch(Dispatchers.Default) {
             userDao.insert(user)
         }
     }
 
-    override suspend fun updateUser(copy: User?) = coroutineScope {
-        copy?.run {
-            userDao.updateUser(this)
+    override suspend fun updateUser(user: User) = coroutineScope {
+        user.run {
+            async(Dispatchers.Default) {
+                userDao.updateUser(this@run)
+            }.await()
         }
     }
+
 }
 
 interface UserRepository {
     suspend fun deleteUser(user: User)
     fun getAllUsers(): LiveData<List<User>>
     suspend fun addUser(user: User): Job
-    suspend fun updateUser(copy: User?): Unit?
+    suspend fun updateUser(user: User)
 }

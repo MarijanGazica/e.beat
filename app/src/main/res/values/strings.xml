@@ -7,7 +7,7 @@
     <string name="input_description">Input description</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="are_you_sure">Are you sure</string>
+    <string name="are_you_sure">Save reading?</string>
     <string name="add_reading">Add reading</string>
     <string name="current_weight">Current weight</string>
     <string name="set">Set</string>
@@ -34,6 +34,8 @@
     <string name="week">7 days</string>
     <string name="month">30 days</string>
     <string name="all_time">All time</string>
-    <string name="date">Date</string>
+    <string name="range">Range</string>
     <string name="no_entries_for_period">No entries for selected period</string>
+    <string name="cancel">Cancel</string>
+    <string name="save_description">Saving will add currently entered values to a list of readings for selected user.</string>
 </resources>

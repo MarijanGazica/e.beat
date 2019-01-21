@@ -42,7 +42,7 @@ class ReadingHolder(val view: View) : RecyclerView.ViewHolder(view) {
         view.diastolic.text = reading.diastolic.toString()
         view.pulse.text = reading.pulse.toString()
 
-        view.date.text = reading.timestamp.toDate()
+        view.range.text = reading.timestamp.toDate()
         view.time.text = reading.timestamp.toTime()
         view.description.text = reading.description
         if (reading.description.isNullOrBlank()) {

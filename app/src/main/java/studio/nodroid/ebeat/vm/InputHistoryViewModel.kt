@@ -8,6 +8,8 @@ import studio.nodroid.ebeat.model.PressureDataDB
 import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.room.PressureDataRepository
 import studio.nodroid.ebeat.utils.getPeriodTimestamps
+import studio.nodroid.ebeat.utils.toTimestampEnd
+import studio.nodroid.ebeat.utils.toTimestampStart
 
 class InputHistoryViewModel(pressureDataRepo: PressureDataRepository) : ViewModel() {
 
@@ -16,14 +18,29 @@ class InputHistoryViewModel(pressureDataRepo: PressureDataRepository) : ViewMode
     val userReadingsForDate = MutableLiveData<List<PressureDataDB>>()
     val selectedDate = MutableLiveData<String>()
     val selectedFilter = MutableLiveData<Int>().apply { value = 0 }
+    val shouldShowDatePicker = MutableLiveData<Boolean>()
 
     private var selectedUser: User? = null
     private var selectedRange: DateRange = getPeriodTimestamps(7)
+    private var startDate: Long? = null
 
     fun dateSelected(date: Date) {
-        selectedDate.value = date.toString()
-        selectedRange = getPeriodTimestamps(1, date)
-        filterEvents()
+        selectedDate.value = date.toString() // todo
+        if (startDate == null) {
+            startDate = date.toTimestampStart()
+            shouldShowDatePicker.value = true
+            shouldShowDatePicker.value = false
+            return
+        }
+        startDate?.let {
+            val endStamp = date.toTimestampEnd()
+            selectedRange = if (endStamp > it) {
+                DateRange(it, date.toTimestampEnd())
+            } else {
+                DateRange(date.toTimestampEnd(), it)
+            }
+            filterEvents()
+        }
     }
 
     fun userSelected(user: User?) {
@@ -37,17 +54,33 @@ class InputHistoryViewModel(pressureDataRepo: PressureDataRepository) : ViewMode
 
     private fun filterEvents() {
         selectedUser?.run {
-            selectedUserReadings.value = allUserReadings.value?.filter { id == it.userId }
+            selectedUserReadings.value = allUserReadings.value?.filter { id == it.userId }?.sortedBy { it.timestamp }
         }
         if (selectedRange.startStamp == 0L || selectedRange.endStamp == 0L) {
             userReadingsForDate.value = selectedUserReadings.value
         } else {
-            rangeSelected(selectedRange)
+            setReadingsForRange(selectedRange)
         }
     }
 
-    fun rangeSelected(periodTimestamps: DateRange) {
+    private fun setReadingsForRange(periodTimestamps: DateRange) {
         userReadingsForDate.value = selectedUserReadings.value?.filter { it.timestamp in periodTimestamps.startStamp..periodTimestamps.endStamp }
+    }
+
+    fun weekSelected() {
+        val period = getPeriodTimestamps(7)
+        setReadingsForRange(period)
+    }
+
+    fun monthSelected() {
+        val period = getPeriodTimestamps(30)
+        setReadingsForRange(period)
+    }
+
+    fun rangeSelected() {
+        startDate = null
+        shouldShowDatePicker.value = true
+        shouldShowDatePicker.value = false
     }
 
     fun allTimeSelected() {

@@ -27,6 +27,7 @@ class DatePickerView : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         onDateChosen(Date(year, month + 1, day))
+        dismiss()
     }
 
     override fun onDismiss(dialog: DialogInterface?) {

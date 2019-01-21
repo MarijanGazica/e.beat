@@ -1,5 +1,6 @@
 package studio.nodroid.ebeat.ui.pressureInput
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -46,11 +47,12 @@ class PressureInputFragment : Fragment() {
     }
 
     private val saveReadingDialog by lazy {
-        AlertDialog.Builder(requireContext())
-            .setPositiveButton(R.string.yes) { _, _ -> viewModel.saveReading() }
-            .setNegativeButton(R.string.no) { _, _ -> }
-            .setTitle(R.string.are_you_sure)
-            .create()
+        val dialogBuilder = AlertDialog.Builder(requireActivity())
+        dialogBuilder.setPositiveButton(R.string.save_reading) { _, which -> if (which == DialogInterface.BUTTON_POSITIVE) viewModel.saveReading() }
+        dialogBuilder.setNegativeButton(R.string.cancel) { clickedDialog, which -> if (which == DialogInterface.BUTTON_NEGATIVE) clickedDialog.dismiss() }
+        dialogBuilder.setTitle(R.string.are_you_sure)
+        dialogBuilder.setMessage(R.string.save_description)
+        dialogBuilder.create()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -74,10 +76,10 @@ class PressureInputFragment : Fragment() {
         pulseValue.onIntInputChanged { viewModel.setPulseValue(it) }
 
         inputDescription.onTextChanged { viewModel.setDescription(it) }
-        inputDescription.editText?.setOnEditorActionListener { view, actionId, _ ->
+        inputDescription.editText?.setOnEditorActionListener { editView, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 viewModel.saveReadingPressed()
-                hideKeyboard(view)
+                hideKeyboard(editView)
                 return@setOnEditorActionListener true
             }
             false

@@ -25,9 +25,9 @@ class FilterView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         allTime.setOnClickListener {
             filterSelected(Selection.ALL_TIME)
         }
-        date.setOnClickListener {
-            date.isChecked = false
-            filterSelected(Selection.DATE)
+        range.setOnClickListener {
+            range.isChecked = false
+            filterSelected(Selection.RANGE)
         }
     }
 
@@ -35,19 +35,19 @@ class FilterView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         this.filterSelected = function
     }
 
-    fun setDateText(txt: String?) {
-        date.text = txt ?: context.resources.getString(R.string.date)
-    }
+//    fun setDateText(txt: String?) {
+//        range.text = txt ?: context.resources.getString(R.string.range)
+//    }
 
     fun markSelection(position: Int) {
         week.isChecked = position == 0
         month.isChecked = position == 1
         allTime.isChecked = position == 2
-        date.isChecked = position == 3
+        range.isChecked = position == 3
     }
 
 
     enum class Selection {
-        WEEK, MONTH, ALL_TIME, DATE
+        WEEK, MONTH, ALL_TIME, RANGE
     }
 }

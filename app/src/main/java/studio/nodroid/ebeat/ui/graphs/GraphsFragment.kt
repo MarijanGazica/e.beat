@@ -1,8 +1,6 @@
 package studio.nodroid.ebeat.ui.graphs
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,23 +21,13 @@ import studio.nodroid.ebeat.ui.view.DateAxisFormatter
 import studio.nodroid.ebeat.ui.view.DatePickerView
 import studio.nodroid.ebeat.ui.view.FilterView
 import studio.nodroid.ebeat.utils.DAY
-import studio.nodroid.ebeat.utils.getPeriodTimestamps
-import studio.nodroid.ebeat.vm.GraphsViewModel
+import studio.nodroid.ebeat.vm.InputHistoryViewModel
 import studio.nodroid.ebeat.vm.UserPickerViewModel
 
 class GraphsFragment : Fragment() {
 
-    private val viewModel: GraphsViewModel by viewModel()
+    private val viewModel: InputHistoryViewModel by viewModel()
     private val userViewModel: UserPickerViewModel by sharedViewModel()
-
-    private val datePickerDialog by lazy {
-        DatePickerView().apply {
-            this@apply.onDateChosen = {
-                viewModel.dateSelected(it)
-                viewModel.filterSelected(3)
-            }
-        }
-    }
 
     private val systolicDataSet by lazy {
         val set = LineDataSet(mutableListOf(), resources.getString(R.string.systolic))
@@ -77,11 +65,6 @@ class GraphsFragment : Fragment() {
         return@lazy set
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        userViewModel.activeUser.observe(this, Observer { viewModel.userSelected(it) })
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_graphs, container, false)
     }
@@ -92,24 +75,19 @@ class GraphsFragment : Fragment() {
         filters.onFilterSelected {
             when (it) {
                 FilterView.Selection.WEEK -> {
-                    viewModel.rangeSelected(getPeriodTimestamps(7))
+                    viewModel.weekSelected()
                     viewModel.filterSelected(0)
-
-                    lineChart.moveViewToX(System.currentTimeMillis().toFloat() - (7f * DAY))
-                    Log.d("findme", lineChart.xChartMax.toString())
                 }
                 FilterView.Selection.MONTH -> {
-                    viewModel.rangeSelected(getPeriodTimestamps(30))
+                    viewModel.monthSelected()
                     viewModel.filterSelected(1)
-                    lineChart.moveViewToX(System.currentTimeMillis().toFloat() - (30f * DAY))
                 }
                 FilterView.Selection.ALL_TIME -> {
                     viewModel.allTimeSelected()
                     viewModel.filterSelected(2)
-                    lineChart.fitScreen()
                 }
-                FilterView.Selection.DATE -> {
-                    datePickerDialog.show(childFragmentManager, "")
+                FilterView.Selection.RANGE -> {
+                    viewModel.rangeSelected()
                 }
             }
         }
@@ -138,12 +116,14 @@ class GraphsFragment : Fragment() {
 
         lineChart.axisRight.isEnabled = false
 
-        viewModel.selectedUserReadings.observe(viewLifecycleOwner, Observer { })
-        viewModel.allUserReadings.observe(this, Observer { viewModel.readingsReady() })
-        viewModel.selectedDate.observe(this, Observer { filters.setDateText(it ?: resources.getString(R.string.date)) })
-        viewModel.selectedFilter.observe(this, Observer { it?.run { filters.markSelection(this) } })
+        userViewModel.activeUser.observe(viewLifecycleOwner, Observer { viewModel.userSelected(it) })
 
-        viewModel.userReadingsForDate.observe(this, Observer {
+        viewModel.selectedUserReadings.observe(viewLifecycleOwner, Observer {})
+        viewModel.allUserReadings.observe(viewLifecycleOwner, Observer { viewModel.readingsReady() })
+        viewModel.selectedDate.observe(viewLifecycleOwner, Observer { /*filters.setDateText(it ?: resources.getString(R.string.range)) */ })
+        viewModel.selectedFilter.observe(viewLifecycleOwner, Observer { it?.run { filters.markSelection(this) } })
+
+        viewModel.userReadingsForDate.observe(viewLifecycleOwner, Observer {
             it?.run {
                 systolicDataSet.clear()
                 diastolicDataSet.clear()
@@ -155,9 +135,27 @@ class GraphsFragment : Fragment() {
 
                 lineChart.data = LineData(systolicDataSet, diastolicDataSet, pulseDataSet)
                 lineChart.xAxis.granularity = 1f
-                lineChart.invalidate()
+                lineChart.fitScreen()
             }
         })
+
+
+        viewModel.shouldShowDatePicker.observe(viewLifecycleOwner, Observer {
+            it?.let { shouldShowFragment ->
+                if (shouldShowFragment) {
+                    showDatePickerDialog()
+                }
+            }
+        })
+    }
+
+    private fun showDatePickerDialog() {
+        DatePickerView().apply {
+            this@apply.onDateChosen = {
+                viewModel.dateSelected(it)
+                viewModel.filterSelected(3)
+            }
+        }.show(childFragmentManager, "")
     }
 
 }
