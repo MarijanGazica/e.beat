@@ -38,4 +38,7 @@
     <string name="no_entries_for_period">No entries for selected period</string>
     <string name="cancel">Cancel</string>
     <string name="save_description">Saving will add currently entered values to a list of readings for selected user.</string>
+    <string name="save_user">Save new user</string>
+    <string name="cancel_add_user">Cancel adding user</string>
+    <string name="menu_graphs">Graphs</string>
 </resources>

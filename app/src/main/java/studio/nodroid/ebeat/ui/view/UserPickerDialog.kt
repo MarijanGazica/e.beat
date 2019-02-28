@@ -24,6 +24,7 @@ import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.room.UserRepository
 import studio.nodroid.ebeat.sharedPrefs.SharedPrefs
 import studio.nodroid.ebeat.utils.hideKeyboard
+import studio.nodroid.ebeat.utils.onTextChanged
 import studio.nodroid.ebeat.utils.showKeyboard
 
 class UserPickerDialog : DialogFragment() {
@@ -34,9 +35,6 @@ class UserPickerDialog : DialogFragment() {
     private val sharedPrefs: SharedPrefs by inject()
 
     var onSelect: (User) -> Unit = {}
-
-    var onAddUserSelected: () -> Unit = {
-    }
 
     private val onListItemSelected: (User) -> Unit = {
         sharedPrefs.saveLastUserId(it.id)
@@ -69,6 +67,13 @@ class UserPickerDialog : DialogFragment() {
             addUser.visibility = View.VISIBLE
             userText.text?.clear()
             hideKeyboard(userText)
+        }
+        userText.onTextChanged {
+            if (it.isNotEmpty()) {
+                saveUser.alpha = 1f
+            } else {
+                saveUser.alpha = 0.5f
+            }
         }
         saveUser.setOnClickListener {
             userText.text?.run {
@@ -136,7 +141,6 @@ class UserPickerViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         }
 
         view.userName.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0)
-
     }
 
 }

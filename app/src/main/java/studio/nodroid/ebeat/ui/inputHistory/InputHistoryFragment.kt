@@ -17,7 +17,7 @@ import studio.nodroid.ebeat.vm.InputHistoryViewModel
 import studio.nodroid.ebeat.vm.UserPickerViewModel
 
 
-class ReadingHistoryFragment : Fragment() {
+class InputHistoryFragment : Fragment() {
 
     private val viewModel: InputHistoryViewModel by viewModel()
     private val userViewModel: UserPickerViewModel by sharedViewModel()

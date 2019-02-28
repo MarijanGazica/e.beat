@@ -2,13 +2,17 @@
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:navigationBarColor">@color/petroleumDark</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="toolbarStyle">@style/Widget.Toolbar</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
     </style>
 
     <style name="Widget.Toolbar" parent="Widget.MaterialComponents.Toolbar">

@@ -3,16 +3,17 @@ package studio.nodroid.ebeat.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.ui.graphs.GraphsFragment
+import studio.nodroid.ebeat.ui.inputHistory.InputHistoryFragment
+import studio.nodroid.ebeat.ui.pressureInput.PressureInputFragment
+import studio.nodroid.ebeat.ui.settings.SettingsFragment
 import studio.nodroid.ebeat.ui.view.UserPickerDialog
 import studio.nodroid.ebeat.utils.KeyboardVisibilityProvider
 import studio.nodroid.ebeat.utils.ViewHeightAnimator
@@ -28,12 +29,8 @@ class MainActivity : AppCompatActivity() {
 
     private val userPickerDialog by lazy {
         UserPickerDialog().apply {
-            onAddUserSelected = addUserSelected
             onSelect = userPickerViewModel.onUserSelected
         }
-    }
-
-    private val addUserSelected: () -> Unit = {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,19 +39,20 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        bottomNavView.setupWithNavController(findNavController(this, R.id.navigationHostFragment))
-
-        NavHostFragment.findNavController(navigationHostFragment)
-            .addOnDestinationChangedListener { _, destination, _ ->
-                when (destination.id) {
-                    R.id.inputHistoryFragment, R.id.settingsFragment, R.id.pressureInputFragment -> {
-                        bottomNavView.visibility = View.VISIBLE
-                    }
-                    else -> {
-                        bottomNavView.visibility = View.GONE
-                    }
-                }
+        bottomNavView.setOnNavigationItemSelectedListener { menuItem ->
+            val destination = when (menuItem.itemId) {
+                R.id.inputHistoryFragment -> InputHistoryFragment()
+                R.id.graphFragment -> GraphsFragment()
+                R.id.settingsFragment -> SettingsFragment()
+                else -> PressureInputFragment()
             }
+            showDestination(destination)
+            true
+        }
+
+        bottomNavView.setOnNavigationItemReselectedListener { }
+
+        showDestination(PressureInputFragment())
 
         userPickerViewModel.allUsers.observe(this, Observer { userPickerViewModel.usersAvailable() })
         userPickerViewModel.activeUser.observe(this, Observer { it?.run { supportActionBar?.title = it.name } })
@@ -62,7 +60,12 @@ class MainActivity : AppCompatActivity() {
         toolbar.setOnClickListener { showUserPicker() }
     }
 
-    override fun onSupportNavigateUp() = findNavController(this, R.id.navigationHostFragment).navigateUp()
+    private fun showDestination(destination: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+            .replace(R.id.fragmentContainer, destination)
+            .commit()
+    }
 
     override fun onResume() {
         super.onResume()

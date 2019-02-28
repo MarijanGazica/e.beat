@@ -6,8 +6,12 @@
         android:title="@string/menu_pressure_input" />
     <item
         android:id="@+id/inputHistoryFragment"
-        android:icon="@drawable/ic_graph"
+        android:icon="@drawable/ic_hourglass"
         android:title="@string/menu_input_history" />
+    <item
+        android:id="@+id/graphFragment"
+        android:icon="@drawable/ic_graph"
+        android:title="@string/menu_graphs" />
     <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_settings"
