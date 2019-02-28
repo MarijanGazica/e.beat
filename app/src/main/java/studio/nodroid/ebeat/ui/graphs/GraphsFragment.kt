@@ -37,7 +37,6 @@ class GraphsFragment : Fragment() {
         set.lineWidth = 2f
         set.isHighlightEnabled = false
         set.valueFormatter = LargeValueFormatter()
-//        set.setDrawValues(false)
         return@lazy set
     }
 
@@ -49,7 +48,6 @@ class GraphsFragment : Fragment() {
         set.lineWidth = 2f
         set.isHighlightEnabled = false
         set.valueFormatter = LargeValueFormatter()
-//        set.setDrawValues(false)
         return@lazy set
     }
 
@@ -61,7 +59,6 @@ class GraphsFragment : Fragment() {
         set.lineWidth = 2f
         set.isHighlightEnabled = false
         set.valueFormatter = LargeValueFormatter()
-//        set.setDrawValues(false)
         return@lazy set
     }
 
@@ -125,6 +122,12 @@ class GraphsFragment : Fragment() {
 
         viewModel.userReadingsForDate.observe(viewLifecycleOwner, Observer {
             it?.run {
+
+                if (lineChart.visibility == View.GONE && this.isNotEmpty()) {
+                    lineChart.visibility = View.VISIBLE
+                    emptyListGroup.visibility = View.GONE
+                }
+
                 systolicDataSet.clear()
                 diastolicDataSet.clear()
                 pulseDataSet.clear()
@@ -136,6 +139,11 @@ class GraphsFragment : Fragment() {
                 lineChart.data = LineData(systolicDataSet, diastolicDataSet, pulseDataSet)
                 lineChart.xAxis.granularity = 1f
                 lineChart.fitScreen()
+            }
+
+            if (it == null || it.isEmpty()) {
+                lineChart.visibility = View.GONE
+                emptyListGroup.visibility = View.VISIBLE
             }
         })
 
