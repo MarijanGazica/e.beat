@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsEvent
 import studio.nodroid.ebeat.ui.graphs.GraphsFragment
 import studio.nodroid.ebeat.ui.inputHistory.InputHistoryFragment
 import studio.nodroid.ebeat.ui.pressureInput.PressureInputFragment
@@ -24,6 +26,8 @@ class MainActivity : AppCompatActivity() {
 
     private val keyboardVisibilityProvider by inject<KeyboardVisibilityProvider>()
     private val userPickerViewModel by viewModel<UserPickerViewModel>()
+
+    private val analytics by inject<Analytics>()
 
     private val bottomNavHeightVisibility by lazy { ViewHeightAnimator(bottomNavView) }
 
@@ -93,6 +97,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showUserPicker() {
+        analytics.logEvent(AnalyticsEvent.USER_PICKER_OPEN)
         userPickerDialog.show(supportFragmentManager, "userPicker")
     }
 }

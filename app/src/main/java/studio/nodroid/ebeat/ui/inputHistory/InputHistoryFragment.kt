@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_input_history.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsEvent
 import studio.nodroid.ebeat.ui.view.DatePickerView
 import studio.nodroid.ebeat.ui.view.FilterView
 import studio.nodroid.ebeat.vm.InputHistoryViewModel
@@ -21,6 +24,9 @@ class InputHistoryFragment : Fragment() {
 
     private val viewModel: InputHistoryViewModel by viewModel()
     private val userViewModel: UserPickerViewModel by sharedViewModel()
+
+    private val analytics by inject<Analytics>()
+
     private val readingHistoryAdapter by lazy { ReadingHistoryAdapter() }
 
 
@@ -37,18 +43,22 @@ class InputHistoryFragment : Fragment() {
         filters.onFilterSelected {
             when (it) {
                 FilterView.Selection.WEEK -> {
+                    analytics.logEvent(AnalyticsEvent.LIST_7)
                     viewModel.weekSelected()
                     viewModel.filterSelected(0)
                 }
                 FilterView.Selection.MONTH -> {
+                    analytics.logEvent(AnalyticsEvent.LIST_30)
                     viewModel.monthSelected()
                     viewModel.filterSelected(1)
                 }
                 FilterView.Selection.ALL_TIME -> {
+                    analytics.logEvent(AnalyticsEvent.LIST_ALL)
                     viewModel.allTimeSelected()
                     viewModel.filterSelected(2)
                 }
                 FilterView.Selection.RANGE -> {
+                    analytics.logEvent(AnalyticsEvent.LIST_RANGE)
                     viewModel.rangeSelected()
                 }
             }

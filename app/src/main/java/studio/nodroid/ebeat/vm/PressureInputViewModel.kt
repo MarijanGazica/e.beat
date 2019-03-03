@@ -6,6 +6,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsEvent
 import studio.nodroid.ebeat.model.*
 import studio.nodroid.ebeat.model.Date
 import studio.nodroid.ebeat.room.PressureDataRepository
@@ -13,7 +15,7 @@ import studio.nodroid.ebeat.utils.getPressureRating
 import studio.nodroid.ebeat.utils.timestampFromTime
 import java.util.*
 
-class PressureInputViewModel(private val pressureDataRepository: PressureDataRepository) : ViewModel() {
+class PressureInputViewModel(private val pressureDataRepository: PressureDataRepository, private val analytics: Analytics) : ViewModel() {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Default + job)
@@ -89,6 +91,12 @@ class PressureInputViewModel(private val pressureDataRepository: PressureDataRep
         }
 
         selectedUser?.let {
+            analytics.logEvent(AnalyticsEvent.READING_ADD)
+
+            if (description.isNotBlank()) {
+                analytics.logEvent(AnalyticsEvent.READING_ADD)
+            }
+
             val reading = PressureDataDB(
                 systolic = systolicValue,
                 diastolic = diastolicValue,

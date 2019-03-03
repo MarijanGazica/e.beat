@@ -14,9 +14,12 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.LargeValueFormatter
 import kotlinx.android.synthetic.main.fragment_graphs.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsEvent
 import studio.nodroid.ebeat.ui.view.DateAxisFormatter
 import studio.nodroid.ebeat.ui.view.DatePickerView
 import studio.nodroid.ebeat.ui.view.FilterView
@@ -28,6 +31,7 @@ class GraphsFragment : Fragment() {
 
     private val viewModel: InputHistoryViewModel by viewModel()
     private val userViewModel: UserPickerViewModel by sharedViewModel()
+    private val analytics by inject<Analytics>()
 
     private val systolicDataSet by lazy {
         val set = LineDataSet(mutableListOf(), resources.getString(R.string.systolic))
@@ -72,18 +76,23 @@ class GraphsFragment : Fragment() {
         filters.onFilterSelected {
             when (it) {
                 FilterView.Selection.WEEK -> {
+                    analytics.logEvent(AnalyticsEvent.GRAPHS_7)
                     viewModel.weekSelected()
                     viewModel.filterSelected(0)
+
                 }
                 FilterView.Selection.MONTH -> {
+                    analytics.logEvent(AnalyticsEvent.GRAPHS_30)
                     viewModel.monthSelected()
                     viewModel.filterSelected(1)
                 }
                 FilterView.Selection.ALL_TIME -> {
+                    analytics.logEvent(AnalyticsEvent.GRAPHS_ALL)
                     viewModel.allTimeSelected()
                     viewModel.filterSelected(2)
                 }
                 FilterView.Selection.RANGE -> {
+                    analytics.logEvent(AnalyticsEvent.GRAPHS_RANGE)
                     viewModel.rangeSelected()
                 }
             }

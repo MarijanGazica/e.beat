@@ -20,6 +20,8 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsEvent
 import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.room.UserRepository
 import studio.nodroid.ebeat.sharedPrefs.SharedPrefs
@@ -91,7 +93,7 @@ class UserPickerDialog : DialogFragment() {
 
 }
 
-class UserListViewModel(private val userRepository: UserRepository) : ViewModel() {
+class UserListViewModel(private val userRepository: UserRepository, private val analytics: Analytics) : ViewModel() {
 
     val allUsers = userRepository.getAllUsers()
 
@@ -99,6 +101,8 @@ class UserListViewModel(private val userRepository: UserRepository) : ViewModel(
     private val dispatcher = CoroutineScope(Dispatchers.Default + job)
 
     fun addUser(name: String) {
+        analytics.logEvent(AnalyticsEvent.USER_ADD)
+
         dispatcher.launch {
             userRepository.addUser(User(name = name))
         }
