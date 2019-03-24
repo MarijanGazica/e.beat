@@ -10,6 +10,7 @@ import studio.nodroid.ebeat.analytics.Analytics
 import studio.nodroid.ebeat.room.*
 import studio.nodroid.ebeat.sharedPrefs.SharedPrefs
 import studio.nodroid.ebeat.sharedPrefs.SharedPrefsImpl
+import studio.nodroid.ebeat.ui.splash.SplashViewModel
 import studio.nodroid.ebeat.ui.view.UserListViewModel
 import studio.nodroid.ebeat.utils.KeyboardVisibilityProvider
 import studio.nodroid.ebeat.vm.InputHistoryViewModel
@@ -25,6 +26,7 @@ val appModule = module {
     viewModel { InputHistoryViewModel(get()) }
     viewModel { UserListViewModel(get(), get()) }
     viewModel { UserPickerViewModel(get(), get(), get()) }
+    viewModel { SplashViewModel(get()) }
 
     single<SharedPreferences> { androidApplication().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE) }
     single<SharedPrefs> { SharedPrefsImpl(get()) }

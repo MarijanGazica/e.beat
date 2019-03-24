@@ -1,5 +1,6 @@
 package studio.nodroid.ebeat.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -15,7 +16,6 @@ import studio.nodroid.ebeat.analytics.AnalyticsEvent
 import studio.nodroid.ebeat.ui.graphs.GraphsFragment
 import studio.nodroid.ebeat.ui.inputHistory.InputHistoryFragment
 import studio.nodroid.ebeat.ui.pressureInput.PressureInputFragment
-import studio.nodroid.ebeat.ui.settings.SettingsFragment
 import studio.nodroid.ebeat.ui.view.UserPickerDialog
 import studio.nodroid.ebeat.utils.KeyboardVisibilityProvider
 import studio.nodroid.ebeat.utils.ViewHeightAnimator
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             val destination = when (menuItem.itemId) {
                 R.id.inputHistoryFragment -> InputHistoryFragment()
                 R.id.graphFragment -> GraphsFragment()
-                R.id.settingsFragment -> SettingsFragment()
+//                R.id.settingsFragment -> SettingsFragment()
                 else -> PressureInputFragment()
             }
             showDestination(destination)
@@ -87,11 +87,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return item?.run {
-            if (this.itemId == R.id.selectUser) {
-                showUserPicker()
-                return@run true
-            } else {
-                super.onOptionsItemSelected(item)
+            when {
+                this.itemId == R.id.selectUser -> {
+                    showUserPicker()
+                    return@run true
+                }
+                this.itemId == R.id.privacyPolicy -> {
+                    analytics.logEvent(AnalyticsEvent.PRIVACY_POLICY)
+                    startActivity(Intent(this@MainActivity, WebViewActivity::class.java))
+                    return@run true
+                }
+                else -> super.onOptionsItemSelected(item)
             }
         } ?: super.onOptionsItemSelected(item)
     }

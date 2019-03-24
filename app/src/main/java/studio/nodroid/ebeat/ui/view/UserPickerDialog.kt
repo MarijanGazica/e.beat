@@ -98,12 +98,12 @@ class UserListViewModel(private val userRepository: UserRepository, private val 
     val allUsers = userRepository.getAllUsers()
 
     private val job = Job()
-    private val dispatcher = CoroutineScope(Dispatchers.Default + job)
+    private val scope = CoroutineScope(Dispatchers.Main + job)
 
     fun addUser(name: String) {
         analytics.logEvent(AnalyticsEvent.USER_ADD)
 
-        dispatcher.launch {
+        scope.launch {
             userRepository.addUser(User(name = name))
         }
     }

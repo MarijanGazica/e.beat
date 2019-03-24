@@ -6,4 +6,10 @@
         android:icon="@drawable/ic_person"
         android:title="@string/select_user"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/privacyPolicy"
+        android:icon="@drawable/ic_info"
+        android:title="@string/privacy_policy"
+        app:showAsAction="ifRoom" />
 </menu>
