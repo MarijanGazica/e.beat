@@ -16,10 +16,16 @@ android {
     }
     buildTypes {
         release {
+            resValue "string", "admob_pub_id", 'pub-9002747894812216'
+            resValue "string", "admob_app_id", 'ca-app-pub-9002747894812216~3336404117'
+            resValue "string", "admob_banner_non_native", 'ca-app-pub-9002747894812216/6779947764'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
+            resValue "string", "admob_pub_id", 'pub-9002747894812216'
+            resValue "string", "admob_app_id", 'ca-app-pub-9002747894812216~3336404117'
+            resValue "string", "admob_banner_non_native", 'ca-app-pub-9002747894812216/6779947764'
             applicationIdSuffix '.debug'
             versionNameSuffix '-DEBUG'
             debuggable true
@@ -32,7 +38,7 @@ android {
 }
 
 dependencies {
-    def room = "2.1.0-alpha04"
+    def room = "2.1.0-alpha06"
     def koin = '1.0.1'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -49,9 +55,13 @@ dependencies {
     implementation "androidx.room:room-runtime:$room"
     kapt "androidx.room:room-compiler:$room"
 
+    implementation 'com.google.firebase:firebase-ads:17.2.0'
+    implementation 'com.google.android.ads.consent:consent-library:1.0.7'
+
+
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
 
-    implementation 'com.google.firebase:firebase-core:16.0.7'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
 
     testImplementation 'junit:junit:4.12'

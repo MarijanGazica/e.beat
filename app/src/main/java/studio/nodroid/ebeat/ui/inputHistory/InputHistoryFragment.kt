@@ -14,8 +14,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.ebeat.R
 import studio.nodroid.ebeat.analytics.Analytics
 import studio.nodroid.ebeat.analytics.AnalyticsEvent
+import studio.nodroid.ebeat.sharedPrefs.AdStatus
 import studio.nodroid.ebeat.ui.view.DatePickerView
 import studio.nodroid.ebeat.ui.view.FilterView
+import studio.nodroid.ebeat.utils.inflateAd
 import studio.nodroid.ebeat.vm.InputHistoryViewModel
 import studio.nodroid.ebeat.vm.UserPickerViewModel
 
@@ -86,6 +88,17 @@ class InputHistoryFragment : Fragment() {
             it?.let { shouldShowFragment ->
                 if (shouldShowFragment) {
                     showDatePickerDialog()
+                }
+            }
+        })
+
+        viewModel.adStatus.observe(viewLifecycleOwner, Observer {
+            it?.run {
+                when (it) {
+                    AdStatus.NON_PERSONALISED -> adView.inflateAd(false)
+                    AdStatus.PERSONALISED -> adView.inflateAd(true)
+                    AdStatus.DISABLED -> {
+                    }
                 }
             }
         })

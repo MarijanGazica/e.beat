@@ -11,11 +11,17 @@ import studio.nodroid.ebeat.analytics.AnalyticsEvent
 import studio.nodroid.ebeat.model.*
 import studio.nodroid.ebeat.model.Date
 import studio.nodroid.ebeat.room.PressureDataRepository
+import studio.nodroid.ebeat.sharedPrefs.AdStatus
+import studio.nodroid.ebeat.sharedPrefs.SharedPrefs
 import studio.nodroid.ebeat.utils.getPressureRating
 import studio.nodroid.ebeat.utils.timestampFromTime
 import java.util.*
 
-class PressureInputViewModel(private val pressureDataRepository: PressureDataRepository, private val analytics: Analytics) : ViewModel() {
+class PressureInputViewModel(
+    private val pressureDataRepository: PressureDataRepository,
+    private val analytics: Analytics,
+    sharedPrefs: SharedPrefs
+) : ViewModel() {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Default + job)
@@ -26,6 +32,7 @@ class PressureInputViewModel(private val pressureDataRepository: PressureDataRep
     val pressureSeverity = MutableLiveData<PressureSeverity>().apply {
         value = PressureSeverity.AWAITING_INPUT
     }
+    val adStatus = MutableLiveData<AdStatus>().apply { value = sharedPrefs.getAdStatus() }
 
     val screenState = MutableLiveData<ScreenState>()
 

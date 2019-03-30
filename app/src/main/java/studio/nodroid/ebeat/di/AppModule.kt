@@ -22,11 +22,11 @@ private const val SHARED_PREFS_NAME = "shared_prefs"
 
 val appModule = module {
 
-    viewModel { PressureInputViewModel(get(), get()) }
-    viewModel { InputHistoryViewModel(get()) }
+    viewModel { PressureInputViewModel(get(), get(), get()) }
+    viewModel { InputHistoryViewModel(get(), get()) }
     viewModel { UserListViewModel(get(), get()) }
     viewModel { UserPickerViewModel(get(), get(), get()) }
-    viewModel { SplashViewModel(get()) }
+    viewModel { SplashViewModel(get(), get()) }
 
     single<SharedPreferences> { androidApplication().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE) }
     single<SharedPrefs> { SharedPrefsImpl(get()) }

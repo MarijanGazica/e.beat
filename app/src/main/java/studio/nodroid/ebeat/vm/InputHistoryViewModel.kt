@@ -7,11 +7,13 @@ import studio.nodroid.ebeat.model.DateRange
 import studio.nodroid.ebeat.model.PressureDataDB
 import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.room.PressureDataRepository
+import studio.nodroid.ebeat.sharedPrefs.AdStatus
+import studio.nodroid.ebeat.sharedPrefs.SharedPrefs
 import studio.nodroid.ebeat.utils.getPeriodTimestamps
 import studio.nodroid.ebeat.utils.toTimestampEnd
 import studio.nodroid.ebeat.utils.toTimestampStart
 
-class InputHistoryViewModel(pressureDataRepo: PressureDataRepository) : ViewModel() {
+class InputHistoryViewModel(pressureDataRepo: PressureDataRepository, sharedPrefs: SharedPrefs) : ViewModel() {
 
     val allUserReadings = pressureDataRepo.getAllReadings()
     val selectedUserReadings = MutableLiveData<List<PressureDataDB>>()
@@ -19,6 +21,7 @@ class InputHistoryViewModel(pressureDataRepo: PressureDataRepository) : ViewMode
     val selectedDate = MutableLiveData<String>()
     val selectedFilter = MutableLiveData<Int>().apply { value = 0 }
     val shouldShowDatePicker = MutableLiveData<Boolean>()
+    val adStatus = MutableLiveData<AdStatus>().apply { value = sharedPrefs.getAdStatus() }
 
     private var selectedUser: User? = null
     private var selectedRange: DateRange = getPeriodTimestamps(7)

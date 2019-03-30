@@ -18,12 +18,10 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.ebeat.R
 import studio.nodroid.ebeat.model.PressureSeverity
+import studio.nodroid.ebeat.sharedPrefs.AdStatus
 import studio.nodroid.ebeat.ui.view.DatePickerView
 import studio.nodroid.ebeat.ui.view.TimePickerView
-import studio.nodroid.ebeat.utils.hideKeyboard
-import studio.nodroid.ebeat.utils.onIntInputChanged
-import studio.nodroid.ebeat.utils.onTextChanged
-import studio.nodroid.ebeat.utils.setSelectedListener
+import studio.nodroid.ebeat.utils.*
 import studio.nodroid.ebeat.vm.PressureInputViewModel
 import studio.nodroid.ebeat.vm.UserPickerViewModel
 
@@ -88,6 +86,18 @@ class PressureInputFragment : Fragment() {
         timeValue.setSelectedListener { timePicker.show(childFragmentManager, "time") }
         dateValue.setSelectedListener { datePicker.show(childFragmentManager, "date") }
 
+
+        viewModel.adStatus.observe(viewLifecycleOwner, Observer {
+            it?.run {
+                when (it) {
+                    AdStatus.NON_PERSONALISED -> adView.inflateAd(false)
+                    AdStatus.PERSONALISED -> adView.inflateAd(true)
+                    AdStatus.DISABLED -> {
+                    }
+                }
+            }
+        })
+
         viewModel.selectedDate.observe(viewLifecycleOwner, Observer { dateValue.editText?.setText(it, TextView.BufferType.EDITABLE) })
         viewModel.selectedTime.observe(viewLifecycleOwner, Observer { timeValue.editText?.setText(it, TextView.BufferType.EDITABLE) })
         viewModel.pressureSeverity.observe(viewLifecycleOwner, Observer { it?.run { setPressureSeverity(it) } })
@@ -96,27 +106,15 @@ class PressureInputFragment : Fragment() {
         userViewModel.activeUser.observe(viewLifecycleOwner, Observer { viewModel.selectedUser = it })
     }
 
-    private fun setPressureSeverity(severity: PressureSeverity) = when (severity) {
-        PressureSeverity.ERROR -> {
-            severityText.text = getString(R.string.severity_error)
-        }
-        PressureSeverity.AWAITING_INPUT -> {
-            severityText.text = getString(R.string.severity_waiting)
-        }
-        PressureSeverity.NORMAL -> {
-            severityText.text = getString(R.string.severity_normal)
-        }
-        PressureSeverity.ELEVATED -> {
-            severityText.text = getString(R.string.severity_elevated)
-        }
-        PressureSeverity.HYPERTENSION_1 -> {
-            severityText.text = getString(R.string.severity_hypertension1)
-        }
-        PressureSeverity.HYPERTENSION_2 -> {
-            severityText.text = getString(R.string.severity_hypertension2)
-        }
-        PressureSeverity.HYPERTENSION_CRISIS -> {
-            severityText.text = getString(R.string.severity_crisis)
+    private fun setPressureSeverity(severity: PressureSeverity) {
+        severityText.text = when (severity) {
+            PressureSeverity.ERROR -> getString(R.string.severity_error)
+            PressureSeverity.AWAITING_INPUT -> getString(R.string.severity_waiting)
+            PressureSeverity.NORMAL -> getString(R.string.severity_normal)
+            PressureSeverity.ELEVATED -> getString(R.string.severity_elevated)
+            PressureSeverity.HYPERTENSION_1 -> getString(R.string.severity_hypertension1)
+            PressureSeverity.HYPERTENSION_2 -> getString(R.string.severity_hypertension2)
+            PressureSeverity.HYPERTENSION_CRISIS -> getString(R.string.severity_crisis)
         }
     }
 
