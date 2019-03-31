@@ -8,12 +8,14 @@ import com.google.ads.consent.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.ebeat.R
 import studio.nodroid.ebeat.ui.MainActivity
+import studio.nodroid.ebeat.vm.AdSettingsViewModel
 import java.net.URL
 
 
 class SplashActivity : AppCompatActivity() {
 
     private val viewModel by viewModel<SplashViewModel>()
+    private val adSettingsViewModel by viewModel<AdSettingsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,27 +26,32 @@ class SplashActivity : AppCompatActivity() {
             }
         })
 
+        adSettingsViewModel.adSetupDone.observe(this, Observer { done ->
+            if (done == true) {
+                viewModel.adSetupDone()
+            }
+        })
+
         checkConsent()
     }
 
     private fun checkConsent() {
-        val pubId = resources.getString(R.string.admob_pub_id)
         val consentInformation = ConsentInformation.getInstance(this)
-        if (consentInformation.isRequestLocationInEeaOrUnknown) {
-
-            val publisherIds = arrayOf(pubId)
-            consentInformation.requestConsentInfoUpdate(publisherIds, object : ConsentInfoUpdateListener {
-                override fun onConsentInfoUpdated(consentStatus: ConsentStatus) {
+        val pubId = resources.getString(R.string.admob_pub_id)
+        val publisherIds = arrayOf(pubId)
+        consentInformation.requestConsentInfoUpdate(publisherIds, object : ConsentInfoUpdateListener {
+            override fun onConsentInfoUpdated(consentStatus: ConsentStatus) {
+                if (consentInformation.isRequestLocationInEeaOrUnknown) {
                     handleConsent(consentStatus)
+                } else {
+                    adSettingsViewModel.userNotEea()
                 }
+            }
 
-                override fun onFailedToUpdateConsentInfo(errorDescription: String) {
-                    viewModel.consentError()
-                }
-            })
-        } else {
-            viewModel.userNotEea()
-        }
+            override fun onFailedToUpdateConsentInfo(errorDescription: String) {
+                adSettingsViewModel.consentError()
+            }
+        })
     }
 
     private fun requestConsent() {
@@ -68,7 +75,7 @@ class SplashActivity : AppCompatActivity() {
                 }
 
                 override fun onConsentFormError(errorDescription: String?) {
-                    viewModel.consentError()
+                    adSettingsViewModel.consentError()
                 }
             })
             .withPersonalizedAdsOption()
@@ -83,10 +90,10 @@ class SplashActivity : AppCompatActivity() {
         when (consentStatus) {
             ConsentStatus.UNKNOWN -> requestConsent()
             ConsentStatus.NON_PERSONALIZED -> {
-                viewModel.selectedNonPersonalisedAds()
+                adSettingsViewModel.selectedNonPersonalisedAds()
             }
             ConsentStatus.PERSONALIZED -> {
-                viewModel.selectedPersonalisedAds()
+                adSettingsViewModel.selectedPersonalisedAds()
             }
         }
     }

@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.google.ads.consent.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,13 +20,16 @@ import studio.nodroid.ebeat.ui.pressureInput.PressureInputFragment
 import studio.nodroid.ebeat.ui.view.UserPickerDialog
 import studio.nodroid.ebeat.utils.KeyboardVisibilityProvider
 import studio.nodroid.ebeat.utils.ViewHeightAnimator
+import studio.nodroid.ebeat.vm.AdSettingsViewModel
 import studio.nodroid.ebeat.vm.UserPickerViewModel
+import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
 
     private val keyboardVisibilityProvider by inject<KeyboardVisibilityProvider>()
     private val userPickerViewModel by viewModel<UserPickerViewModel>()
+    private val adSettingsViewModel by viewModel<AdSettingsViewModel>()
 
     private val analytics by inject<Analytics>()
 
@@ -80,7 +84,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menu?.run {
-            menuInflater.inflate(R.menu.main_menu, this)
+
+            val consentInformation = ConsentInformation.getInstance(this@MainActivity)
+
+            val pubId = resources.getString(R.string.admob_pub_id)
+            val publisherIds = arrayOf(pubId)
+            consentInformation.requestConsentInfoUpdate(publisherIds, object : ConsentInfoUpdateListener {
+                override fun onConsentInfoUpdated(consentStatus: ConsentStatus) {
+                    if (consentInformation.isRequestLocationInEeaOrUnknown) {
+                        menuInflater.inflate(R.menu.main_menu, this@run)
+                    } else {
+                        menuInflater.inflate(R.menu.main_menu_no_ad, this@run)
+                    }
+                }
+
+                override fun onFailedToUpdateConsentInfo(errorDescription: String) {
+                    menuInflater.inflate(R.menu.main_menu_no_ad, this@run)
+                }
+            })
         }
         return super.onCreateOptionsMenu(menu)
     }
@@ -97,6 +118,10 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this@MainActivity, WebViewActivity::class.java))
                     return@run true
                 }
+                this.itemId == R.id.adSettings -> {
+                    requestConsent()
+                    return@run true
+                }
                 else -> super.onOptionsItemSelected(item)
             }
         } ?: super.onOptionsItemSelected(item)
@@ -105,5 +130,49 @@ class MainActivity : AppCompatActivity() {
     private fun showUserPicker() {
         analytics.logEvent(AnalyticsEvent.USER_PICKER_OPEN)
         userPickerDialog.show(supportFragmentManager, "userPicker")
+    }
+
+    private fun requestConsent() {
+        val privacyString = resources.getString(R.string.privacy_policy_url)
+        val privacyUrl = URL(privacyString)
+
+        var form: ConsentForm? = null
+        form = ConsentForm.Builder(this, privacyUrl)
+            .withListener(object : ConsentFormListener() {
+                override fun onConsentFormLoaded() {
+                    form?.show()
+                    // Consent form loaded successfully.
+                }
+
+                override fun onConsentFormOpened() {
+                    // Consent form was displayed.
+                }
+
+                override fun onConsentFormClosed(consentStatus: ConsentStatus, userPrefersAdFree: Boolean?) {
+                    handleConsent(consentStatus)
+                }
+
+                override fun onConsentFormError(errorDescription: String?) {
+                    adSettingsViewModel.consentError()
+                }
+            })
+            .withPersonalizedAdsOption()
+            .withNonPersonalizedAdsOption()
+//            .withAdFreeOption()
+            .build()
+
+        form?.load()
+    }
+
+    private fun handleConsent(consentStatus: ConsentStatus) {
+        when (consentStatus) {
+            ConsentStatus.UNKNOWN -> requestConsent()
+            ConsentStatus.NON_PERSONALIZED -> {
+                adSettingsViewModel.selectedNonPersonalisedAds()
+            }
+            ConsentStatus.PERSONALIZED -> {
+                adSettingsViewModel.selectedPersonalisedAds()
+            }
+        }
     }
 }

@@ -43,5 +43,6 @@
     <string name="menu_graphs">Graphs</string>
     <string name="privacy_policy">Privacy policy</string>
     <string name="privacy_policy_url">https://sites.google.com/view/ebeat-privacypolicy/home</string>
+    <string name="ad_settings">Advertisement settings</string>
 
 </resources>

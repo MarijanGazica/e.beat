@@ -118,7 +118,6 @@ fun AdView.inflateAd(personalised: Boolean) {
 
     adListener = listener
 
-
     val adRequestBuilder = AdRequest.Builder()
         .addTestDevice("190B5E72876DC84A5968A67A1DCA8691") // s9+
         .addTestDevice("8168E714BB90F44F74FC714181827C3A") // htc

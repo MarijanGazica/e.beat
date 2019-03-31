@@ -8,12 +8,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.room.UserRepository
-import studio.nodroid.ebeat.sharedPrefs.SharedPrefs
 
-class SplashViewModel(
-    userRepository: UserRepository,
-    private val sharedPrefs: SharedPrefs
-) : ViewModel() {
+class SplashViewModel(userRepository: UserRepository) : ViewModel() {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Default + job)
@@ -36,32 +32,13 @@ class SplashViewModel(
         }
     }
 
+    fun adSetupDone() {
+        adSetupDone = true
+        evaluateConditions()
+    }
+
     private fun evaluateConditions() {
         requirementsMet.value = userReady && adSetupDone
-    }
-
-    fun userNotEea() {
-        sharedPrefs.setPersonalisedOk()
-        adSetupDone = true
-        evaluateConditions()
-    }
-
-    fun consentError() {
-        sharedPrefs.setAdsDisabled()
-        adSetupDone = true
-        evaluateConditions()
-    }
-
-    fun selectedNonPersonalisedAds() {
-        sharedPrefs.setPersonalisedNotOk()
-        adSetupDone = true
-        evaluateConditions()
-    }
-
-    fun selectedPersonalisedAds() {
-        sharedPrefs.setPersonalisedOk()
-        adSetupDone = true
-        evaluateConditions()
     }
 
 }

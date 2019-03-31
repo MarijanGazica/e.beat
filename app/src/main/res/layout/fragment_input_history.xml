@@ -6,34 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <studio.nodroid.ebeat.ui.view.FilterView
-        android:id="@+id/filters"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/inputList"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:overScrollMode="never"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:scrollbars="none"
-        ads:layout_constraintBottom_toTopOf="@+id/adView"
-        app:layout_constraintTop_toBottomOf="@id/filters"
-        app:layout_constraintVertical_bias="0" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/emptyListGroup"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:constraint_referenced_ids="emptyIcon, emptyText" />
-
     <ImageView
         android:id="@+id/emptyIcon"
         android:layout_width="wrap_content"
@@ -60,16 +32,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emptyIcon" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/emptyListGroup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:constraint_referenced_ids="emptyIcon, emptyText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/inputList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:scrollbars="none"
+        ads:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintTop_toBottomOf="@id/filters"
+        app:layout_constraintVertical_bias="0" />
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:background="@android:color/transparent"
+        android:background="@color/petroleum"
         android:maxHeight="60dp"
         android:visibility="gone"
         ads:adSize="BANNER"
         ads:adUnitId="@string/admob_banner_non_native"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <studio.nodroid.ebeat.ui.view.FilterView
+        android:id="@+id/filters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

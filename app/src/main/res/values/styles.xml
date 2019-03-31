@@ -13,6 +13,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="toolbarStyle">@style/Widget.Toolbar</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="actionOverflowButtonStyle">@style/OverflowStyle</item>
+    </style>
+
+    <style name="OverflowStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/white</item>
     </style>
 
     <style name="Widget.Toolbar" parent="Widget.MaterialComponents.Toolbar">
