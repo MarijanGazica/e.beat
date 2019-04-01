@@ -28,7 +28,7 @@ val appModule = module {
     viewModel { UserListViewModel(get(), get()) }
     viewModel { UserPickerViewModel(get(), get(), get()) }
     viewModel { SplashViewModel(get()) }
-    viewModel { AdSettingsViewModel(get()) }
+    viewModel { AdSettingsViewModel(get(), get()) }
 
     single<SharedPreferences> { androidApplication().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE) }
     single<SharedPrefs> { SharedPrefsImpl(get()) }

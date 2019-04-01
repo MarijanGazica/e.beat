@@ -1,17 +1,13 @@
 package studio.nodroid.ebeat.utils
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
-import android.widget.FrameLayout
-import androidx.core.content.res.ResourcesCompat
 import com.google.ads.mediation.admob.AdMobAdapter
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.material.textfield.TextInputLayout
 import studio.nodroid.ebeat.R
@@ -86,23 +82,8 @@ fun TextInputLayout.setSelectedListener(action: () -> Unit) {
     }
 }
 
-fun FrameLayout.inflateAd(context: Context) {
-    val adView = AdView(context)
-
-    val displayMetrics = context.resources.displayMetrics
-    val dpWidth = displayMetrics.widthPixels / displayMetrics.density
-
-    adView.setBackgroundColor(ResourcesCompat.getColor(resources, android.R.color.transparent, context.theme))
-
-    adView.adSize = AdSize(dpWidth.toInt(), 60)
-    adView.adUnitId = resources.getString(R.string.admob_banner_non_native)
-
-    addView(adView)
-
-
-}
-
 fun AdView.inflateAd(personalised: Boolean) {
+
     val listener = object : AdListener() {
         override fun onAdLoaded() {
             super.onAdLoaded()
@@ -113,7 +94,6 @@ fun AdView.inflateAd(personalised: Boolean) {
             super.onAdFailedToLoad(p0)
             this@inflateAd.visibility = View.GONE
         }
-
     }
 
     adListener = listener

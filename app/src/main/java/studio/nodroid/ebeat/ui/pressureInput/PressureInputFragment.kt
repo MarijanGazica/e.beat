@@ -83,9 +83,12 @@ class PressureInputFragment : Fragment() {
             false
         }
 
+        contentLayout.setOnClickListener {
+            hideKeyboard(it)
+        }
+
         timeValue.setSelectedListener { timePicker.show(childFragmentManager, "time") }
         dateValue.setSelectedListener { datePicker.show(childFragmentManager, "date") }
-
 
         viewModel.adStatus.observe(viewLifecycleOwner, Observer {
             it?.run {

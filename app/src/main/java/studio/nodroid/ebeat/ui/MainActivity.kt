@@ -119,6 +119,7 @@ class MainActivity : AppCompatActivity() {
                     return@run true
                 }
                 this.itemId == R.id.adSettings -> {
+                    analytics.logEvent(AnalyticsEvent.AD_SETTINGS)
                     requestConsent()
                     return@run true
                 }

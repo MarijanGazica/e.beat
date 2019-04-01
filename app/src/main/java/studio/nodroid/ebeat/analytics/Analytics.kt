@@ -30,5 +30,9 @@ enum class AnalyticsEvent(value: String) {
     GRAPHS_ALL("graphs_all"),
     GRAPHS_RANGE("graphs_range"),
     PRIVACY_POLICY("privacy_policy"),
-    AD_SETTINGS("ad_settings")
+    AD_SETTINGS("ad_settings"),
+    AD_PERSONALISED("ad_personalised"),
+    AD_NOT_PERSONALISED("ad_not_personalised"),
+    AD_NOT_EEA("ad_not_eea"),
+    AD_CONSENT_ERROR("ad_consent_error")
 }
