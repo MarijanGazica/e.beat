@@ -11,8 +11,6 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.LargeValueFormatter
 import kotlinx.android.synthetic.main.fragment_graphs.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -35,38 +33,9 @@ class GraphsFragment : Fragment() {
     private val userViewModel: UserPickerViewModel by sharedViewModel()
     private val analytics by inject<Analytics>()
 
-    private val systolicDataSet by lazy {
-        val set = LineDataSet(mutableListOf(), resources.getString(R.string.systolic))
-        set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
-        set.color = ResourcesCompat.getColor(resources, R.color.severity_red, requireActivity().theme)
-        set.setCircleColor(ResourcesCompat.getColor(resources, R.color.severity_red, requireActivity().theme))
-        set.lineWidth = 2f
-        set.isHighlightEnabled = false
-        set.valueFormatter = LargeValueFormatter()
-        return@lazy set
-    }
-
-    private val diastolicDataSet by lazy {
-        val set = LineDataSet(mutableListOf(), resources.getString(R.string.diastolic))
-        set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
-        set.color = ResourcesCompat.getColor(resources, R.color.petroleum, requireActivity().theme)
-        set.setCircleColor(ResourcesCompat.getColor(resources, R.color.petroleum, requireActivity().theme))
-        set.lineWidth = 2f
-        set.isHighlightEnabled = false
-        set.valueFormatter = LargeValueFormatter()
-        return@lazy set
-    }
-
-    private val pulseDataSet by lazy {
-        val set = LineDataSet(mutableListOf(), resources.getString(R.string.pulse))
-        set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
-        set.color = ResourcesCompat.getColor(resources, R.color.severity_green, requireActivity().theme)
-        set.setCircleColor(ResourcesCompat.getColor(resources, R.color.severity_green, requireActivity().theme))
-        set.lineWidth = 2f
-        set.isHighlightEnabled = false
-        set.valueFormatter = LargeValueFormatter()
-        return@lazy set
-    }
+    private val systolicDataSet by lazy { generateSystolicGraphLine(requireContext()) }
+    private val diastolicDataSet by lazy { generateDiastolicGraphLine(requireContext()) }
+    private val pulseDataSet by lazy { generatePulseGraphLine(requireContext()) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_graphs, container, false)

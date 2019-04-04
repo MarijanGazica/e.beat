@@ -17,6 +17,5 @@ class PressureDataRepositoryImpl(private val pressureDataDao: PressureDataDao) :
 
 interface PressureDataRepository {
     suspend fun addReading(reading: PressureDataDB): Job
-
     fun getAllReadings(): LiveData<List<PressureDataDB>>
 }

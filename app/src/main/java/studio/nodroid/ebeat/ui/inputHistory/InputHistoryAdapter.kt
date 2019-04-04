@@ -60,6 +60,5 @@ class ReadingHolder(val view: View) : RecyclerView.ViewHolder(view) {
             else -> R.color.severity_green
         }
         view.severity.setBackgroundColorCompat(severityColor)
-
     }
 }

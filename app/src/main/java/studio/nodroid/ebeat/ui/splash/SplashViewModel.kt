@@ -40,5 +40,4 @@ class SplashViewModel(userRepository: UserRepository) : ViewModel() {
     private fun evaluateConditions() {
         requirementsMet.value = userReady && adSetupDone
     }
-
 }

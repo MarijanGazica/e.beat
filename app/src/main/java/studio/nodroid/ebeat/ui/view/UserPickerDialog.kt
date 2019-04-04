@@ -1,6 +1,5 @@
 package studio.nodroid.ebeat.ui.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,11 +43,6 @@ class UserPickerDialog : DialogFragment() {
         dismiss()
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        viewModel.allUsers.observe(this, Observer { userListAdapter.setData(it) })
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.dialog_user_picker, container, false)
         view.userList.layoutManager = LinearLayoutManager(requireContext())
@@ -88,7 +82,9 @@ class UserPickerDialog : DialogFragment() {
                 }
             }
         }
-
+        viewModel.allUsers.observe(viewLifecycleOwner, Observer {
+            userListAdapter.setData(it)
+        })
     }
 
 }

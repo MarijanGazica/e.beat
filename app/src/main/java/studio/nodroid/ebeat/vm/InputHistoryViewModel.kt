@@ -28,7 +28,7 @@ class InputHistoryViewModel(pressureDataRepo: PressureDataRepository, sharedPref
     private var startDate: Long? = null
 
     fun dateSelected(date: Date) {
-        selectedDate.value = date.toString() // todo
+        selectedDate.value = date.toString()
         if (startDate == null) {
             startDate = date.toTimestampStart()
             shouldShowDatePicker.value = true
