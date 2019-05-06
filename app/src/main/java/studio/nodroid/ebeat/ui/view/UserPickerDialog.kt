@@ -131,16 +131,6 @@ class UserPickerViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(user: User, onListItemSelected: (User) -> Unit) {
         view.userName.text = user.name
         view.setOnClickListener { onListItemSelected(user) }
-
-        val drawable = when (user.id % 5) {
-            0 -> R.drawable.ic_pattern_blue
-            1 -> R.drawable.ic_pattern_yellow
-            2 -> R.drawable.ic_pattern_green
-            3 -> R.drawable.ic_pattern_purple
-            else -> R.drawable.ic_pattern_salmon
-        }
-
-        view.userName.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0)
     }
 
 }

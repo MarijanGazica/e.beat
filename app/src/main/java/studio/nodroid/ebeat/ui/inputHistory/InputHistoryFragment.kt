@@ -31,7 +31,6 @@ class InputHistoryFragment : Fragment() {
 
     private val readingHistoryAdapter by lazy { ReadingHistoryAdapter() }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_input_history, container, false)
     }
@@ -74,9 +73,8 @@ class InputHistoryFragment : Fragment() {
         viewModel.selectedFilter.observe(viewLifecycleOwner, Observer { it?.run { filters.markSelection(this) } })
 
         viewModel.userReadingsForDate.observe(viewLifecycleOwner, Observer {
-            it?.run {
-                readingHistoryAdapter.setData(this)
-            }
+            it?.sortedByDescending { item -> item.timestamp }
+                ?.run { readingHistoryAdapter.setData(this) }
             if (it == null || it.isEmpty()) {
                 emptyListGroup.visibility = View.VISIBLE
             } else {
