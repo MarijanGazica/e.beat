@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pressureInputFragment"
+        android:icon="@drawable/ic_plus"
+        android:title="@string/menu_pressure_input" />
+    <item
+        android:id="@+id/inputHistoryFragment"
+        android:icon="@drawable/ic_hourglass"
+        android:title="@string/menu_input_history" />
+    <item
+        android:id="@+id/graphFragment"
+        android:icon="@drawable/ic_graph"
+        android:title="@string/menu_graphs" />
+    <!--<item-->
+    <!--android:id="@+id/settingsFragment"-->
+    <!--android:icon="@drawable/ic_settings"-->
+    <!--android:title="@string/menu_settings" />-->
+</menu>
