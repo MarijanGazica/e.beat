@@ -10,8 +10,8 @@ android {
         applicationId "studio.nodroid.ebeat"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 2
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -19,7 +19,8 @@ android {
             resValue "string", "admob_pub_id", 'pub-9002747894812216'
             resValue "string", "admob_app_id", 'ca-app-pub-9002747894812216~3336404117'
             resValue "string", "admob_banner_non_native", 'ca-app-pub-9002747894812216/6779947764'
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -38,7 +39,7 @@ android {
 }
 
 dependencies {
-    def room = "2.1.0-alpha07"
+    def room = "2.1.0-beta01"
     def koin = '1.0.1'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -47,7 +48,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0'
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha5'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.android.material:material:1.0.0'
 
     implementation "org.koin:koin-androidx-viewmodel:$koin"
@@ -58,11 +59,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-ads:17.2.0'
     implementation 'com.google.android.ads.consent:consent-library:1.0.7'
 
-
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
 
-    implementation 'com.google.firebase:firebase-core:16.0.8'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'

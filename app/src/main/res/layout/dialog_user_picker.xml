@@ -27,10 +27,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userList"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="300dp"
+        android:clipChildren="false"
         android:clipToPadding="false"
         app:layout_constraintBottom_toTopOf="@id/addUserContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <View
@@ -62,6 +65,7 @@
             android:imeOptions="actionDone"
             android:inputType="textPersonName"
             android:maxLines="1"
+            android:maxLength="30"
             android:singleLine="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/cancelAdd"

@@ -1,6 +1,7 @@
 package studio.nodroid.ebeat.ui.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -123,14 +124,19 @@ class UserPickerListAdapter(private val onListItemSelected: (User) -> Unit) : Re
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: UserPickerViewHolder, position: Int) {
-        holder.bind(data[position], onListItemSelected)
+        holder.itemView.userName.text = data[position].name
+        holder.itemView.setOnClickListener { onListItemSelected(data[position]) }
+        Log.d("findme", "diplaying ${data[position].name}")
+//        holder.bind(data[position], onListItemSelected)
     }
 }
 
 class UserPickerViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+
     fun bind(user: User, onListItemSelected: (User) -> Unit) {
         view.userName.text = user.name
         view.setOnClickListener { onListItemSelected(user) }
+        Log.d("findme", "diplaying ${user.name}")
     }
 
 }

@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         })
 
         adSettingsViewModel.adSetupDone.observe(this, Observer { done ->
-            if (done == true) {
+            if (done) {
                 viewModel.adSetupDone()
             }
         })
