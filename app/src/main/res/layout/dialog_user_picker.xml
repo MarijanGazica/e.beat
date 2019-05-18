@@ -65,6 +65,7 @@
             android:imeOptions="actionDone"
             android:inputType="textPersonName"
             android:maxLines="1"
+            android:maxLength="30"
             android:singleLine="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/cancelAdd"
