@@ -6,17 +6,18 @@ import androidx.room.Room
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
+import studio.nodroid.ebeat.ads.AdSettingsViewModel
 import studio.nodroid.ebeat.analytics.Analytics
 import studio.nodroid.ebeat.room.*
 import studio.nodroid.ebeat.sharedPrefs.SharedPrefs
 import studio.nodroid.ebeat.sharedPrefs.SharedPrefsImpl
+import studio.nodroid.ebeat.ui.inputHistory.InputHistoryViewModel
+import studio.nodroid.ebeat.ui.pressureInput.PressureInputViewModel
+import studio.nodroid.ebeat.ui.readingDetails.ReadingDetailsViewModel
 import studio.nodroid.ebeat.ui.splash.SplashViewModel
-import studio.nodroid.ebeat.ui.view.UserListViewModel
+import studio.nodroid.ebeat.ui.userPicker.UserListViewModel
+import studio.nodroid.ebeat.ui.userPicker.UserPickerViewModel
 import studio.nodroid.ebeat.utils.KeyboardVisibilityProvider
-import studio.nodroid.ebeat.vm.AdSettingsViewModel
-import studio.nodroid.ebeat.vm.InputHistoryViewModel
-import studio.nodroid.ebeat.vm.PressureInputViewModel
-import studio.nodroid.ebeat.vm.UserPickerViewModel
 
 private const val DATABASE_NAME = "app_database"
 private const val SHARED_PREFS_NAME = "shared_prefs"
@@ -29,6 +30,7 @@ val appModule = module {
     viewModel { UserPickerViewModel(get(), get(), get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { AdSettingsViewModel(get(), get()) }
+    viewModel { ReadingDetailsViewModel(get()) }
 
     single<SharedPreferences> { androidApplication().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE) }
     single<SharedPrefs> { SharedPrefsImpl(get()) }

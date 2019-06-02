@@ -7,8 +7,8 @@ import androidx.lifecycle.Observer
 import com.google.ads.consent.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.ebeat.R
-import studio.nodroid.ebeat.ui.MainActivity
-import studio.nodroid.ebeat.vm.AdSettingsViewModel
+import studio.nodroid.ebeat.ads.AdSettingsViewModel
+import studio.nodroid.ebeat.ui.flow.FlowActivity
 import java.net.URL
 
 
@@ -99,7 +99,8 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun startMain() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, FlowActivity::class.java))
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         finish()
     }
 }

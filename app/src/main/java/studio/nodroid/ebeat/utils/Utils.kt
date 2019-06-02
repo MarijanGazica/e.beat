@@ -3,8 +3,6 @@ package studio.nodroid.ebeat.utils
 import android.app.Activity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.ColorRes
-import androidx.core.content.res.ResourcesCompat
 import studio.nodroid.ebeat.model.Date
 import studio.nodroid.ebeat.model.DateRange
 import studio.nodroid.ebeat.model.PressureSeverity
@@ -33,8 +31,6 @@ fun getPressureRating(systolic: Int, diastolic: Int): PressureSeverity {
     }
 }
 
-fun View.setBackgroundColorCompat(@ColorRes color: Int) =
-    setBackgroundColor(ResourcesCompat.getColor(resources, color, context.theme))
 
 fun hideKeyboard(view: View) {
     val imm = view.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager

@@ -1,4 +1,4 @@
-package studio.nodroid.ebeat.vm
+package studio.nodroid.ebeat.ui.pressureInput
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,7 +24,7 @@ class PressureInputViewModel(
 ) : ViewModel() {
 
     private val job = Job()
-    private val scope = CoroutineScope(Dispatchers.Default + job)
+    private val scope = CoroutineScope(Dispatchers.Main + job)
 
     var selectedUser: User? = null
     val selectedTime = MutableLiveData<String>()

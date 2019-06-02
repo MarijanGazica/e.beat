@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/petroleum</color>
-    <color name="colorPrimaryDark">@color/petroleumDark</color>
     <color name="colorAccent">@color/petroleum</color>
     <color name="lightPrimary">#E8EEEF</color>
 
     <color name="petroleum">#0097A7</color>
-    <color name="petroleumDark">#00838F</color>
+    <color name="petroleumDark">#007aa7</color>
     <color name="gradientDark">#007aa7</color>
 
     <color name="textGray">#737373</color>
@@ -23,5 +21,36 @@
     <color name="severity_yellow">#F4EB79</color>
     <color name="severity_orange">#F5A623</color>
     <color name="severity_dark_orange">#E74F26</color>
+
+
+    <!--LIGHT COLOR THEME-->
+
+    <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
+    <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
+    <!--selection controls.-->
+    <color name="colorPrimary">@color/petroleum</color>
+    <color name="colorPrimaryDark">@color/petroleumDark</color>
+    <color name="color_secondary">@color/petroleum</color>
+    <color name="color_secondary_variant">@color/petroleumDark</color>
+
+    <!--colorBackground appears behind scrollable content and is used for the default window-->
+    <!--background. colorSurface is mapped to the surface of components such as cards, sheets-->
+    <!--and menus. colorError is used to indicate an error state for components such as-->
+    <!--text fields.-->
+    <color name="color_background">@color/petroleum</color>
+    <color name="color_surface">@color/petroleum</color>
+    <color name="color_error">#b00020</color>
+
+    <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
+    <!--on which they appear.-->
+    <color name="color_on_primary">#ffffff</color>
+    <color name="color_on_secondary">#000000</color>
+    <color name="color_on_background">#eeffffff</color>
+    <color name="color_on_surface">#666666</color>
+    <color name="bg_on_surface">#22363838</color>
+    <color name="color_on_error">#ffffff</color>
+
+
+    <color name="textAccent">#EE9393</color>
 
 </resources>

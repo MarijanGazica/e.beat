@@ -12,7 +12,7 @@ import studio.nodroid.ebeat.room.UserRepository
 class SplashViewModel(userRepository: UserRepository) : ViewModel() {
 
     private val job = Job()
-    private val scope = CoroutineScope(Dispatchers.Default + job)
+    private val scope = CoroutineScope(Dispatchers.Main + job)
 
     val requirementsMet = MediatorLiveData<Boolean>().apply { value = false }
 

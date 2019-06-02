@@ -1,4 +1,4 @@
-package studio.nodroid.ebeat.vm
+package studio.nodroid.ebeat.ui.userPicker
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

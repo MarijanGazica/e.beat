@@ -1,4 +1,4 @@
-package studio.nodroid.ebeat.ui.view
+package studio.nodroid.ebeat.ui.userPicker
 
 import android.os.Bundle
 import android.util.Log

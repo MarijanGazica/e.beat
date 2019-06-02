@@ -170,6 +170,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputDescription"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        app:boxBackgroundMode="filled"
+        app:boxBackgroundColor="@color/bg_on_surface"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

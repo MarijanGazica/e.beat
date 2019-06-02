@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/actionsFragment">
+
+    <fragment
+        android:id="@+id/actionsFragment"
+        android:name="studio.nodroid.ebeat.ui.flow.actions.ActionsFragment"
+        android:label="ActionsFragment">
+        <action
+            android:id="@+id/action_actionsFragment_to_readingFragment"
+            app:destination="@id/readingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/readingFragment"
+        android:name="studio.nodroid.ebeat.ui.flow.reading.ReadingFragment"
+        android:label="ReadingFragment" />
+</navigation>

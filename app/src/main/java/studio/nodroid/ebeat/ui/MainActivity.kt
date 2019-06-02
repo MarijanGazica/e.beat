@@ -12,16 +12,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.ads.AdSettingsViewModel
 import studio.nodroid.ebeat.analytics.Analytics
 import studio.nodroid.ebeat.analytics.AnalyticsEvent
 import studio.nodroid.ebeat.ui.graphs.GraphsFragment
 import studio.nodroid.ebeat.ui.inputHistory.InputHistoryFragment
 import studio.nodroid.ebeat.ui.pressureInput.PressureInputFragment
-import studio.nodroid.ebeat.ui.view.UserPickerDialog
+import studio.nodroid.ebeat.ui.userPicker.UserPickerDialog
+import studio.nodroid.ebeat.ui.userPicker.UserPickerViewModel
 import studio.nodroid.ebeat.utils.KeyboardVisibilityProvider
 import studio.nodroid.ebeat.utils.ViewHeightAnimator
-import studio.nodroid.ebeat.vm.AdSettingsViewModel
-import studio.nodroid.ebeat.vm.UserPickerViewModel
 import java.net.URL
 
 

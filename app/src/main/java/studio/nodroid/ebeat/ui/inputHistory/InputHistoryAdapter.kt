@@ -13,7 +13,7 @@ import studio.nodroid.ebeat.utils.setBackgroundColorCompat
 import studio.nodroid.ebeat.utils.toDate
 import studio.nodroid.ebeat.utils.toTime
 
-class ReadingHistoryAdapter : RecyclerView.Adapter<ReadingHolder>() {
+class ReadingHistoryAdapter(private val onReadingSelected: (PressureDataDB) -> Unit) : RecyclerView.Adapter<ReadingHolder>() {
 
     private val items = mutableListOf<PressureDataDB>()
 
@@ -31,13 +31,13 @@ class ReadingHistoryAdapter : RecyclerView.Adapter<ReadingHolder>() {
     }
 
     override fun onBindViewHolder(holder: ReadingHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], onReadingSelected)
     }
 }
 
 class ReadingHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-    fun bind(reading: PressureDataDB) {
+    fun bind(reading: PressureDataDB, onReadingSelected: (PressureDataDB) -> Unit) {
         view.systolic.text = reading.systolic.toString()
         view.diastolic.text = reading.diastolic.toString()
         view.pulse.text = reading.pulse.toString()
@@ -60,5 +60,7 @@ class ReadingHolder(val view: View) : RecyclerView.ViewHolder(view) {
             else -> R.color.severity_green
         }
         view.severity.setBackgroundColorCompat(severityColor)
+
+        view.setOnClickListener { onReadingSelected(reading) }
     }
 }

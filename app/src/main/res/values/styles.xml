@@ -6,14 +6,49 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowBackground">@drawable/ebeat_gradient</item>
+
+        <item name="colorPrimaryDark">?colorPrimaryVariant</item>
+        <item name="colorAccent">?colorSecondary</item>
+        <item name="android:statusBarColor">?colorPrimary</item>
+
         <item name="toolbarStyle">@style/Widget.Toolbar</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">?colorPrimaryDark</item>
         <item name="actionOverflowButtonStyle">@style/OverflowStyle</item>
+
+        <!--Material color attributes -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorSecondaryVariant">@color/color_secondary_variant</item>
+
+        <item name="android:colorBackground">@color/color_background</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorError">@color/color_error</item>
+
+        <item name="colorOnPrimary">@color/color_on_primary</item>
+        <item name="colorOnSecondary">@color/color_on_secondary</item>
+        <item name="colorOnBackground">@color/color_on_background</item>
+        <item name="colorOnSurface">@color/color_on_surface</item>
+        <item name="colorOnError">@color/color_on_error</item>
+
+        <!--Material text style attributes-->
+        <item name="textAppearanceHeadline1">@style/Text.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/Text.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/Text.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/Text.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/Text.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/Text.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/Text.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/Text.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/Text.Body1</item>
+        <item name="textAppearanceBody2">@style/Text.Body2</item>
+        <item name="textAppearanceButton">@style/Text.Button</item>
+        <item name="textAppearanceCaption">@style/Text.Caption</item>
+        <item name="textAppearanceOverline">@style/Text.Overline</item>
     </style>
 
     <style name="OverflowStyle" parent="Widget.AppCompat.ActionButton.Overflow">

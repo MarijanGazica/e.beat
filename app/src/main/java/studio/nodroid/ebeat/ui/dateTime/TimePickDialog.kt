@@ -1,4 +1,4 @@
-package studio.nodroid.ebeat.ui.view
+package studio.nodroid.ebeat.ui.dateTime
 
 import android.app.Dialog
 import android.app.TimePickerDialog
@@ -8,7 +8,7 @@ import androidx.fragment.app.DialogFragment
 import studio.nodroid.ebeat.model.Time
 import java.util.*
 
-class TimePickerView : DialogFragment(), TimePickerDialog.OnTimeSetListener {
+class TimePickDialog : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
     var onTimeChosen: (Time) -> Unit = {}
 

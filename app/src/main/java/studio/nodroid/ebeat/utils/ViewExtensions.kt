@@ -1,15 +1,17 @@
 package studio.nodroid.ebeat.utils
 
-import android.os.Bundle
+import android.content.Context
 import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableString
 import android.text.TextWatcher
+import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.EditText
-import com.google.ads.mediation.admob.AdMobAdapter
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
+import androidx.annotation.ColorRes
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.textfield.TextInputLayout
+import com.squareup.phrase.Phrase
 import studio.nodroid.ebeat.R
 
 
@@ -82,32 +84,26 @@ fun TextInputLayout.setSelectedListener(action: () -> Unit) {
     }
 }
 
-fun AdView.inflateAd(personalised: Boolean) {
+fun View.setBackgroundColorCompat(@ColorRes color: Int) =
+    setBackgroundColor(ResourcesCompat.getColor(resources, color, context.theme))
 
-    val listener = object : AdListener() {
-        override fun onAdLoaded() {
-            super.onAdLoaded()
-            this@inflateAd.visibility = View.VISIBLE
-        }
-
-        override fun onAdFailedToLoad(p0: Int) {
-            super.onAdFailedToLoad(p0)
-            this@inflateAd.visibility = View.GONE
-        }
-    }
-
-    adListener = listener
-
-    val adRequestBuilder = AdRequest.Builder()
-        .addTestDevice("190B5E72876DC84A5968A67A1DCA8691") // s9+
-        .addTestDevice("8168E714BB90F44F74FC714181827C3A") // htc
-        .addTestDevice("4FB13D1519FF1AB35B624F3F800C34C5") // moto g4
-
-    if (!personalised) {
-        val extras = Bundle()
-        extras.putString("npa", "1")
-        adRequestBuilder.addNetworkExtrasBundle(AdMobAdapter::class.java, extras)
-    }
-
-    loadAd(adRequestBuilder.build())
+fun Context.colorFormat(placeholder: String, insert: String): CharSequence {
+    val styled = SpannableString(insert)
+//    styled.setSpan(
+////        ForegroundColorSpan(ResourcesCompat.getColor(resources, R.color.textAccent, theme)),
+//        StyleSpan(Typeface.BOLD),
+//        0,
+//        insert.length,
+//        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//    )
+    styled.setSpan(
+//        ForegroundColorSpan(ResourcesCompat.getColor(resources, R.color.textAccent, theme)),
+        UnderlineSpan(),
+        0,
+        insert.length,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    return Phrase.from(placeholder)
+        .put("first", styled)
+        .format()
 }

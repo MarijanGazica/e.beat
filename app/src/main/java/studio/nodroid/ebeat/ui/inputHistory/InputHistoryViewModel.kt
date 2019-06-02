@@ -1,4 +1,4 @@
-package studio.nodroid.ebeat.vm
+package studio.nodroid.ebeat.ui.inputHistory
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -1,4 +1,4 @@
-package studio.nodroid.ebeat.ui.view
+package studio.nodroid.ebeat.ui.dateTime
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import studio.nodroid.ebeat.model.Date
 import java.util.*
 
-class DatePickerView : DialogFragment(), DatePickerDialog.OnDateSetListener {
+class DatePickDialog : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     var onDateChosen: (Date) -> Unit = {}
     var onDismiss: () -> Unit = {}
@@ -21,7 +21,7 @@ class DatePickerView : DialogFragment(), DatePickerDialog.OnDateSetListener {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-        // Create a new instance of DatePickerDialog and return it
+        // Create a new instance of DatePickDialog and return it
         return DatePickerDialog(requireContext(), this, year, month, day)
     }
 
@@ -30,7 +30,7 @@ class DatePickerView : DialogFragment(), DatePickerDialog.OnDateSetListener {
         dismiss()
     }
 
-    override fun onDismiss(dialog: DialogInterface?) {
+    override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         onDismiss()
     }

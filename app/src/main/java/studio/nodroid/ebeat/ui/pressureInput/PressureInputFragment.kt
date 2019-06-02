@@ -17,13 +17,16 @@ import kotlinx.android.synthetic.main.view_pressure_input.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.ads.inflateAd
 import studio.nodroid.ebeat.model.PressureSeverity
 import studio.nodroid.ebeat.sharedPrefs.AdStatus
-import studio.nodroid.ebeat.ui.view.DatePickerView
-import studio.nodroid.ebeat.ui.view.TimePickerView
-import studio.nodroid.ebeat.utils.*
-import studio.nodroid.ebeat.vm.PressureInputViewModel
-import studio.nodroid.ebeat.vm.UserPickerViewModel
+import studio.nodroid.ebeat.ui.dateTime.DatePickDialog
+import studio.nodroid.ebeat.ui.dateTime.TimePickDialog
+import studio.nodroid.ebeat.ui.userPicker.UserPickerViewModel
+import studio.nodroid.ebeat.utils.hideKeyboard
+import studio.nodroid.ebeat.utils.onIntInputChanged
+import studio.nodroid.ebeat.utils.onTextChanged
+import studio.nodroid.ebeat.utils.setSelectedListener
 
 class PressureInputFragment : Fragment() {
 
@@ -33,13 +36,13 @@ class PressureInputFragment : Fragment() {
     private val shakeAnimation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.shake) }
 
     private val timePicker by lazy {
-        TimePickerView().apply {
+        TimePickDialog().apply {
             this@apply.onTimeChosen = viewModel.timeChosen
         }
     }
 
     private val datePicker by lazy {
-        DatePickerView().apply {
+        DatePickDialog().apply {
             this@apply.onDateChosen = viewModel.dateChosen
         }
     }

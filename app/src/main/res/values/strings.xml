@@ -44,5 +44,30 @@
     <string name="privacy_policy">Privacy policy</string>
     <string name="privacy_policy_url">https://sites.google.com/view/ebeat-privacypolicy/home</string>
     <string name="ad_settings">Advertisement settings</string>
+    <string name="delete">Delete</string>
+    <string name="delete_reading_title">Delete reading?</string>
+    <string name="delete_reading_description">Saved reading will be permanently deleted.</string>
+
+
+    <!--  New   -->
+
+    <!--    Actions    -->
+
+    <string name="actions_title">I would like to…</string>
+    <string name="actions_add_reading">add a new reading</string>
+    <string name="actions_view_readings">see previous readings</string>
+    <string name="actions_view_graph">see a history graph</string>
+    <string name="actions_manage_users">manage app users</string>
+    <string name="actions_edit_settings">edit app settings</string>
+
+    <!--    Reading    -->
+
+    <string name="reading_user">Add a new reading for {first}</string>
+    <string name="reading_date">taken on {first}</string>
+    <string name="reading_time">at {first}.</string>
+    <string name="reading_pressure_title">Measured values were:</string>
+    <string name="reading_systolic">systolic pressure - {first}</string>
+    <string name="reading_diastolic">diastolic pressure - {first}</string>
+    <string name="reading_pulse">pulse - {first}</string>
 
 </resources>

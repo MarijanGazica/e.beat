@@ -16,16 +16,16 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.ads.inflateAd
 import studio.nodroid.ebeat.analytics.Analytics
 import studio.nodroid.ebeat.analytics.AnalyticsEvent
 import studio.nodroid.ebeat.sharedPrefs.AdStatus
+import studio.nodroid.ebeat.ui.dateTime.DatePickDialog
+import studio.nodroid.ebeat.ui.inputHistory.InputHistoryViewModel
+import studio.nodroid.ebeat.ui.userPicker.UserPickerViewModel
 import studio.nodroid.ebeat.ui.view.DateAxisFormatter
-import studio.nodroid.ebeat.ui.view.DatePickerView
 import studio.nodroid.ebeat.ui.view.FilterView
 import studio.nodroid.ebeat.utils.DAY
-import studio.nodroid.ebeat.utils.inflateAd
-import studio.nodroid.ebeat.vm.InputHistoryViewModel
-import studio.nodroid.ebeat.vm.UserPickerViewModel
 
 class GraphsFragment : Fragment() {
 
@@ -150,7 +150,7 @@ class GraphsFragment : Fragment() {
     }
 
     private fun showDatePickerDialog() {
-        DatePickerView().apply {
+        DatePickDialog().apply {
             this@apply.onDateChosen = {
                 viewModel.dateSelected(it)
                 viewModel.filterSelected(3)
