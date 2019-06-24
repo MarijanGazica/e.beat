@@ -38,9 +38,9 @@ android {
 }
 
 dependencies {
-    def room = "2.1.0-rc01"
+    def room = "2.1.0"
     def koin = '1.0.1'
-    def navigation = "2.1.0-alpha04"
+    def navigation = "2.1.0-alpha05"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -48,7 +48,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
     implementation 'com.google.android.material:material:1.1.0-alpha07'
 
     implementation "org.koin:koin-androidx-viewmodel:$koin"
@@ -56,19 +56,19 @@ dependencies {
     implementation "androidx.room:room-runtime:$room"
     kapt "androidx.room:room-compiler:$room"
 
-    implementation 'com.google.firebase:firebase-ads:17.2.1'
+    implementation 'com.google.firebase:firebase-ads:18.0.0'
     implementation 'com.google.android.ads.consent:consent-library:1.0.7'
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     implementation 'com.squareup.phrase:phrase:1.1.0'
 
-    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation"
 
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-beta01"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
