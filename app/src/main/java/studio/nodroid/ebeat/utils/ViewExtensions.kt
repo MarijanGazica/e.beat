@@ -87,23 +87,37 @@ fun TextInputLayout.setSelectedListener(action: () -> Unit) {
 fun View.setBackgroundColorCompat(@ColorRes color: Int) =
     setBackgroundColor(ResourcesCompat.getColor(resources, color, context.theme))
 
-fun Context.colorFormat(placeholder: String, insert: String): CharSequence {
-    val styled = SpannableString(insert)
-//    styled.setSpan(
-////        ForegroundColorSpan(ResourcesCompat.getColor(resources, R.color.textAccent, theme)),
-//        StyleSpan(Typeface.BOLD),
-//        0,
-//        insert.length,
-//        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//    )
-    styled.setSpan(
-//        ForegroundColorSpan(ResourcesCompat.getColor(resources, R.color.textAccent, theme)),
+fun Context.resolveColor(@ColorRes color: Int): Int = ResourcesCompat.getColor(resources, color, theme)
+
+fun colorFormat(placeholder: String, firstInset: String, secondInset: String? = null): CharSequence {
+
+    val styledFirst = SpannableString(firstInset)
+
+    styledFirst.setSpan(
         UnderlineSpan(),
         0,
-        insert.length,
+        firstInset.length,
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
-    return Phrase.from(placeholder)
-        .put("first", styled)
-        .format()
+
+    val styledSecond = secondInset?.run {
+        val styled = SpannableString(this)
+        styled.setSpan(
+            UnderlineSpan(),
+            0,
+            this.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        styled
+    }
+
+
+    val phrase = Phrase.from(placeholder)
+        .put("first", styledFirst)
+
+    styledSecond?.run {
+        phrase.put("second", this)
+    }
+
+    return phrase.format()
 }

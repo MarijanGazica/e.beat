@@ -12,22 +12,23 @@
         <item name="android:windowBackground">@drawable/ebeat_gradient</item>
 
         <item name="colorPrimaryDark">?colorPrimaryVariant</item>
-        <item name="colorAccent">?colorSecondary</item>
-        <item name="android:statusBarColor">?colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/petroleum</item>
 
         <item name="toolbarStyle">@style/Widget.Toolbar</item>
-        <item name="android:navigationBarColor">?colorPrimaryDark</item>
+        <item name="android:navigationBarColor">?colorAccent</item>
         <item name="actionOverflowButtonStyle">@style/OverflowStyle</item>
 
         <!--Material color attributes -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorSecondary">@color/color_secondary</item>
-        <item name="colorSecondaryVariant">@color/color_secondary_variant</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">@color/white</item>
 
         <item name="android:colorBackground">@color/color_background</item>
         <item name="colorSurface">@color/color_surface</item>
         <item name="colorError">@color/color_error</item>
+        <item name="colorBackgroundFloating">@color/color_error</item>
 
         <item name="colorOnPrimary">@color/color_on_primary</item>
         <item name="colorOnSecondary">@color/color_on_secondary</item>
@@ -49,6 +50,9 @@
         <item name="textAppearanceButton">@style/Text.Button</item>
         <item name="textAppearanceCaption">@style/Text.Caption</item>
         <item name="textAppearanceOverline">@style/Text.Overline</item>
+
+        <item name="android:datePickerDialogTheme">@style/DatePickerDialogTheme</item>
+        <item name="android:timePickerDialogTheme">@style/TimePickerDialogTheme</item>
     </style>
 
     <style name="OverflowStyle" parent="Widget.AppCompat.ActionButton.Overflow">
@@ -59,4 +63,49 @@
         <item name="titleTextColor">@color/textOnPrimary</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
+
+    <style name="DatePickerDialogTheme" parent="android:Theme.Material.Dialog">
+        <item name="android:datePickerMode">calendar</item>
+        <item name="android:headerBackground">?colorSurface</item>
+        <item name="android:background">?colorSurface</item>
+        <item name="android:textColorPrimaryInverse">?colorOnSurface</item>
+        <item name="android:textColorPrimary">?colorOnSurface</item>
+        <item name="android:textColorSecondary">?colorOnSurface</item>
+        <item name="android:textColorSecondaryInverse">?colorOnSurface</item>
+        <item name="android:textColorTertiary">?colorOnSurface</item>
+        <item name="android:textColorTertiaryInverse">?colorOnSurface</item>
+        <item name="android:textColor">?colorOnSurface</item>
+        <item name="android:colorControlActivated">@color/darkOnPrimary</item>
+        <item name="android:buttonBarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
+        <item name="android:datePickerStyle">@style/DatePickerStyle</item>
+    </style>
+
+    <style name="DatePickerStyle" parent="@android:style/Widget.Material.DatePicker">
+        <item name="android:headerBackground">?colorSurface</item>
+    </style>
+
+    <style name="TimePickerDialogTheme" parent="android:Theme.Material.Dialog">
+        <item name="android:timePickerStyle">@style/TimePickerStyle</item>
+        <item name="android:background">?colorSurface</item>
+        <item name="android:textColorPrimaryInverse">?colorOnSurface</item>
+        <item name="android:textColorPrimary">?colorOnSurface</item>
+        <item name="android:textColorSecondary">?colorOnSurface</item>
+        <item name="android:textColorSecondaryInverse">?colorOnSurface</item>
+        <item name="android:textColorTertiary">?colorOnSurface</item>
+        <item name="android:textColorTertiaryInverse">?colorOnSurface</item>
+        <item name="android:buttonBarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
+        <item name="android:headerBackground">?colorSurface</item>
+    </style>
+
+    <style name="TimePickerStyleBase" parent="@android:style/Widget.Material.TimePicker">
+        <item name="android:headerBackground">?colorSurface</item>
+        <item name="android:numbersTextColor">?colorOnSurface</item>
+        <item name="android:numbersSelectorColor">@color/darkOnPrimary</item>
+        <item name="android:numbersBackgroundColor">?colorSurface</item>
+        <item name="android:textColor">?colorOnSurface</item>
+        <item name="colorAccent">?colorOnSurface</item>
+    </style>
+
+    <style name="TimePickerStyle" parent="TimePickerStyleBase" />
+
 </resources>

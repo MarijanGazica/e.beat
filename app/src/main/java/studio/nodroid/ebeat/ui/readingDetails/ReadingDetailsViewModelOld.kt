@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import studio.nodroid.ebeat.model.PressureDataDB
 import studio.nodroid.ebeat.room.PressureDataRepository
 
-class ReadingDetailsViewModel(private val pressureRepo: PressureDataRepository) : ViewModel() {
+class ReadingDetailsViewModelOld(private val pressureRepo: PressureDataRepository) : ViewModel() {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)

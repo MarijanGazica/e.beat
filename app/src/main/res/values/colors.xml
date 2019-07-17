@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorAccent">@color/petroleum</color>
+    <color name="colorAccent">@color/petroleumDark</color>
     <color name="lightPrimary">#E8EEEF</color>
 
     <color name="petroleum">#0097A7</color>
@@ -28,10 +28,10 @@
     <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
     <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
     <!--selection controls.-->
-    <color name="colorPrimary">@color/petroleum</color>
-    <color name="colorPrimaryDark">@color/petroleumDark</color>
-    <color name="color_secondary">@color/petroleum</color>
-    <color name="color_secondary_variant">@color/petroleumDark</color>
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorPrimaryDark">@color/white</color>
+    <color name="color_secondary">@color/white</color>
+    <color name="color_secondary_variant">@color/white</color>
 
     <!--colorBackground appears behind scrollable content and is used for the default window-->
     <!--background. colorSurface is mapped to the surface of components such as cards, sheets-->
@@ -43,14 +43,12 @@
 
     <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
     <!--on which they appear.-->
-    <color name="color_on_primary">#ffffff</color>
-    <color name="color_on_secondary">#000000</color>
+    <color name="color_on_primary">@color/petroleumDark</color>
+    <color name="color_on_secondary">@color/petroleumDark</color>
     <color name="color_on_background">#eeffffff</color>
-    <color name="color_on_surface">#666666</color>
+    <color name="color_on_surface">#ffffff</color>
     <color name="bg_on_surface">#22363838</color>
     <color name="color_on_error">#ffffff</color>
 
-
-    <color name="textAccent">#EE9393</color>
 
 </resources>

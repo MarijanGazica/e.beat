@@ -36,7 +36,7 @@ class ReadingDetailsDialog : DialogFragment() {
         return@lazy arguments?.getInt(READING_ID)
     }
 
-    private val readingDetailsViewModel: ReadingDetailsViewModel by viewModel()
+    private val readingDetailsViewModel: ReadingDetailsViewModelOld by viewModel()
 
     private val deleteReadingDialog by lazy {
         val dialogBuilder = AlertDialog.Builder(requireActivity())

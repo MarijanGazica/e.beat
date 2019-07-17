@@ -2,11 +2,14 @@
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/motionLayout"
-    tools:showPaths="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:applyMotionScene="true"
+    app:currentState="@id/initial"
     app:layoutDescription="@xml/fragment_reading_motion"
-    android:layout_height="match_parent">
+    app:motionProgress="0"
+    tools:showPaths="true">
 
     <ImageView
         android:id="@+id/icon"
@@ -33,7 +36,7 @@
         tools:text="Add a reading for Marijan" />
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/dateTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -42,17 +45,6 @@
         app:layout_constraintStart_toStartOf="@id/startGuide"
         app:layout_constraintTop_toBottomOf="parent"
         tools:text="taken on 31.03.2019." />
-
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/Text.Body1"
-        app:layout_constraintEnd_toEndOf="@id/endGuide"
-        app:layout_constraintStart_toStartOf="@id/startGuide"
-        app:layout_constraintTop_toBottomOf="parent"
-        tools:text="at 13:01." />
 
     <TextView
         android:id="@+id/pressureText"
@@ -108,6 +100,94 @@
         app:layout_constraintStart_toStartOf="@id/startGuide"
         app:layout_constraintTop_toBottomOf="parent"
         tools:text="Some description that's also added just so we can see how it looks" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/userSelector"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/userQuestion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/add_reading_for"
+            android:textAppearance="@style/Text.Subtitle1"
+            app:layout_constraintBottom_toTopOf="@id/userChipContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <HorizontalScrollView
+            android:id="@+id/userChipContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                app:chipSpacing="8dp"
+                app:singleLine="true" />
+
+        </HorizontalScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dateSelector"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/dateQuestion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/reading_taken_on"
+            android:textAppearance="@style/Text.Subtitle1"
+            app:layout_constraintBottom_toTopOf="@id/timeNow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/timeNow"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="@string/reading_taken_now"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/timeOther"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/reading_taken_other"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/timeNow" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/startGuide"

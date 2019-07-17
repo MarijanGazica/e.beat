@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TimePickerStyle" parent="TimePickerStyleBase">
+        <item name="android:numbersInnerTextColor">?colorOnSurface</item>
+    </style>
+</resources>

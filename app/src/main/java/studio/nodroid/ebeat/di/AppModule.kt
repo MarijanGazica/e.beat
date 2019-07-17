@@ -11,9 +11,11 @@ import studio.nodroid.ebeat.analytics.Analytics
 import studio.nodroid.ebeat.room.*
 import studio.nodroid.ebeat.sharedPrefs.SharedPrefs
 import studio.nodroid.ebeat.sharedPrefs.SharedPrefsImpl
+import studio.nodroid.ebeat.time.TimeProvider
+import studio.nodroid.ebeat.ui.flow.reading.ReadingDetailsViewModel
 import studio.nodroid.ebeat.ui.inputHistory.InputHistoryViewModel
 import studio.nodroid.ebeat.ui.pressureInput.PressureInputViewModel
-import studio.nodroid.ebeat.ui.readingDetails.ReadingDetailsViewModel
+import studio.nodroid.ebeat.ui.readingDetails.ReadingDetailsViewModelOld
 import studio.nodroid.ebeat.ui.splash.SplashViewModel
 import studio.nodroid.ebeat.ui.userPicker.UserListViewModel
 import studio.nodroid.ebeat.ui.userPicker.UserPickerViewModel
@@ -30,12 +32,14 @@ val appModule = module {
     viewModel { UserPickerViewModel(get(), get(), get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { AdSettingsViewModel(get(), get()) }
-    viewModel { ReadingDetailsViewModel(get()) }
+    viewModel { ReadingDetailsViewModelOld(get()) }
 
     single<SharedPreferences> { androidApplication().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE) }
     single<SharedPrefs> { SharedPrefsImpl(get()) }
 
     single { Analytics(androidApplication()) }
+
+    single { TimeProvider() }
 
     single { Room.databaseBuilder(androidApplication(), AppDatabase::class.java, DATABASE_NAME).build() }
 
@@ -46,5 +50,7 @@ val appModule = module {
     single<PressureDataRepository> { PressureDataRepositoryImpl(get()) }
 
     factory { KeyboardVisibilityProvider(get()) }
+
+    viewModel { ReadingDetailsViewModel(get(), get()) }
 
 }

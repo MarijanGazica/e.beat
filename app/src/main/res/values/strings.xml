@@ -63,11 +63,14 @@
     <!--    Reading    -->
 
     <string name="reading_user">Add a new reading for {first}</string>
-    <string name="reading_date">taken on {first}</string>
-    <string name="reading_time">at {first}.</string>
+    <string name="reading_date">taken on {first} at {second}.</string>
     <string name="reading_pressure_title">Measured values were:</string>
     <string name="reading_systolic">systolic pressure - {first}</string>
     <string name="reading_diastolic">diastolic pressure - {first}</string>
     <string name="reading_pulse">pulse - {first}</string>
+    <string name="add_reading_for">Add a new reading for</string>
+    <string name="reading_taken_now">Just now</string>
+    <string name="reading_taken_other">Other</string>
+    <string name="reading_taken_on">Blood pressure measured</string>
 
 </resources>
