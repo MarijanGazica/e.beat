@@ -60,7 +60,10 @@
     <string name="actions_manage_users">manage app users</string>
     <string name="actions_edit_settings">edit app settings</string>
 
+    <!--               -->
     <!--    Reading    -->
+    <!--               -->
+
 
     <string name="reading_user">Add a new reading for {first}</string>
     <string name="reading_date">taken on {first} at {second}.</string>
@@ -68,9 +71,21 @@
     <string name="reading_systolic">systolic pressure - {first}</string>
     <string name="reading_diastolic">diastolic pressure - {first}</string>
     <string name="reading_pulse">pulse - {first}</string>
-    <string name="add_reading_for">Add a new reading for</string>
-    <string name="reading_taken_now">Just now</string>
-    <string name="reading_taken_other">Other</string>
-    <string name="reading_taken_on">Blood pressure measured</string>
+
+    <!--  Questions  -->
+    <string name="question_add_reading_for">Whose blood pressure was measured?</string>
+    <string name="question_reading_taken_on">When was the measurement taken?</string>
+    <string name="question_systolic_value">What was the systolic pressure value?</string>
+    <string name="question_diastolic_value">What was the diastolic pressure value?</string>
+    <string name="question_pulse_value">What was the measured heart rate (pulse)?</string>
+    <string name="question_next_action">What do you want to do next?</string>
+
+    <!--  Answers  -->
+    <string name="answer_reading_taken_now">Just now</string>
+    <string name="answer_reading_taken_other">Other</string>
+    <string name="answer_add_description">Add a description</string>
+    <string name="answer_save_reading">Save the reading</string>
+    <string name="answer_discard">Discard this</string>
+    <string name="question_description">Enter the description</string>
 
 </resources>

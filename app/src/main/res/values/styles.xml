@@ -53,6 +53,8 @@
 
         <item name="android:datePickerDialogTheme">@style/DatePickerDialogTheme</item>
         <item name="android:timePickerDialogTheme">@style/TimePickerDialogTheme</item>
+
+        <item name="editTextStyle">@style/EditTextStyle</item>
     </style>
 
     <style name="OverflowStyle" parent="Widget.AppCompat.ActionButton.Overflow">
@@ -107,5 +109,14 @@
     </style>
 
     <style name="TimePickerStyle" parent="TimePickerStyleBase" />
+
+    <style name="EditTextStyle" parent="@android:style/Widget.Material.EditText">
+        <item name="android:textAppearance">@style/Answer</item>
+        <item name="android:background">@drawable/bg_rounded</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingStart">16dp</item>
+    </style>
 
 </resources>

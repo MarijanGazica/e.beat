@@ -1,12 +1,13 @@
 package studio.nodroid.ebeat.ui.flow.reading
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.fragment_reading.*
 import org.koin.android.ext.android.inject
@@ -14,15 +15,9 @@ import studio.nodroid.ebeat.R
 import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.ui.dateTime.DatePickDialog
 import studio.nodroid.ebeat.ui.dateTime.TimePickDialog
-import studio.nodroid.ebeat.utils.colorFormat
-import studio.nodroid.ebeat.utils.resolveColor
-import studio.nodroid.ebeat.utils.toDate
-import studio.nodroid.ebeat.utils.toTime
+import studio.nodroid.ebeat.utils.*
 
 class ReadingFragment : Fragment() {
-
-    var step = 0
-
 
     private val timePicker by lazy {
         TimePickDialog().apply {
@@ -40,7 +35,6 @@ class ReadingFragment : Fragment() {
         }
     }
 
-
     val viewModel by inject<ReadingDetailsViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,12 +44,7 @@ class ReadingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        user.text = colorFormat(getString(R.string.reading_user), "Marijan")
-        dateTime.text = colorFormat(getString(R.string.reading_date), "31.05.2019.", "13:01")
-        systolic.text = colorFormat(getString(R.string.reading_systolic), "121")
-        diastolic.text = colorFormat(getString(R.string.reading_diastolic), "59")
-        pulse.text = colorFormat(getString(R.string.reading_pulse), "55")
-        description.text = "Some description that's also added just so we can see how it looks"
+        motionLayout.transitionToState(R.id.initial)
 
         viewModel.userList.observe(viewLifecycleOwner, Observer { list ->
             when (list.size) {
@@ -65,55 +54,54 @@ class ReadingFragment : Fragment() {
         })
 
         viewModel.selectedUser.observe(viewLifecycleOwner, Observer { it?.run { showUserSelected(this) } })
-
-        icon.setOnClickListener {
-            Toast.makeText(requireContext(), "$step", Toast.LENGTH_SHORT).show()
-            when (step) {
-                0 -> {
-                    motionLayout.transitionToState(R.id.userSet)
-                    step++
-                }
-                1 -> {
-                    motionLayout.transitionToState(R.id.dateSet)
-                    step++
-                }
-                3 -> {
-                    motionLayout.transitionToState(R.id.systolicSet)
-                    step++
-                }
-                4 -> {
-                    motionLayout.transitionToState(R.id.diastolicSet)
-                    step++
-                }
-                5 -> {
-                    motionLayout.transitionToState(R.id.pulseSet)
-                    step++
-                }
-                6 -> {
-                    motionLayout.transitionToState(R.id.descriptionSet)
-                    step++
-                }
-                else -> {
-                    motionLayout.transitionToState(R.id.start)
-                    step = 0
-                }
-            }
-        }
+        viewModel.selectedTime.observe(viewLifecycleOwner, Observer { it?.run { showTimeSelected(this) } })
+        viewModel.selectedSystolic.observe(viewLifecycleOwner, Observer { it?.run { showSystolicSelected(this) } })
+        viewModel.selectedDiastolic.observe(viewLifecycleOwner, Observer { it?.run { showDiastolicSelected(this) } })
+        viewModel.selectedPulse.observe(viewLifecycleOwner, Observer { it?.run { showPulseSelected(this) } })
+        viewModel.selectedDescription.observe(viewLifecycleOwner, Observer { it?.run { showDescriptionSelected(this) } })
 
         timeNow.setOnClickListener { viewModel.readingTakenNow() }
         timeOther.setOnClickListener { viewModel.timeNotNowSelected() }
+        systolicValue.setOnEditorActionListener { _, _, _ ->
+            viewModel.systolicPressureEntered(systolicValue.text.toString())
+            true
+        }
+        diastolicValue.setOnEditorActionListener { _, _, _ ->
+            viewModel.diastolicPressureEntered(diastolicValue.text.toString())
+            true
+        }
+        pulseValue.setOnEditorActionListener { v, _, _ ->
+            viewModel.pulseEntered(pulseValue.text.toString())
+            hideKeyboard(v)
+            true
+        }
+        descriptionValue.setOnEditorActionListener { v, _, _ ->
+            viewModel.descriptionEntered(descriptionValue.text.toString())
+            hideKeyboard(v)
+            true
+        }
 
-        viewModel.selectedTime.observe(viewLifecycleOwner, Observer { it?.run { showTimeSelected(this) } })
+        actionDescription.setOnClickListener { motionLayout.transitionToState(R.id.descriptionRequired) }
+        actionSave.setOnClickListener { viewModel.saveReading() }
+        actionDiscard.setOnClickListener { viewModel.discardReading() }
+
         viewModel.events.observe(viewLifecycleOwner, Observer { event ->
             when (event) {
                 ReadingDetailsViewModel.Action.TIME_NEEDED -> timePicker.show(childFragmentManager, "time")
                 ReadingDetailsViewModel.Action.DATE_NEEDED -> datePicker.show(childFragmentManager, "date")
+                ReadingDetailsViewModel.Action.SAVED -> handleSuccess()
+                ReadingDetailsViewModel.Action.CANCELED -> {
+                    handleSuccess()
+                }
                 null -> {/*noop*/
                 }
             }
         })
     }
 
+    private fun handleSuccess() {
+        icon.findNavController().popBackStack()
+    }
 
     /**
      *
@@ -128,6 +116,7 @@ class ReadingFragment : Fragment() {
 
     private fun showUserPicker(list: List<User>) {
         motionLayout.transitionToState(R.id.start)
+        Log.d("findme", "start")
         list.forEach { user ->
             val chip = Chip(requireContext())
             chip.text = user.name
@@ -143,7 +132,6 @@ class ReadingFragment : Fragment() {
         viewModel.selectedUser(user)
     }
 
-
     /**
      *
      * Time and date picking
@@ -153,6 +141,62 @@ class ReadingFragment : Fragment() {
     private fun showTimeSelected(time: Long) {
         dateTime.text = colorFormat(getString(R.string.reading_date), time.toDate(), time.toTime())
         motionLayout.transitionToState(R.id.dateSet)
+        systolicValue.requestFocus()
+        showKeyboard(systolicValue)
     }
 
+
+    /**
+     *
+     * Systolic handling
+     *
+     */
+
+    private fun showSystolicSelected(sys: Int) {
+        systolic.text = colorFormat(getString(R.string.reading_systolic), sys.toString())
+        motionLayout.transitionToState(R.id.systolicSet)
+        diastolicValue.requestFocus()
+    }
+
+
+    /**
+     *
+     * Diastolic handling
+     *
+     */
+
+    private fun showDiastolicSelected(dia: Int) {
+        diastolic.text = colorFormat(getString(R.string.reading_diastolic), dia.toString())
+        motionLayout.transitionToState(R.id.diastolicSet)
+        pulseValue.requestFocus()
+    }
+
+
+    /**
+     *
+     * Pulse handling
+     *
+     */
+
+    private fun showPulseSelected(pul: Int) {
+        pulse.text = colorFormat(getString(R.string.reading_pulse), pul.toString())
+        motionLayout.transitionToState(R.id.actionsPresented)
+    }
+
+
+    /**
+     *
+     * Description handling
+     *
+     */
+
+    private fun showDescriptionSelected(desc: String) {
+        if (desc.isEmpty()) {
+            motionLayout.transitionToState(R.id.actionsPresented)
+        } else {
+            description.text = colorFormat("{first}", desc)
+            actionDescription.visibility = View.GONE
+            motionLayout.transitionToState(R.id.descriptionSet)
+        }
+    }
 }

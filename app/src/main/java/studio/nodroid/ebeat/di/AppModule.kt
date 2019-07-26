@@ -51,6 +51,6 @@ val appModule = module {
 
     factory { KeyboardVisibilityProvider(get()) }
 
-    viewModel { ReadingDetailsViewModel(get(), get()) }
+    viewModel { ReadingDetailsViewModel(get(), get(), get()) }
 
 }

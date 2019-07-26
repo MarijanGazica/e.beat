@@ -35,12 +35,10 @@
 
     <style name="Text.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
         <!--Your custom type style here-->
-        <item name="android:textColor">@color/color_on_background</item>
     </style>
 
     <style name="Text.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
         <!--Your custom type style here-->
-        <item name="android:textColor">@color/color_on_background</item>
     </style>
 
     <style name="Text.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
@@ -73,6 +71,22 @@
 
     <style name="Text.Overline" parent="TextAppearance.MaterialComponents.Overline">
         <!--Your custom type style here-->
+    </style>
+
+    <style name="Answer" parent="Text.Headline6" />
+
+    <style name="Choice">
+        <item name="android:textAppearance">@style/Text.Body1</item>
+        <item name="android:background">@drawable/bg_rounded</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:minWidth">100dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Question">
+        <item name="android:textAppearance">@style/Text.Headline5</item>
     </style>
 
 </resources>
