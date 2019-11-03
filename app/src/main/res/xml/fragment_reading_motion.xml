@@ -12,7 +12,7 @@
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="120dp"
             android:alpha="0"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
             motion:layout_constraintStart_toStartOf="@id/startGuide"
@@ -36,11 +36,11 @@
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="120dp"
             android:alpha="1"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
             motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/icon" />
+            motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/dateSelector"
@@ -60,11 +60,11 @@
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="120dp"
             android:alpha="1"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
             motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/icon" />
+            motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/dateTime"
@@ -93,13 +93,11 @@
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="120dp"
             android:alpha="1"
-            android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
             motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/icon" />
+            motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/dateTime"
@@ -154,13 +152,11 @@
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="120dp"
             android:alpha="1"
-            android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
             motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/icon" />
+            motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/dateTime"
@@ -227,13 +223,11 @@
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="120dp"
             android:alpha="1"
-            android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
             motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/icon" />
+            motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/dateTime"
@@ -325,13 +319,11 @@
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="120dp"
             android:alpha="1"
-            android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
             motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/icon" />
+            motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/dateTime"
@@ -410,13 +402,11 @@
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="120dp"
             android:alpha="1"
-            android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
             motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/icon" />
+            motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/dateTime"

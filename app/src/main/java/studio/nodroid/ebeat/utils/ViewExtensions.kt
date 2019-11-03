@@ -6,6 +6,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.UnderlineSpan
+import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
 import androidx.annotation.ColorRes
@@ -120,4 +121,8 @@ fun colorFormat(placeholder: String, firstInset: String, secondInset: String? = 
     }
 
     return phrase.format()
+}
+
+fun Context.dpPx(dp: Float): Int {
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
 }

@@ -10,10 +10,16 @@
         android:label="ActionsFragment">
         <action
             android:id="@+id/action_actionsFragment_to_readingFragment"
-            app:destination="@id/readingFragment" />
+            app:destination="@id/readingFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/slide_down"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
     </fragment>
+
     <fragment
         android:id="@+id/readingFragment"
         android:name="studio.nodroid.ebeat.ui.flow.reading.ReadingFragment"
         android:label="ReadingFragment" />
+
 </navigation>

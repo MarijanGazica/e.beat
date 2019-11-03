@@ -13,10 +13,10 @@
 
         <item name="colorPrimaryDark">?colorPrimaryVariant</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/petroleum</item>
+        <item name="android:statusBarColor">@color/transparent</item>
 
         <item name="toolbarStyle">@style/Widget.Toolbar</item>
-        <item name="android:navigationBarColor">?colorAccent</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
         <item name="actionOverflowButtonStyle">@style/OverflowStyle</item>
 
         <!--Material color attributes -->

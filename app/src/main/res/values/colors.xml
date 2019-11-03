@@ -49,6 +49,7 @@
     <color name="color_on_surface">#ffffff</color>
     <color name="bg_on_surface">#22363838</color>
     <color name="color_on_error">#ffffff</color>
+    <color name="transparent">#00000000</color>
 
 
 </resources>

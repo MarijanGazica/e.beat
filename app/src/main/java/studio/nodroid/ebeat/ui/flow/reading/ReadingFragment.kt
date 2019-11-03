@@ -1,14 +1,16 @@
 package studio.nodroid.ebeat.ui.flow.reading
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
-import com.google.android.material.chip.Chip
+import dev.chrisbanes.insetter.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_reading.*
 import org.koin.android.ext.android.inject
 import studio.nodroid.ebeat.R
@@ -35,7 +37,7 @@ class ReadingFragment : Fragment() {
         }
     }
 
-    val viewModel by inject<ReadingDetailsViewModel>()
+    private val viewModel by inject<ReadingDetailsViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_reading, container, false)
@@ -43,6 +45,12 @@ class ReadingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        motionLayout.doOnApplyWindowInsets { target, insets, initialState ->
+            target.updatePadding(
+                bottom = initialState.paddings.bottom + insets.systemWindowInsetBottom
+            )
+        }
 
         motionLayout.transitionToState(R.id.initial)
 
@@ -62,18 +70,36 @@ class ReadingFragment : Fragment() {
 
         timeNow.setOnClickListener { viewModel.readingTakenNow() }
         timeOther.setOnClickListener { viewModel.timeNotNowSelected() }
+
+        systolicValueConfirm.setOnClickListener {
+            viewModel.systolicPressureEntered(systolicValue.text.toString())
+        }
         systolicValue.setOnEditorActionListener { _, _, _ ->
             viewModel.systolicPressureEntered(systolicValue.text.toString())
             true
+        }
+
+        diastolicValueConfirm.setOnClickListener {
+            viewModel.diastolicPressureEntered(diastolicValue.text.toString())
         }
         diastolicValue.setOnEditorActionListener { _, _, _ ->
             viewModel.diastolicPressureEntered(diastolicValue.text.toString())
             true
         }
+
+        pulseValueConfirm.setOnClickListener {
+            viewModel.pulseEntered(pulseValue.text.toString())
+            hideKeyboard(it)
+        }
         pulseValue.setOnEditorActionListener { v, _, _ ->
             viewModel.pulseEntered(pulseValue.text.toString())
             hideKeyboard(v)
             true
+        }
+
+        descriptionValueConfirm.setOnClickListener {
+            viewModel.descriptionEntered(descriptionValue.text.toString())
+            hideKeyboard(it)
         }
         descriptionValue.setOnEditorActionListener { v, _, _ ->
             viewModel.descriptionEntered(descriptionValue.text.toString())
@@ -100,7 +126,7 @@ class ReadingFragment : Fragment() {
     }
 
     private fun handleSuccess() {
-        icon.findNavController().popBackStack()
+        user.findNavController().popBackStack()
     }
 
     /**
@@ -116,13 +142,12 @@ class ReadingFragment : Fragment() {
 
     private fun showUserPicker(list: List<User>) {
         motionLayout.transitionToState(R.id.start)
-        Log.d("findme", "start")
         list.forEach { user ->
-            val chip = Chip(requireContext())
+            val chip = layoutInflater.inflate(R.layout.item_user, null) as TextView
+            val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            layoutParams.marginStart = requireContext().dpPx(8f)
+            chip.layoutParams = layoutParams
             chip.text = user.name
-            chip.setTextAppearanceResource(R.style.Text_Subtitle1)
-            chip.setTextColor(requireContext().resolveColor(R.color.colorAccent))
-            chip.setChipBackgroundColorResource(R.color.white)
             chip.setOnClickListener { viewModel.selectedUser(user) }
             chipGroup.addView(chip)
         }

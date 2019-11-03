@@ -53,12 +53,12 @@
 
     <!--    Actions    -->
 
-    <string name="actions_title">I would like to…</string>
-    <string name="actions_add_reading">add a new reading</string>
-    <string name="actions_view_readings">see previous readings</string>
-    <string name="actions_view_graph">see a history graph</string>
-    <string name="actions_manage_users">manage app users</string>
-    <string name="actions_edit_settings">edit app settings</string>
+    <string name="actions_title">What would you like to do?</string>
+    <string name="actions_add_reading">Add a new reading</string>
+    <string name="actions_view_readings">See previous readings</string>
+    <string name="actions_view_graph">See a history graph</string>
+    <string name="actions_manage_users">Manage app users</string>
+    <string name="actions_edit_settings">Edit app settings</string>
 
     <!--               -->
     <!--    Reading    -->
@@ -87,5 +87,6 @@
     <string name="answer_save_reading">Save the reading</string>
     <string name="answer_discard">Discard this</string>
     <string name="question_description">Enter the description</string>
+    <string name="description_confirm">Confirm</string>
 
 </resources>
