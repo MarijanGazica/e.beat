@@ -3,4 +3,5 @@
     <dimen name="divider_height">1dp</dimen>
     <dimen name="divider_offset">16dp</dimen>
     <dimen name="padding8">8dp</dimen>
+    <dimen name="transition_duration">600</dimen>
 </resources>

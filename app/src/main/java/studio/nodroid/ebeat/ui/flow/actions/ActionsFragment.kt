@@ -31,5 +31,9 @@ class ActionsFragment : Fragment() {
         actionAddReading.setOnClickListener {
             it.findNavController().navigate(R.id.action_actionsFragment_to_readingFragment)
         }
+
+        actionManageUsers.setOnClickListener {
+            it.findNavController().navigate(R.id.action_actionsFragment_to_usersFragment)
+        }
     }
 }

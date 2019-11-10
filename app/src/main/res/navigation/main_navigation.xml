@@ -15,11 +15,23 @@
             app:exitAnim="@anim/slide_down"
             app:popEnterAnim="@anim/slide_up"
             app:popExitAnim="@anim/slide_down" />
+        <action
+            android:id="@+id/action_actionsFragment_to_usersFragment"
+            app:destination="@id/usersFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/slide_down"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
     </fragment>
 
     <fragment
         android:id="@+id/readingFragment"
         android:name="studio.nodroid.ebeat.ui.flow.reading.ReadingFragment"
         android:label="ReadingFragment" />
+
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="studio.nodroid.ebeat.ui.flow.users.UsersFragment"
+        android:label="UsersFragment" />
 
 </navigation>

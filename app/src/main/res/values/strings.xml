@@ -89,4 +89,24 @@
     <string name="question_description">Enter the description</string>
     <string name="description_confirm">Confirm</string>
 
+
+    <!--                   -->
+    <!--  User management  -->
+    <!--                   -->
+
+
+    <!--  Questions  -->
+    <string name="user_option_question">These are your application users.\nWhat would you like to do?</string>
+    <string name="question_new_user">What is the name of the new user?</string>
+    <string name="question_delete_user_which">Tap on a user you wish to delete.</string>
+    <string name="question_confirm_delete_user">Are you sure you want to delete {first}?</string>
+
+    <!--  Answers  -->
+    <string name="answer_add_user">Add a new user</string>
+    <string name="answer_delete_user">Delete a user</string>
+    <string name="answer_go_back">Nothing, go back</string>
+    <string name="answer_confirm_delete_user">Yes, delete it</string>
+    <string name="answer_cancel_delete_user">No, don\'t delete it</string>
+    <string name="answer_abort_delete_pick">I don\'t want to delete a user</string>
+
 </resources>

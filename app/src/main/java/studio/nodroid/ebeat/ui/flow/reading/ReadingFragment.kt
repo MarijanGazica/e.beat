@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import com.google.android.material.chip.Chip
 import dev.chrisbanes.insetter.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_reading.*
 import org.koin.android.ext.android.inject
@@ -143,7 +143,7 @@ class ReadingFragment : Fragment() {
     private fun showUserPicker(list: List<User>) {
         motionLayout.transitionToState(R.id.start)
         list.forEach { user ->
-            val chip = layoutInflater.inflate(R.layout.item_user, null) as TextView
+            val chip = layoutInflater.inflate(R.layout.item_user, null) as Chip
             val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             layoutParams.marginStart = requireContext().dpPx(8f)
             chip.layoutParams = layoutParams
