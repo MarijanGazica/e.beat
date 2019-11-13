@@ -37,7 +37,7 @@ class ReadingFragment : Fragment() {
         }
     }
 
-    private val viewModel by inject<ReadingDetailsViewModel>()
+    private val viewModel by inject<ReadingViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_reading, container, false)
@@ -113,10 +113,10 @@ class ReadingFragment : Fragment() {
 
         viewModel.events.observe(viewLifecycleOwner, Observer { event ->
             when (event) {
-                ReadingDetailsViewModel.Action.TIME_NEEDED -> timePicker.show(childFragmentManager, "time")
-                ReadingDetailsViewModel.Action.DATE_NEEDED -> datePicker.show(childFragmentManager, "date")
-                ReadingDetailsViewModel.Action.SAVED -> handleSuccess()
-                ReadingDetailsViewModel.Action.CANCELED -> {
+                ReadingViewModel.Action.TIME_NEEDED -> timePicker.show(childFragmentManager, "time")
+                ReadingViewModel.Action.DATE_NEEDED -> datePicker.show(childFragmentManager, "date")
+                ReadingViewModel.Action.SAVED -> handleSuccess()
+                ReadingViewModel.Action.CANCELED -> {
                     handleSuccess()
                 }
                 null -> {/*noop*/

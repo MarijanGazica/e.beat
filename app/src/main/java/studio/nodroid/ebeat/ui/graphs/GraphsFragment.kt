@@ -11,7 +11,7 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
-import kotlinx.android.synthetic.main.fragment_graphs.*
+import kotlinx.android.synthetic.main.fragment_graphs_old.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -38,7 +38,7 @@ class GraphsFragment : Fragment() {
     private val pulseDataSet by lazy { generatePulseGraphLine(requireContext()) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_graphs, container, false)
+        return inflater.inflate(R.layout.fragment_graphs_old, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

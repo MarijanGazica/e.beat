@@ -17,7 +17,7 @@ import studio.nodroid.ebeat.time.TimeProvider
 import studio.nodroid.ebeat.utils.SingleLiveEvent
 import studio.nodroid.ebeat.utils.timestampFromTime
 
-class ReadingDetailsViewModel(userRepository: UserRepository, private val pressureRepo: PressureDataRepository, private val timeProvider: TimeProvider) : ViewModel() {
+class ReadingViewModel(userRepository: UserRepository, private val pressureRepo: PressureDataRepository, private val timeProvider: TimeProvider) : ViewModel() {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)

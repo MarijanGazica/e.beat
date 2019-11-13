@@ -12,6 +12,12 @@ class PressureDataRepositoryImpl(private val pressureDataDao: PressureDataDao) :
 
     override fun getAllReadings(): LiveData<List<PressureDataDB>> = pressureDataDao.getAllPressureDataLive()
 
+    override suspend fun getAllReadingsFor(userId: Int): List<PressureDataDB> {
+        return withContext(Dispatchers.IO) {
+            pressureDataDao.getUserPressureData(userId)
+        }
+    }
+
     override suspend fun getReadingById(id: Int): PressureDataDB = coroutineScope {
         return@coroutineScope withContext(Dispatchers.IO) { pressureDataDao.getById(id) }
     }
@@ -26,6 +32,7 @@ class PressureDataRepositoryImpl(private val pressureDataDao: PressureDataDao) :
 interface PressureDataRepository {
     suspend fun addReading(reading: PressureDataDB): Job
     fun getAllReadings(): LiveData<List<PressureDataDB>>
+    suspend fun getAllReadingsFor(userId: Int): List<PressureDataDB>
     suspend fun getReadingById(id: Int): PressureDataDB
     suspend fun deleteReading(value: PressureDataDB): Job
 }

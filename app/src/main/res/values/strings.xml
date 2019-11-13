@@ -108,5 +108,10 @@
     <string name="answer_confirm_delete_user">Yes, delete it</string>
     <string name="answer_cancel_delete_user">No, don\'t delete it</string>
     <string name="answer_abort_delete_pick">I don\'t want to delete a user</string>
+    <string name="question_view_graph_for">For which user would you like to see the graph?</string>
+    <string name="question_graph_date_range">Which time period you want to see in the graph?</string>
+    <string name="answer_graphs_month">Last 30 days</string>
+    <string name="answer_graphs_all">All readings</string>
+    <string name="answer_graphs_range">Specific range</string>
 
 </resources>

@@ -35,5 +35,9 @@ class ActionsFragment : Fragment() {
         actionManageUsers.setOnClickListener {
             it.findNavController().navigate(R.id.action_actionsFragment_to_usersFragment)
         }
+
+        actionViewGraph.setOnClickListener {
+            it.findNavController().navigate(R.id.action_actionsFragment_to_graphsFragment)
+        }
     }
 }

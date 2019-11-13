@@ -12,7 +12,8 @@ import studio.nodroid.ebeat.room.*
 import studio.nodroid.ebeat.sharedPrefs.SharedPrefs
 import studio.nodroid.ebeat.sharedPrefs.SharedPrefsImpl
 import studio.nodroid.ebeat.time.TimeProvider
-import studio.nodroid.ebeat.ui.flow.reading.ReadingDetailsViewModel
+import studio.nodroid.ebeat.ui.flow.graphs.GraphsViewModel
+import studio.nodroid.ebeat.ui.flow.reading.ReadingViewModel
 import studio.nodroid.ebeat.ui.flow.users.UsersViewModel
 import studio.nodroid.ebeat.ui.inputHistory.InputHistoryViewModel
 import studio.nodroid.ebeat.ui.pressureInput.PressureInputViewModel
@@ -52,7 +53,8 @@ val appModule = module {
 
     factory { KeyboardVisibilityProvider(get()) }
 
-    viewModel { ReadingDetailsViewModel(get(), get(), get()) }
+    viewModel { ReadingViewModel(get(), get(), get()) }
     viewModel { UsersViewModel(get()) }
+    viewModel { GraphsViewModel(get(), get()) }
 
 }
