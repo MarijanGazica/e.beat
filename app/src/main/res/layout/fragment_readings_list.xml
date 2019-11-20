@@ -7,64 +7,46 @@
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:clipToPadding="false"
-    app:layoutDescription="@xml/fragment_graphs_scene"
-    tools:background="@drawable/ebeat_gradient">
+    app:layoutDescription="@xml/fragment_readings_list_scene">
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginBottom="16dp"
         android:importantForAccessibility="no"
         android:transitionName="dot_animation"
         app:layout_constraintBottom_toTopOf="@id/iconBarrier"
-        app:layout_constraintStart_toStartOf="@id/startGuide"
+        app:layout_constraintStart_toStartOf="parent"
         tools:src="@drawable/ic_e_beat_logo_dot" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/changeSelector"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        app:layout_constraintEnd_toEndOf="@id/endGuide"
-        app:layout_constraintStart_toStartOf="@id/startGuide"
-        app:layout_constraintTop_toBottomOf="parent"
-        tools:alpha="1">
-
-        <TextView
-            android:id="@+id/changeSelection"
-            style="@style/Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/answer_graphs_change"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/graphContainer"
+        android:id="@+id/listContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
         android:alpha="0"
-        android:paddingBottom="8dp"
         app:layout_constraintBottom_toTopOf="@id/changeSelector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:alpha="1">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/lineChart"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/readingList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingTop="8dp"
+            android:paddingBottom="50dp"
+            android:scrollbars="none" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/list_bottom_gradient"
+            app:layout_constraintBottom_toBottomOf="@id/readingList" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -165,6 +147,30 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/changeSelector"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        app:layout_constraintEnd_toEndOf="@id/endGuide"
+        app:layout_constraintStart_toStartOf="@id/startGuide"
+        app:layout_constraintTop_toBottomOf="parent"
+        tools:alpha="1">
+
+        <TextView
+            android:id="@+id/changeSelection"
+            style="@style/Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/answer_graphs_change"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/startGuide"
         android:layout_width="wrap_content"
@@ -184,6 +190,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="userSelector,dateSelector" />
+        app:constraint_referenced_ids="dateSelector,userSelector" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

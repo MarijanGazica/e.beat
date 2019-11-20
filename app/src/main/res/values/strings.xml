@@ -113,5 +113,6 @@
     <string name="answer_graphs_month">Last 30 days</string>
     <string name="answer_graphs_all">All readings</string>
     <string name="answer_graphs_range">Specific range</string>
+    <string name="answer_graphs_change">Change selection</string>
 
 </resources>

@@ -1,6 +1,5 @@
-package studio.nodroid.ebeat.ui.flow.graphs
+package studio.nodroid.ebeat.ui.flow.readingsList
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +16,7 @@ import studio.nodroid.ebeat.utils.getPeriodTimestamps
 import studio.nodroid.ebeat.utils.toTimestampEnd
 import studio.nodroid.ebeat.utils.toTimestampStart
 
-class GraphsViewModel(userRepository: UserRepository, private val readingRepo: PressureDataRepository) : ViewModel() {
+class ReadingsListViewModel(userRepository: UserRepository, private val readingRepo: PressureDataRepository) : ViewModel() {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
@@ -30,23 +29,6 @@ class GraphsViewModel(userRepository: UserRepository, private val readingRepo: P
     private var selectedUser: User? = null
     private var startDate: Long? = null
 
-    init {
-        scope.launch {
-            userRepository.getAllUsersList().forEach { Log.d("findme", it.toString()) }
-        }
-        /*
-        scope.launch {
-            for (i in 0..180) {
-                val sys = Random.nextInt(115, 125)
-                val dia = Random.nextInt(65, 75)
-                val puls = Random.nextInt(60, 80)
-                val reading = PressureDataDB(systolic = sys, diastolic = dia, pulse = puls, timestamp = System.currentTimeMillis() - i * DAY, userId = 1, description = "Whatever")
-                readingRepo.addReading(reading).join()
-            }
-        }
-        */
-    }
-
     fun selectedUser(user: User) {
         selectedUser = user
         events.value = Action.SHOW_RANGE_PICKER
@@ -55,7 +37,7 @@ class GraphsViewModel(userRepository: UserRepository, private val readingRepo: P
     fun allReadingsSelected() {
         scope.launch {
             readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id)
-            events.value = Action.SHOW_GRAPH
+            events.value = Action.SHOW_LIST
         }
     }
 
@@ -63,7 +45,7 @@ class GraphsViewModel(userRepository: UserRepository, private val readingRepo: P
         scope.launch {
             val period = getPeriodTimestamps(30)
             readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id).filter { it.timestamp in period.startStamp..period.endStamp }.sortedBy { it.timestamp }
-            events.value = Action.SHOW_GRAPH
+            events.value = Action.SHOW_LIST
         }
     }
 
@@ -78,22 +60,12 @@ class GraphsViewModel(userRepository: UserRepository, private val readingRepo: P
             scope.launch {
                 readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id).filter { it.timestamp in startDate!!..chosenDate.toTimestampEnd() }.sortedBy { it.timestamp }
                 startDate = null
-                events.value = Action.SHOW_GRAPH
+                events.value = Action.SHOW_LIST
             }
         }
     }
 
-    fun changeSelectionSelected() {
-        startDate = null
-        if (userList.value!!.size > 1) {
-            selectedUser = null
-            events.value = Action.SHOW_USER_PICKER
-        } else {
-            events.value = Action.SHOW_RANGE_PICKER
-        }
-    }
-
     enum class Action {
-        SHOW_USER_PICKER, SHOW_RANGE_PICKER, SHOW_GRAPH, PICK_RANGE
+        SHOW_USER_PICKER, SHOW_RANGE_PICKER, SHOW_LIST, PICK_RANGE
     }
 }

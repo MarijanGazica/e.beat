@@ -9,6 +9,7 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.transition.TransitionInflater
 import com.google.android.material.chip.Chip
 import dev.chrisbanes.insetter.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_reading.*
@@ -40,6 +41,7 @@ class ReadingFragment : Fragment() {
     private val viewModel by inject<ReadingViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return inflater.inflate(R.layout.fragment_reading, container, false)
     }
 
@@ -53,6 +55,8 @@ class ReadingFragment : Fragment() {
         }
 
         motionLayout.transitionToState(R.id.initial)
+
+        icon.startDotAnimation()
 
         viewModel.userList.observe(viewLifecycleOwner, Observer { list ->
             when (list.size) {

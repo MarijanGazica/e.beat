@@ -8,6 +8,7 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:listDivider">@drawable/list_divider</item>
 
         <item name="android:windowBackground">@drawable/ebeat_gradient</item>
 

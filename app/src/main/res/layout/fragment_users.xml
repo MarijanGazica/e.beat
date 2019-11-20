@@ -10,6 +10,18 @@
     app:applyMotionScene="true"
     app:layoutDescription="@xml/fragment_users_scene">
 
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="16dp"
+        android:importantForAccessibility="no"
+        android:transitionName="dot_animation"
+        app:layout_constraintBottom_toTopOf="@id/contentBarrier"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:src="@drawable/ic_e_beat_logo_dot" />
+
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/userChips"
         android:layout_width="0dp"

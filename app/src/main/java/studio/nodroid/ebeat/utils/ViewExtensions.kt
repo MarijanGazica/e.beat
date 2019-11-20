@@ -1,6 +1,7 @@
 package studio.nodroid.ebeat.utils
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
@@ -9,8 +10,11 @@ import android.text.style.UnderlineSpan
 import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.core.content.res.ResourcesCompat
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.google.android.material.textfield.TextInputLayout
 import com.squareup.phrase.Phrase
 import studio.nodroid.ebeat.R
@@ -125,4 +129,17 @@ fun colorFormat(placeholder: String, firstInset: String, secondInset: String? = 
 
 fun Context.dpPx(dp: Float): Int {
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
+}
+
+
+fun ImageView.startDotAnimation() {
+    val animatedVectorDrawableCompat = AnimatedVectorDrawableCompat.create(context, R.drawable.ic_e_beat_logo_dot)
+    animatedVectorDrawableCompat?.registerAnimationCallback(
+        object : Animatable2Compat.AnimationCallback() {
+            override fun onAnimationEnd(drawable: Drawable?) {
+                post { animatedVectorDrawableCompat.start() }
+            }
+        })
+    setImageDrawable(animatedVectorDrawableCompat)
+    animatedVectorDrawableCompat?.start()
 }

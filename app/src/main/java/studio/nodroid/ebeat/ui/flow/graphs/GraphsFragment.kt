@@ -5,9 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.transition.TransitionInflater
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
 import com.google.android.material.chip.Chip
 import dev.chrisbanes.insetter.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_graphs.*
@@ -15,13 +20,24 @@ import org.koin.android.ext.android.inject
 import studio.nodroid.ebeat.R
 import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.ui.dateTime.DatePickDialog
+import studio.nodroid.ebeat.ui.graphs.generateDiastolicGraphLine
+import studio.nodroid.ebeat.ui.graphs.generatePulseGraphLine
+import studio.nodroid.ebeat.ui.graphs.generateSystolicGraphLine
+import studio.nodroid.ebeat.ui.view.DateAxisFormatter
+import studio.nodroid.ebeat.utils.DAY
 import studio.nodroid.ebeat.utils.dpPx
+import studio.nodroid.ebeat.utils.startDotAnimation
 
 class GraphsFragment : Fragment() {
 
     private val viewModel by inject<GraphsViewModel>()
 
+    private val systolicDataSet by lazy { generateSystolicGraphLine(requireContext()) }
+    private val diastolicDataSet by lazy { generateDiastolicGraphLine(requireContext()) }
+    private val pulseDataSet by lazy { generatePulseGraphLine(requireContext()) }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return inflater.inflate(R.layout.fragment_graphs, container, false)
     }
 
@@ -30,11 +46,16 @@ class GraphsFragment : Fragment() {
 
         motionLayout.doOnApplyWindowInsets { target, insets, initialState ->
             target.updatePadding(
-                bottom = initialState.paddings.bottom + insets.systemWindowInsetBottom
+                bottom = initialState.paddings.bottom + insets.systemWindowInsetBottom,
+                top = initialState.paddings.top + insets.systemWindowInsetTop
             )
         }
 
         motionLayout.transitionToState(R.id.initial)
+
+        icon.startDotAnimation()
+
+        setupGraph()
 
         viewModel.userList.observe(viewLifecycleOwner, Observer { list ->
             when (list.size) {
@@ -52,9 +73,29 @@ class GraphsFragment : Fragment() {
             }
         })
 
+        viewModel.readings.observe(viewLifecycleOwner, Observer { list ->
+            if (list != null && list.isNotEmpty()) {
+                systolicDataSet.clear()
+                diastolicDataSet.clear()
+                pulseDataSet.clear()
+
+                val sortedList = list.sortedBy { it.timestamp }
+                systolicDataSet.values = sortedList.map { pressureData -> Entry(pressureData.timestamp.toFloat(), pressureData.systolic.toFloat()) }
+                diastolicDataSet.values = sortedList.map { pressureData -> Entry(pressureData.timestamp.toFloat(), pressureData.diastolic.toFloat()) }
+                pulseDataSet.values = sortedList.map { pressureData -> Entry(pressureData.timestamp.toFloat(), pressureData.pulse.toFloat()) }
+
+                lineChart.data = LineData(systolicDataSet, diastolicDataSet, pulseDataSet)
+                lineChart.xAxis.granularity = 1f
+                lineChart.fitScreen()
+            } else {
+                //todo show no readings
+            }
+        })
+
         timeAll.setOnClickListener { viewModel.allReadingsSelected() }
         timeMonth.setOnClickListener { viewModel.time30selected() }
         timeRange.setOnClickListener { viewModel.timeRangeSelected() }
+        changeSelection.setOnClickListener { viewModel.changeSelectionSelected() }
     }
 
     private fun showUserPicker(list: List<User>) {
@@ -79,5 +120,35 @@ class GraphsFragment : Fragment() {
                 showDatePickerDialog(which + 1)
             }
         }.show(childFragmentManager, "")
+    }
+
+    private fun setupGraph() {
+        lineChart.isAutoScaleMinMaxEnabled = true
+        lineChart.description = null
+        lineChart.setVisibleXRangeMinimum(DAY.toFloat())
+        lineChart.setVisibleYRangeMinimum(50f, YAxis.AxisDependency.LEFT)
+
+        lineChart.legend.isEnabled = false
+//        lineChart.legend.form = Legend.LegendForm.NONE
+//        lineChart.legend.setDrawInside(true)
+//        lineChart.legend.xEntrySpace = 16f
+//        lineChart.legend.textSize = 14f
+//        lineChart.legend.textColor = ResourcesCompat.getColor(resources, R.color.color_on_background, requireActivity().theme)
+
+        lineChart.xAxis.granularity = DAY.toFloat()
+        lineChart.xAxis.setAvoidFirstLastClipping(false)
+        lineChart.xAxis.valueFormatter = DateAxisFormatter()
+        lineChart.xAxis.gridColor = ResourcesCompat.getColor(resources, R.color.transparentWhite, requireActivity().theme)
+        lineChart.xAxis.axisLineColor = ResourcesCompat.getColor(resources, R.color.color_on_background, requireActivity().theme)
+        lineChart.xAxis.textColor = ResourcesCompat.getColor(resources, R.color.color_on_background, requireActivity().theme)
+
+//        lineChart.axisLeft.textSize = 14f
+//        lineChart.axisLeft.setDrawGridLines(false)
+        lineChart.axisLeft.gridColor = ResourcesCompat.getColor(resources, R.color.transparentWhite, requireActivity().theme)
+        lineChart.axisLeft.axisLineColor = ResourcesCompat.getColor(resources, R.color.color_on_background, requireActivity().theme)
+        lineChart.axisLeft.textColor = ResourcesCompat.getColor(resources, R.color.color_on_background, requireActivity().theme)
+
+        lineChart.axisRight.isEnabled = false
+
     }
 }

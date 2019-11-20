@@ -14,6 +14,7 @@ import studio.nodroid.ebeat.sharedPrefs.SharedPrefsImpl
 import studio.nodroid.ebeat.time.TimeProvider
 import studio.nodroid.ebeat.ui.flow.graphs.GraphsViewModel
 import studio.nodroid.ebeat.ui.flow.reading.ReadingViewModel
+import studio.nodroid.ebeat.ui.flow.readingsList.ReadingsListViewModel
 import studio.nodroid.ebeat.ui.flow.users.UsersViewModel
 import studio.nodroid.ebeat.ui.inputHistory.InputHistoryViewModel
 import studio.nodroid.ebeat.ui.pressureInput.PressureInputViewModel
@@ -56,5 +57,6 @@ val appModule = module {
     viewModel { ReadingViewModel(get(), get(), get()) }
     viewModel { UsersViewModel(get()) }
     viewModel { GraphsViewModel(get(), get()) }
+    viewModel { ReadingsListViewModel(get(), get()) }
 
 }

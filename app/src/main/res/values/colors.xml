@@ -15,6 +15,7 @@
     <color name="textOnLight">#333333</color>
     <color name="drawableInactive">#77888888</color>
     <color name="white">#ffffff</color>
+    <color name="transparentWhite">#66ffffff</color>
     <color name="severity_blue">#1565c0</color>
     <color name="severity_red">#BB0A1F</color>
     <color name="severity_green">#B8E986</color>

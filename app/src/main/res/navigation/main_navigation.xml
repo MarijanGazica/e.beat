@@ -36,13 +36,19 @@
             app:exitAnim="@anim/slide_down"
             app:popEnterAnim="@anim/slide_up"
             app:popExitAnim="@anim/slide_down" />
+        <action
+            android:id="@+id/action_actionsFragment_to_readingsListFragment"
+            app:destination="@id/readingsListFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/slide_down"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
     </fragment>
 
     <fragment
         android:id="@+id/readingFragment"
         android:name="studio.nodroid.ebeat.ui.flow.reading.ReadingFragment"
         android:label="ReadingFragment" />
-
     <fragment
         android:id="@+id/usersFragment"
         android:name="studio.nodroid.ebeat.ui.flow.users.UsersFragment"
@@ -55,5 +61,9 @@
         android:id="@+id/graphsFragment"
         android:name="studio.nodroid.ebeat.ui.flow.graphs.GraphsFragment"
         android:label="GraphsFragment" />
+    <fragment
+        android:id="@+id/readingsListFragment"
+        android:name="studio.nodroid.ebeat.ui.flow.readingsList.ReadingsListFragment"
+        android:label="ReadingsListFragment" />
 
 </navigation>

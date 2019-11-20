@@ -9,8 +9,10 @@ import studio.nodroid.ebeat.R
 fun generateSystolicGraphLine(context: Context): LineDataSet {
     val set = LineDataSet(mutableListOf(), context.resources.getString(R.string.systolic))
     set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
-    set.color = ResourcesCompat.getColor(context.resources, R.color.severity_red, context.theme)
-    set.setCircleColor(ResourcesCompat.getColor(context.resources, R.color.severity_red, context.theme))
+    set.color = ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme)
+    set.setCircleColor(ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme))
+    set.valueTextSize = 10f
+    set.valueTextColor = ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme)
     set.lineWidth = 2f
     set.isHighlightEnabled = false
     set.valueFormatter = LargeValueFormatter()
@@ -20,9 +22,11 @@ fun generateSystolicGraphLine(context: Context): LineDataSet {
 fun generateDiastolicGraphLine(context: Context): LineDataSet {
     val set = LineDataSet(mutableListOf(), context.resources.getString(R.string.diastolic))
     set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
-    set.color = ResourcesCompat.getColor(context.resources, R.color.petroleum, context.theme)
-    set.setCircleColor(ResourcesCompat.getColor(context.resources, R.color.petroleum, context.theme))
+    set.color = ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme)
+    set.setCircleColor(ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme))
+    set.valueTextColor = ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme)
     set.lineWidth = 2f
+    set.valueTextSize = 10f
     set.isHighlightEnabled = false
     set.valueFormatter = LargeValueFormatter()
     return set
@@ -31,9 +35,12 @@ fun generateDiastolicGraphLine(context: Context): LineDataSet {
 fun generatePulseGraphLine(context: Context): LineDataSet {
     val set = LineDataSet(mutableListOf(), context.resources.getString(R.string.pulse))
     set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
-    set.color = ResourcesCompat.getColor(context.resources, R.color.severity_green, context.theme)
-    set.setCircleColor(ResourcesCompat.getColor(context.resources, R.color.severity_green, context.theme))
-    set.lineWidth = 2f
+    set.color = ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme)
+    set.setCircleColor(ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme))
+    set.valueTextColor = ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme)
+    set.valueTextSize = 10f
+    set.lineWidth = 1f
+    set.enableDashedLine(15f, 10f, 0f)
     set.isHighlightEnabled = false
     set.valueFormatter = LargeValueFormatter()
     return set

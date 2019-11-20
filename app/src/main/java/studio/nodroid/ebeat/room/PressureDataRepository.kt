@@ -1,5 +1,6 @@
 package studio.nodroid.ebeat.room
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.*
 import studio.nodroid.ebeat.model.PressureDataDB
@@ -7,7 +8,10 @@ import studio.nodroid.ebeat.model.PressureDataDB
 class PressureDataRepositoryImpl(private val pressureDataDao: PressureDataDao) : PressureDataRepository {
 
     override suspend fun addReading(reading: PressureDataDB) = coroutineScope {
-        launch(Dispatchers.IO) { pressureDataDao.insertPressureData(reading) }
+        launch(Dispatchers.IO) {
+            Log.d("findme", "Saving $reading")
+            pressureDataDao.insertPressureData(reading)
+        }
     }
 
     override fun getAllReadings(): LiveData<List<PressureDataDB>> = pressureDataDao.getAllPressureDataLive()

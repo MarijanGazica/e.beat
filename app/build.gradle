@@ -40,7 +40,7 @@ android {
 dependencies {
     def room = "2.2.1"
     def koin = '1.0.1'
-    def navigation = "2.2.0-rc01"
+    def navigation = "2.2.0-rc02"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -57,10 +57,10 @@ dependencies {
     implementation "androidx.room:room-runtime:$room"
     kapt "androidx.room:room-compiler:$room"
 
-    implementation 'com.google.firebase:firebase-ads:18.2.0'
+    implementation 'com.google.firebase:firebase-ads:18.3.0'
     implementation 'com.google.android.ads.consent:consent-library:1.0.7'
 
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.squareup.phrase:phrase:1.1.0'
 
     implementation 'com.google.firebase:firebase-core:17.2.1'
@@ -69,7 +69,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation"
 
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc01"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc02"
 
     implementation "dev.chrisbanes:insetter:0.1.1"
     implementation "dev.chrisbanes:insetter-ktx:0.1.1"
