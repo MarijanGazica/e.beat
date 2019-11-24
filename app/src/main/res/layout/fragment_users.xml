@@ -52,32 +52,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/createUser"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/answer_add_user"
             app:layout_constraintBottom_toTopOf="@id/deleteUser"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/deleteUser"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/answer_delete_user"
             app:layout_constraintBottom_toTopOf="@id/done"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/done"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/answer_go_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -106,7 +100,6 @@
 
         <EditText
             android:id="@+id/newUserValue"
-            style="@style/Choice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -129,7 +122,7 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/newUserValue"
-            app:srcCompat="@drawable/ic_check_circled" />
+            app:srcCompat="@drawable/ic_checkmark_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -153,12 +146,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/abortDeletePick"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/answer_abort_delete_pick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -184,22 +175,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/confirmDeleteUser"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/answer_confirm_delete_user"
             app:layout_constraintBottom_toTopOf="@id/cancelDeleteUser"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/cancelDeleteUser"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/answer_cancel_delete_user"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

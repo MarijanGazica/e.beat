@@ -3,10 +3,7 @@ package studio.nodroid.ebeat.ui.flow.reading
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import studio.nodroid.ebeat.model.Date
 import studio.nodroid.ebeat.model.PressureDataDB
 import studio.nodroid.ebeat.model.Time
@@ -29,9 +26,10 @@ class ReadingViewModel(userRepository: UserRepository, private val pressureRepo:
     val selectedDiastolic = MutableLiveData<Int>()
     val selectedPulse = MutableLiveData<Int>()
     val selectedDescription = MutableLiveData<String>()
-    val events = SingleLiveEvent<Action>()
+    val events = SingleLiveEvent<State>()
 
     private var tempDate: Date? = null
+    private var timer: Job? = null
 
     fun selectedUser(user: User) {
         selectedUser.value = user
@@ -42,7 +40,7 @@ class ReadingViewModel(userRepository: UserRepository, private val pressureRepo:
     }
 
     fun timeNotNowSelected() {
-        events.value = Action.DATE_NEEDED
+        events.value = State.DATE_NEEDED
     }
 
     fun timeSelected(time: Time) {
@@ -54,7 +52,7 @@ class ReadingViewModel(userRepository: UserRepository, private val pressureRepo:
 
     fun dateSelected(date: Date) {
         tempDate = date
-        events.value = Action.TIME_NEEDED
+        events.value = State.TIME_NEEDED
     }
 
     fun systolicPressureEntered(value: String) {
@@ -97,16 +95,27 @@ class ReadingViewModel(userRepository: UserRepository, private val pressureRepo:
                     userId = selectedUser.value!!.id
                 )
             ).join()
-            events.value = Action.SAVED
+            events.value = State.SAVED
+        }
+
+        timer = scope.launch {
+            withContext(Dispatchers.IO) {
+                delay(3000)
+            }
+            events.value = State.DONE
         }
     }
 
     fun discardReading() {
-        events.value = Action.CANCELED
+        events.value = State.DONE
     }
 
-    enum class Action {
-        TIME_NEEDED, DATE_NEEDED, SAVED, CANCELED
+    fun savedNotificationDismissed() {
+        timer?.cancel()
+    }
+
+    enum class State {
+        TIME_NEEDED, DATE_NEEDED, SAVED, DONE
     }
 
 }

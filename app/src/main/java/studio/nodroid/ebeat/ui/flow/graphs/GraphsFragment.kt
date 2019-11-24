@@ -9,6 +9,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.transition.TransitionInflater
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
@@ -66,10 +67,16 @@ class GraphsFragment : Fragment() {
 
         viewModel.events.observe(viewLifecycleOwner, Observer { action ->
             when (action) {
-                GraphsViewModel.Action.SHOW_USER_PICKER -> motionLayout.transitionToState(R.id.chooseUser)
-                GraphsViewModel.Action.SHOW_RANGE_PICKER -> motionLayout.transitionToState(R.id.chooseRange)
-                GraphsViewModel.Action.SHOW_GRAPH -> motionLayout.transitionToState(R.id.graphVisible)
-                GraphsViewModel.Action.PICK_RANGE -> showDatePickerDialog()
+                is GraphsViewModel.Action.ShowUserPicker -> motionLayout.transitionToState(R.id.chooseUser)
+                is GraphsViewModel.Action.ShowRangePicker -> motionLayout.transitionToState(R.id.chooseRange)
+                is GraphsViewModel.Action.ShowRangeDialog -> showDatePickerDialog()
+                is GraphsViewModel.Action.ShowReadingGraph -> {
+                    if (action.isEmpty) {
+                        motionLayout.transitionToState(R.id.selectionEmpty)
+                    } else {
+                        motionLayout.transitionToState(R.id.graphVisible)
+                    }
+                }
             }
         })
 
@@ -87,8 +94,6 @@ class GraphsFragment : Fragment() {
                 lineChart.data = LineData(systolicDataSet, diastolicDataSet, pulseDataSet)
                 lineChart.xAxis.granularity = 1f
                 lineChart.fitScreen()
-            } else {
-                //todo show no readings
             }
         })
 
@@ -96,6 +101,11 @@ class GraphsFragment : Fragment() {
         timeMonth.setOnClickListener { viewModel.time30selected() }
         timeRange.setOnClickListener { viewModel.timeRangeSelected() }
         changeSelection.setOnClickListener { viewModel.changeSelectionSelected() }
+
+        emptyChangeSelection.setOnClickListener { viewModel.changeSelectionSelected() }
+        emptyDismiss.setOnClickListener { it.findNavController().popBackStack() }
+        dismiss.setOnClickListener { it.findNavController().popBackStack() }
+
     }
 
     private fun showUserPicker(list: List<User>) {

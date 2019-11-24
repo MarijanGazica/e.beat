@@ -27,17 +27,17 @@ class ReadingsListViewModel(userRepository: UserRepository, private val readingR
     val events: MutableLiveData<Action> = MutableLiveData()
 
     private var selectedUser: User? = null
-    private var startDate: Long? = null
+    private var firstDate: Date? = null
 
     fun selectedUser(user: User) {
         selectedUser = user
-        events.value = Action.SHOW_RANGE_PICKER
+        events.value = Action.ShowRangePicker
     }
 
     fun allReadingsSelected() {
         scope.launch {
             readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id)
-            events.value = Action.SHOW_LIST
+            events.value = Action.ShowReadingList(readings.value?.isEmpty() ?: true)
         }
     }
 
@@ -45,27 +45,45 @@ class ReadingsListViewModel(userRepository: UserRepository, private val readingR
         scope.launch {
             val period = getPeriodTimestamps(30)
             readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id).filter { it.timestamp in period.startStamp..period.endStamp }.sortedBy { it.timestamp }
-            events.value = Action.SHOW_LIST
+            events.value = Action.ShowReadingList(readings.value?.isEmpty() ?: true)
         }
     }
 
     fun timeRangeSelected() {
-        events.value = Action.PICK_RANGE
+        events.value = Action.ShowRangeDialog
     }
 
     fun dateSelected(isInitial: Boolean, chosenDate: Date) {
         if (isInitial) {
-            startDate = chosenDate.toTimestampStart()
+            firstDate = chosenDate
         } else {
             scope.launch {
-                readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id).filter { it.timestamp in startDate!!..chosenDate.toTimestampEnd() }.sortedBy { it.timestamp }
-                startDate = null
-                events.value = Action.SHOW_LIST
+                val dateRange = if (firstDate!!.before(chosenDate)) {
+                    Pair(firstDate!!.toTimestampStart(), chosenDate.toTimestampEnd())
+                } else {
+                    Pair(chosenDate.toTimestampStart(), firstDate!!.toTimestampEnd())
+                }
+                readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id).filter { it.timestamp in dateRange.first..dateRange.second }.sortedBy { it.timestamp }
+                firstDate = null
+                events.value = Action.ShowReadingList(readings.value?.isEmpty() ?: true)
             }
         }
     }
 
-    enum class Action {
-        SHOW_USER_PICKER, SHOW_RANGE_PICKER, SHOW_LIST, PICK_RANGE
+    fun selectedChangeSelection() {
+        userList.value?.run {
+            if (size > 1) {
+                events.value = Action.ShowUserPicker
+            } else {
+                events.value = Action.ShowRangePicker
+            }
+        }
+    }
+
+    sealed class Action {
+        object ShowUserPicker : Action()
+        object ShowRangePicker : Action()
+        data class ShowReadingList(val isEmpty: Boolean) : Action()
+        object ShowRangeDialog : Action()
     }
 }

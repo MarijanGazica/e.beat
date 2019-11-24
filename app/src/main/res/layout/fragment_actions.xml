@@ -41,52 +41,42 @@
             app:layout_constraintBottom_toTopOf="@+id/actionAddReading"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/actionAddReading"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/actions_add_reading"
             app:layout_constraintBottom_toTopOf="@+id/actionViewReadings"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/actionViewReadings"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/actions_view_readings"
             app:layout_constraintBottom_toTopOf="@+id/actionViewGraph"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/actionViewGraph"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/actions_view_graph"
             app:layout_constraintBottom_toTopOf="@+id/actionManageUsers"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/actionManageUsers"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/actions_manage_users"
             app:layout_constraintBottom_toTopOf="@+id/actionEditSettings"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/actionEditSettings"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/actions_edit_settings"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

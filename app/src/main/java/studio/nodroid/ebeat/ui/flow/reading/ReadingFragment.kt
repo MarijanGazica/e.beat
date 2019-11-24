@@ -111,25 +111,33 @@ class ReadingFragment : Fragment() {
             true
         }
 
-        actionDescription.setOnClickListener { motionLayout.transitionToState(R.id.descriptionRequired) }
+        actionDescription.setOnClickListener {
+            motionLayout.transitionToState(R.id.descriptionRequired)
+            showKeyboard(descriptionValue)
+        }
+
         actionSave.setOnClickListener { viewModel.saveReading() }
         actionDiscard.setOnClickListener { viewModel.discardReading() }
+        actionDone.setOnClickListener { viewModel.savedNotificationDismissed() }
 
         viewModel.events.observe(viewLifecycleOwner, Observer { event ->
             when (event) {
-                ReadingViewModel.Action.TIME_NEEDED -> timePicker.show(childFragmentManager, "time")
-                ReadingViewModel.Action.DATE_NEEDED -> datePicker.show(childFragmentManager, "date")
-                ReadingViewModel.Action.SAVED -> handleSuccess()
-                ReadingViewModel.Action.CANCELED -> {
-                    handleSuccess()
-                }
+                ReadingViewModel.State.TIME_NEEDED -> timePicker.show(childFragmentManager, "time")
+                ReadingViewModel.State.DATE_NEEDED -> datePicker.show(childFragmentManager, "date")
+                ReadingViewModel.State.SAVED -> showSavedReading()
+                ReadingViewModel.State.DONE -> navigateBack()
+
                 null -> {/*noop*/
                 }
             }
         })
     }
 
-    private fun handleSuccess() {
+    private fun showSavedReading() {
+        motionLayout.transitionToState(R.id.readingSaved)
+    }
+
+    private fun navigateBack() {
         user.findNavController().popBackStack()
     }
 
@@ -185,6 +193,7 @@ class ReadingFragment : Fragment() {
         systolic.text = colorFormat(getString(R.string.reading_systolic), sys.toString())
         motionLayout.transitionToState(R.id.systolicSet)
         diastolicValue.requestFocus()
+        showKeyboard(diastolicValue)
     }
 
 
@@ -198,6 +207,7 @@ class ReadingFragment : Fragment() {
         diastolic.text = colorFormat(getString(R.string.reading_diastolic), dia.toString())
         motionLayout.transitionToState(R.id.diastolicSet)
         pulseValue.requestFocus()
+        showKeyboard(pulseValue)
     }
 
 

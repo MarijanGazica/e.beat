@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
@@ -48,8 +49,8 @@ class ReadingsListFragment : Fragment() {
                 bottom = initialState.paddings.bottom + insets.systemWindowInsetBottom
             )
         }
-        readingList.doOnApplyWindowInsets { view, insets, initialState ->
-            view.updatePadding(
+        readingList.doOnApplyWindowInsets { target, insets, initialState ->
+            target.updatePadding(
                 top = initialState.paddings.top + insets.systemWindowInsetTop
             )
         }
@@ -72,22 +73,32 @@ class ReadingsListFragment : Fragment() {
 
         viewModel.events.observe(viewLifecycleOwner, Observer { action ->
             when (action) {
-                ReadingsListViewModel.Action.SHOW_USER_PICKER -> motionLayout.transitionToState(R.id.chooseUser)
-                ReadingsListViewModel.Action.SHOW_RANGE_PICKER -> motionLayout.transitionToState(R.id.chooseRange)
-                ReadingsListViewModel.Action.SHOW_LIST -> motionLayout.transitionToState(R.id.listVisible)
-                ReadingsListViewModel.Action.PICK_RANGE -> showDatePickerDialog()
+                is ReadingsListViewModel.Action.ShowUserPicker -> motionLayout.transitionToState(R.id.chooseUser)
+                is ReadingsListViewModel.Action.ShowRangePicker -> motionLayout.transitionToState(R.id.chooseRange)
+                is ReadingsListViewModel.Action.ShowRangeDialog -> showDatePickerDialog()
+                is ReadingsListViewModel.Action.ShowReadingList -> {
+                    if (action.isEmpty) {
+                        motionLayout.transitionToState(R.id.selectionEmpty)
+                    } else {
+                        motionLayout.transitionToState(R.id.listVisible)
+                    }
+                }
             }
         })
 
         viewModel.readings.observe(viewLifecycleOwner, Observer {
             it?.sortedByDescending { item -> item.timestamp }
                 ?.run { readingHistoryAdapter.setData(this) }
-            // todo handle empty
         })
 
         timeAll.setOnClickListener { viewModel.allReadingsSelected() }
         timeMonth.setOnClickListener { viewModel.time30selected() }
         timeRange.setOnClickListener { viewModel.timeRangeSelected() }
+
+        changeSelection.setOnClickListener { viewModel.selectedChangeSelection() }
+        emptyChangeSelection.setOnClickListener { viewModel.selectedChangeSelection() }
+        emptyDismiss.setOnClickListener { it.findNavController().popBackStack() }
+        dismiss.setOnClickListener { it.findNavController().popBackStack() }
     }
 
     private fun showUserPicker(list: List<User>) {

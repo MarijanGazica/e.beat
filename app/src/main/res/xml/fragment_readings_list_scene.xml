@@ -46,6 +46,19 @@
             app:layout_constraintTop_toTopOf="parent" />
     </ConstraintSet>
 
+    <ConstraintSet android:id="@+id/selectionEmpty">
+
+        <Constraint
+            android:id="@+id/emptySelector"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide" />
+
+    </ConstraintSet>
+
     <Transition
         app:constraintSetEnd="@+id/chooseUser"
         app:constraintSetStart="@+id/initial"
@@ -67,8 +80,28 @@
         app:duration="600" />
 
     <Transition
+        app:constraintSetEnd="@+id/selectionEmpty"
+        app:constraintSetStart="@+id/chooseRange"
+        app:duration="600" />
+
+    <Transition
         app:constraintSetEnd="@+id/chooseUser"
-        app:constraintSetStart="@+id/graphVisible"
+        app:constraintSetStart="@+id/listVisible"
+        app:duration="600" />
+
+    <Transition
+        app:constraintSetEnd="@+id/chooseRange"
+        app:constraintSetStart="@+id/listVisible"
+        app:duration="600" />
+
+    <Transition
+        app:constraintSetEnd="@+id/chooseUser"
+        app:constraintSetStart="@+id/selectionEmpty"
+        app:duration="600" />
+
+    <Transition
+        app:constraintSetEnd="@+id/chooseRange"
+        app:constraintSetStart="@+id/selectionEmpty"
         app:duration="600" />
 
 </MotionScene>

@@ -165,23 +165,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/timeNow"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/answer_reading_taken_now"
             app:layout_constraintBottom_toTopOf="@id/timeOther"
             app:layout_constraintEnd_toEndOf="@id/timeOther" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/timeOther"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
             android:text="@string/answer_reading_taken_other"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -212,12 +208,11 @@
 
         <EditText
             android:id="@+id/systolicValue"
-            style="@style/Choice"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:gravity="end"
             android:imeOptions="actionDone"
             android:inputType="number"
@@ -237,7 +232,7 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/systolicValue"
-            app:srcCompat="@drawable/ic_check_circled" />
+            app:srcCompat="@drawable/ic_checkmark_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -265,12 +260,11 @@
 
         <EditText
             android:id="@+id/diastolicValue"
-            style="@style/Choice"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:gravity="end"
             android:imeOptions="actionDone"
             android:inputType="number"
@@ -290,7 +284,7 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/diastolicValue"
-            app:srcCompat="@drawable/ic_check_circled" />
+            app:srcCompat="@drawable/ic_checkmark_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -318,12 +312,11 @@
 
         <EditText
             android:id="@+id/pulseValue"
-            style="@style/Choice"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:gravity="end"
             android:imeOptions="actionDone"
             android:inputType="number"
@@ -343,7 +336,7 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/pulseValue"
-            app:srcCompat="@drawable/ic_check_circled" />
+            app:srcCompat="@drawable/ic_checkmark_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -371,12 +364,11 @@
 
         <EditText
             android:id="@+id/descriptionValue"
-            style="@style/Choice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:gravity="start"
             android:imeOptions="actionDone"
             android:inputType="text"
@@ -396,7 +388,7 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/descriptionValue"
-            app:srcCompat="@drawable/ic_check_circled" />
+            app:srcCompat="@drawable/ic_checkmark_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -422,36 +414,63 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/actionDescription"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
             android:text="@string/answer_add_description"
             app:layout_constraintBottom_toTopOf="@id/actionSave"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/actionSave"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
             android:text="@string/answer_save_reading"
             app:layout_constraintBottom_toTopOf="@id/actionDiscard"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/actionDiscard"
-            style="@style/Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
             android:text="@string/answer_discard"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/doneSelector"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/doneQuestion"
+            style="@style/Question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/question_reading_saved"
+            app:layout_constraintBottom_toTopOf="@id/actionDone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/actionDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@string/answer_ok"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -476,6 +495,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="userSelector,dateSelector,systolicSelector,diastolicSelector,pulseSelector,descriptionSelector,actionSelector" />
+        app:constraint_referenced_ids="userSelector,dateSelector,systolicSelector,diastolicSelector,pulseSelector,descriptionSelector,actionSelector,doneSelector" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

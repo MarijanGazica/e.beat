@@ -1,6 +1,5 @@
 package studio.nodroid.ebeat.ui.flow.graphs
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,34 +27,34 @@ class GraphsViewModel(userRepository: UserRepository, private val readingRepo: P
     val events: MutableLiveData<Action> = MutableLiveData()
 
     private var selectedUser: User? = null
-    private var startDate: Long? = null
+    private var firstDate: Date? = null
 
-    init {
-        scope.launch {
-            userRepository.getAllUsersList().forEach { Log.d("findme", it.toString()) }
+//    init {
+//        scope.launch {
+//            userRepository.getAllUsersList().forEach { Log.d("findme", it.toString()) }
+//        }
+    /*
+    scope.launch {
+        for (i in 0..180) {
+            val sys = Random.nextInt(115, 125)
+            val dia = Random.nextInt(65, 75)
+            val puls = Random.nextInt(60, 80)
+            val reading = PressureDataDB(systolic = sys, diastolic = dia, pulse = puls, timestamp = System.currentTimeMillis() - i * DAY, userId = 1, description = "Whatever")
+            readingRepo.addReading(reading).join()
         }
-        /*
-        scope.launch {
-            for (i in 0..180) {
-                val sys = Random.nextInt(115, 125)
-                val dia = Random.nextInt(65, 75)
-                val puls = Random.nextInt(60, 80)
-                val reading = PressureDataDB(systolic = sys, diastolic = dia, pulse = puls, timestamp = System.currentTimeMillis() - i * DAY, userId = 1, description = "Whatever")
-                readingRepo.addReading(reading).join()
-            }
-        }
-        */
     }
+    */
+//    }
 
     fun selectedUser(user: User) {
         selectedUser = user
-        events.value = Action.SHOW_RANGE_PICKER
+        events.value = Action.ShowRangePicker
     }
 
     fun allReadingsSelected() {
         scope.launch {
             readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id)
-            events.value = Action.SHOW_GRAPH
+            events.value = Action.ShowReadingGraph(readings.value?.isEmpty() ?: true)
         }
     }
 
@@ -63,37 +62,45 @@ class GraphsViewModel(userRepository: UserRepository, private val readingRepo: P
         scope.launch {
             val period = getPeriodTimestamps(30)
             readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id).filter { it.timestamp in period.startStamp..period.endStamp }.sortedBy { it.timestamp }
-            events.value = Action.SHOW_GRAPH
+            events.value = Action.ShowReadingGraph(readings.value?.isEmpty() ?: true)
         }
     }
 
     fun timeRangeSelected() {
-        events.value = Action.PICK_RANGE
+        events.value = Action.ShowRangeDialog
     }
 
     fun dateSelected(isInitial: Boolean, chosenDate: Date) {
         if (isInitial) {
-            startDate = chosenDate.toTimestampStart()
+            firstDate = chosenDate
         } else {
             scope.launch {
-                readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id).filter { it.timestamp in startDate!!..chosenDate.toTimestampEnd() }.sortedBy { it.timestamp }
-                startDate = null
-                events.value = Action.SHOW_GRAPH
+                val dateRange = if (firstDate!!.before(chosenDate)) {
+                    Pair(firstDate!!.toTimestampStart(), chosenDate.toTimestampEnd())
+                } else {
+                    Pair(chosenDate.toTimestampStart(), firstDate!!.toTimestampEnd())
+                }
+                readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id).filter { it.timestamp in dateRange.first..dateRange.second }.sortedBy { it.timestamp }
+                firstDate = null
+                events.value = Action.ShowReadingGraph(readings.value?.isEmpty() ?: true)
             }
         }
     }
 
     fun changeSelectionSelected() {
-        startDate = null
+        firstDate = null
         if (userList.value!!.size > 1) {
             selectedUser = null
-            events.value = Action.SHOW_USER_PICKER
+            events.value = Action.ShowUserPicker
         } else {
-            events.value = Action.SHOW_RANGE_PICKER
+            events.value = Action.ShowRangePicker
         }
     }
 
-    enum class Action {
-        SHOW_USER_PICKER, SHOW_RANGE_PICKER, SHOW_GRAPH, PICK_RANGE
+    sealed class Action {
+        object ShowUserPicker : Action()
+        object ShowRangePicker : Action()
+        data class ShowReadingGraph(val isEmpty: Boolean) : Action()
+        object ShowRangeDialog : Action()
     }
 }
