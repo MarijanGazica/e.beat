@@ -12,6 +12,9 @@
         <item name="materialButtonStyle">@style/ButtonStyle</item>
         <item name="android:listDivider">@drawable/list_divider</item>
 
+        <item name="fontFamily">@font/noto_sans</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+
         <item name="android:windowBackground">@drawable/ebeat_gradient</item>
 
         <item name="colorPrimaryDark">?colorPrimaryVariant</item>

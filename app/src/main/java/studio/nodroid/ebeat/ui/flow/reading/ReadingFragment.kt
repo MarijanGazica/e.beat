@@ -50,7 +50,8 @@ class ReadingFragment : Fragment() {
 
         motionLayout.doOnApplyWindowInsets { target, insets, initialState ->
             target.updatePadding(
-                bottom = initialState.paddings.bottom + insets.systemWindowInsetBottom
+                bottom = initialState.paddings.bottom + insets.systemWindowInsetBottom,
+                top = initialState.paddings.top + insets.systemWindowInsetTop
             )
         }
 
@@ -118,7 +119,10 @@ class ReadingFragment : Fragment() {
 
         actionSave.setOnClickListener { viewModel.saveReading() }
         actionDiscard.setOnClickListener { viewModel.discardReading() }
-        actionDone.setOnClickListener { viewModel.savedNotificationDismissed() }
+        actionDone.setOnClickListener {
+            viewModel.savedNotificationDismissed()
+            navigateBack()
+        }
 
         viewModel.events.observe(viewLifecycleOwner, Observer { event ->
             when (event) {
