@@ -21,12 +21,6 @@
     <string name="numberInputInvalid">Only numbers allowed</string>
     <string name="reading_section">Reading</string>
     <string name="select_user">Select user</string>
-    <string name="severity_error">Input error</string>
-    <string name="severity_normal">Pressure normal</string>
-    <string name="severity_elevated">Elevated pressure</string>
-    <string name="severity_hypertension1">Hypertension stage 1</string>
-    <string name="severity_hypertension2">Hypertension level 2</string>
-    <string name="severity_crisis">Hypertensive crisis</string>
     <string name="choose_user_title">Choose a user</string>
     <string name="severity_waiting">Awaiting input</string>
     <string name="reading_saved">Reading successfully saved</string>
@@ -66,7 +60,7 @@
 
 
     <string name="reading_user">Add a new reading for {first}</string>
-    <string name="reading_date">taken on {first} at {second}.</string>
+    <string name="reading_date">taken on {first} at {second}</string>
     <string name="reading_systolic">Systolic pressure: {first} mmHg</string>
     <string name="reading_diastolic">Diastolic pressure: {first} mmHg</string>
     <string name="reading_pulse">Pulse: {first} bpm</string>
@@ -127,5 +121,12 @@
     <string name="answer_readings_exit">Exit reading overview</string>
     <string name="bp_unit">mmHg</string>
     <string name="pulse_unit">bpm</string>
+
+    <string name="severity_error">There is an input error</string>
+    <string name="severity_normal">This indicates normal blood pressure</string>
+    <string name="severity_elevated">This indicates elevated blood pressure</string>
+    <string name="severity_hypertension1">This indicates high blood pressure (first stage of hypertension)</string>
+    <string name="severity_hypertension2">This indicates high blood pressure (second stage of hypertension)</string>
+    <string name="severity_crisis">This indicates hypertensive crisis. If the reading is taken recently, consulting with your doctor is recommended.</string>
 
 </resources>

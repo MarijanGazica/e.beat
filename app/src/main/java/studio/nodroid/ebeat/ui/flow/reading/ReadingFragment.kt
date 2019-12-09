@@ -15,6 +15,7 @@ import dev.chrisbanes.insetter.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_reading.*
 import org.koin.android.ext.android.inject
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.model.PressureSeverity
 import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.ui.dateTime.DatePickDialog
 import studio.nodroid.ebeat.ui.dateTime.TimePickDialog
@@ -72,6 +73,7 @@ class ReadingFragment : Fragment() {
         viewModel.selectedDiastolic.observe(viewLifecycleOwner, Observer { it?.run { showDiastolicSelected(this) } })
         viewModel.selectedPulse.observe(viewLifecycleOwner, Observer { it?.run { showPulseSelected(this) } })
         viewModel.selectedDescription.observe(viewLifecycleOwner, Observer { it?.run { showDescriptionSelected(this) } })
+        viewModel.readingSeverity.observe(viewLifecycleOwner, Observer { showPressureSeverity(it) })
 
         timeNow.setOnClickListener { viewModel.readingTakenNow() }
         timeOther.setOnClickListener { viewModel.timeNotNowSelected() }
@@ -140,6 +142,18 @@ class ReadingFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun showPressureSeverity(bpSeverity: PressureSeverity?) {
+        severity.text = when (bpSeverity) {
+            PressureSeverity.ERROR -> getString(R.string.severity_error)
+            PressureSeverity.NORMAL -> getString(R.string.severity_normal)
+            PressureSeverity.ELEVATED -> getString(R.string.severity_elevated)
+            PressureSeverity.HYPERTENSION_1 -> getString(R.string.severity_hypertension1)
+            PressureSeverity.HYPERTENSION_2 -> getString(R.string.severity_hypertension2)
+            PressureSeverity.HYPERTENSION_CRISIS -> getString(R.string.severity_crisis)
+            null -> getString(R.string.severity_error)
+        }
     }
 
     private fun showActions(isDescriptionSet: Boolean) {

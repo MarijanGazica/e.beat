@@ -230,6 +230,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/severity"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/severity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:alpha="0.8"
             android:gravity="start"
@@ -298,6 +308,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/severity"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/severity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:alpha="0.8"
             android:gravity="start"
@@ -366,6 +386,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/severity"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/severity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:alpha="0.8"
             android:gravity="start"
@@ -431,6 +461,17 @@
 
         <Constraint
             android:id="@+id/pulse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/severity"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/severity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -510,6 +551,17 @@
 
         <Constraint
             android:id="@+id/pulse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/severity"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/severity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

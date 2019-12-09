@@ -1,17 +1,13 @@
 package studio.nodroid.ebeat.ui.flow.reading
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import kotlinx.coroutines.*
-import studio.nodroid.ebeat.model.Date
-import studio.nodroid.ebeat.model.PressureDataDB
-import studio.nodroid.ebeat.model.Time
-import studio.nodroid.ebeat.model.User
+import studio.nodroid.ebeat.model.*
 import studio.nodroid.ebeat.room.PressureDataRepository
 import studio.nodroid.ebeat.room.UserRepository
 import studio.nodroid.ebeat.time.TimeProvider
 import studio.nodroid.ebeat.utils.SingleLiveEvent
+import studio.nodroid.ebeat.utils.getPressureRating
 import studio.nodroid.ebeat.utils.timestampFromTime
 
 class ReadingViewModel(userRepository: UserRepository, private val pressureRepo: PressureDataRepository, private val timeProvider: TimeProvider) : ViewModel() {
@@ -27,9 +23,17 @@ class ReadingViewModel(userRepository: UserRepository, private val pressureRepo:
     val selectedPulse = MutableLiveData<Int>()
     val selectedDescription = MutableLiveData<String>()
     val events = SingleLiveEvent<State>()
+    val readingSeverity = MediatorLiveData<PressureSeverity>()
 
     private var tempDate: Date? = null
     private var timer: Job? = null
+
+    private val severityCalc = Observer<Int> { readingSeverity.value = getPressureRating(selectedSystolic.value, selectedDiastolic.value) }
+
+    init {
+        readingSeverity.addSource(selectedSystolic, severityCalc)
+        readingSeverity.addSource(selectedDiastolic, severityCalc)
+    }
 
     fun selectedUser(user: User) {
         selectedUser.value = user
