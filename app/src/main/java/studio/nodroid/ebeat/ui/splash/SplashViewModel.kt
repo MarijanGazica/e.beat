@@ -16,28 +16,16 @@ class SplashViewModel(userRepository: UserRepository) : ViewModel() {
 
     val requirementsMet = MediatorLiveData<Boolean>().apply { value = false }
 
-    private var userReady: Boolean = false
-    private var adSetupDone: Boolean = false
-
     init {
         requirementsMet.addSource(userRepository.getAllUsers()) {
             if (it == null || it.isEmpty()) {
                 scope.launch {
-                    userRepository.addUser(User(name = "Default"))
+                    userRepository.addUser(User(name = "Default")).join()
+                    requirementsMet.value = true
                 }
             } else {
-                userReady = true
-                evaluateConditions()
+                requirementsMet.value = true
             }
         }
-    }
-
-    fun adSetupDone() {
-        adSetupDone = true
-        evaluateConditions()
-    }
-
-    private fun evaluateConditions() {
-        requirementsMet.value = userReady && adSetupDone
     }
 }

@@ -14,7 +14,7 @@ import dev.chrisbanes.insetter.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_users.*
 import org.koin.android.ext.android.inject
 import studio.nodroid.ebeat.R
-import studio.nodroid.ebeat.utils.colorFormat
+import studio.nodroid.ebeat.utils.boldFormat
 import studio.nodroid.ebeat.utils.hideKeyboard
 
 class UsersFragment : Fragment() {
@@ -51,6 +51,8 @@ class UsersFragment : Fragment() {
             }
             if (userList.size == 1) {
                 deleteUser.visibility = View.GONE
+            } else if (userList.size > 1) {
+                deleteUser.visibility = View.VISIBLE
             }
         })
 
@@ -61,7 +63,7 @@ class UsersFragment : Fragment() {
                     UsersViewModel.State.NewUser -> motionLayout.transitionToState(R.id.actionAddUser)
                     UsersViewModel.State.DeleteUser.Choose -> motionLayout.transitionToState(R.id.actionDeleteUser)
                     is UsersViewModel.State.DeleteUser.Confirm -> {
-                        confirmDeleteQuestion.text = colorFormat(resources.getString(R.string.question_confirm_delete_user), state.name)
+                        confirmDeleteQuestion.text = boldFormat(resources.getString(R.string.question_confirm_delete_user), state.name)
                         motionLayout.transitionToState(R.id.actionConfirmDeleteUser)
                     }
                 }

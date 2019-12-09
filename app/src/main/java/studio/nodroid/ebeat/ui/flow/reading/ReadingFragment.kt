@@ -113,9 +113,12 @@ class ReadingFragment : Fragment() {
         }
 
         actionDescription.setOnClickListener {
-            motionLayout.transitionToState(R.id.descriptionRequired)
+            motionLayout.transitionToState(R.id.enterDescription)
             showKeyboard(descriptionValue)
         }
+
+        actionDiscardConfirm.setOnClickListener { viewModel.confirmedDiscard() }
+        actionDiscardAbort.setOnClickListener { viewModel.abortedDiscard() }
 
         actionSave.setOnClickListener { viewModel.saveReading() }
         actionDiscard.setOnClickListener { viewModel.discardReading() }
@@ -126,15 +129,33 @@ class ReadingFragment : Fragment() {
 
         viewModel.events.observe(viewLifecycleOwner, Observer { event ->
             when (event) {
-                ReadingViewModel.State.TIME_NEEDED -> timePicker.show(childFragmentManager, "time")
-                ReadingViewModel.State.DATE_NEEDED -> datePicker.show(childFragmentManager, "date")
-                ReadingViewModel.State.SAVED -> showSavedReading()
-                ReadingViewModel.State.DONE -> navigateBack()
+                is ReadingViewModel.State.TimeNeeded -> timePicker.show(childFragmentManager, "time")
+                is ReadingViewModel.State.DateNeeded -> datePicker.show(childFragmentManager, "date")
+                is ReadingViewModel.State.Saved -> showSavedReading()
+                is ReadingViewModel.State.Done -> navigateBack()
+                is ReadingViewModel.State.AskDiscard -> showDiscard(event.isDescriptionSet)
+                is ReadingViewModel.State.FinishedDiscard -> showActions(event.isDescriptionSet)
 
                 null -> {/*noop*/
                 }
             }
         })
+    }
+
+    private fun showActions(isDescriptionSet: Boolean) {
+        if (isDescriptionSet) {
+            motionLayout.transitionToState(R.id.chooseActionDesc)
+        } else {
+            motionLayout.transitionToState(R.id.chooseActionNoDesc)
+        }
+    }
+
+    private fun showDiscard(isDescriptionSet: Boolean) {
+        if (isDescriptionSet) {
+            motionLayout.transitionToState(R.id.discardDesc)
+        } else {
+            motionLayout.transitionToState(R.id.discardNoDesc)
+        }
     }
 
     private fun showSavedReading() {
@@ -152,12 +173,12 @@ class ReadingFragment : Fragment() {
      */
 
     private fun showUserSelected(selectedUser: User) {
-        user.text = colorFormat(getString(R.string.reading_user), selectedUser.name)
-        motionLayout.transitionToState(R.id.userSet)
+        user.text = boldFormat(getString(R.string.reading_user), selectedUser.name)
+        motionLayout.transitionToState(R.id.selectDate)
     }
 
     private fun showUserPicker(list: List<User>) {
-        motionLayout.transitionToState(R.id.start)
+        motionLayout.transitionToState(R.id.selectUser)
         list.forEach { user ->
             val chip = layoutInflater.inflate(R.layout.item_user, null) as Chip
             val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
@@ -180,8 +201,8 @@ class ReadingFragment : Fragment() {
      */
 
     private fun showTimeSelected(time: Long) {
-        dateTime.text = colorFormat(getString(R.string.reading_date), time.toDate(), time.toTime())
-        motionLayout.transitionToState(R.id.dateSet)
+        dateTime.text = boldFormat(getString(R.string.reading_date), time.toDate(), time.toTime())
+        motionLayout.transitionToState(R.id.enterSystolic)
         systolicValue.requestFocus()
         showKeyboard(systolicValue)
     }
@@ -194,8 +215,8 @@ class ReadingFragment : Fragment() {
      */
 
     private fun showSystolicSelected(sys: Int) {
-        systolic.text = colorFormat(getString(R.string.reading_systolic), sys.toString())
-        motionLayout.transitionToState(R.id.systolicSet)
+        systolic.text = boldFormat(getString(R.string.reading_systolic), sys.toString())
+        motionLayout.transitionToState(R.id.enterDiastolic)
         diastolicValue.requestFocus()
         showKeyboard(diastolicValue)
     }
@@ -208,8 +229,8 @@ class ReadingFragment : Fragment() {
      */
 
     private fun showDiastolicSelected(dia: Int) {
-        diastolic.text = colorFormat(getString(R.string.reading_diastolic), dia.toString())
-        motionLayout.transitionToState(R.id.diastolicSet)
+        diastolic.text = boldFormat(getString(R.string.reading_diastolic), dia.toString())
+        motionLayout.transitionToState(R.id.enterPulse)
         pulseValue.requestFocus()
         showKeyboard(pulseValue)
     }
@@ -222,8 +243,8 @@ class ReadingFragment : Fragment() {
      */
 
     private fun showPulseSelected(pul: Int) {
-        pulse.text = colorFormat(getString(R.string.reading_pulse), pul.toString())
-        motionLayout.transitionToState(R.id.actionsPresented)
+        pulse.text = boldFormat(getString(R.string.reading_pulse), pul.toString())
+        motionLayout.transitionToState(R.id.chooseActionNoDesc)
     }
 
 
@@ -235,11 +256,11 @@ class ReadingFragment : Fragment() {
 
     private fun showDescriptionSelected(desc: String) {
         if (desc.isEmpty()) {
-            motionLayout.transitionToState(R.id.actionsPresented)
+            motionLayout.transitionToState(R.id.chooseActionNoDesc)
         } else {
-            description.text = colorFormat("{first}", desc)
+            description.text = boldFormat("{first}", desc)
             actionDescription.visibility = View.GONE
-            motionLayout.transitionToState(R.id.descriptionSet)
+            motionLayout.transitionToState(R.id.chooseActionDesc)
         }
     }
 }

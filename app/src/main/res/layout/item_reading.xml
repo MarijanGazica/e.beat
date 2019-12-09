@@ -14,23 +14,20 @@
         android:id="@+id/range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/time"
+        android:textAppearance="@style/Text.Subtitle2"
         app:layout_constraintEnd_toStartOf="@id/systolicTitle"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/systolicTitle"
-        app:layout_constraintVertical_chainStyle="spread_inside"
         tools:text="12.02.2019." />
 
     <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textAppearance="@style/Text.Subtitle2"
         app:layout_constraintBottom_toBottomOf="@+id/systolic"
         app:layout_constraintStart_toStartOf="@id/range"
-        app:layout_constraintTop_toBottomOf="@id/range"
         tools:text="12:02" />
 
     <TextView
@@ -39,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/systolic"
-        android:textSize="14sp"
+        android:textAppearance="@style/Text.Subtitle2"
         app:layout_constraintBottom_toTopOf="@id/systolic"
         app:layout_constraintEnd_toStartOf="@id/diastolicTitle"
         app:layout_constraintStart_toEndOf="@id/range"
@@ -50,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:textSize="20sp"
+        android:textAppearance="@style/Text.Headline6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/systolicTitle"
         app:layout_constraintStart_toStartOf="@id/systolicTitle"
@@ -62,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/diastolic"
-        android:textSize="14sp"
+        android:textAppearance="@style/Text.Subtitle2"
         app:layout_constraintEnd_toStartOf="@id/pulseTitle"
         app:layout_constraintStart_toEndOf="@id/systolicTitle"
         app:layout_constraintTop_toTopOf="@id/systolicTitle" />
@@ -71,7 +68,7 @@
         android:id="@+id/diastolic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textAppearance="@style/Text.Headline6"
         app:layout_constraintEnd_toEndOf="@id/diastolicTitle"
         app:layout_constraintStart_toStartOf="@id/diastolicTitle"
         app:layout_constraintTop_toBottomOf="@id/diastolicTitle"
@@ -82,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pulse"
-        android:textSize="14sp"
+        android:textAppearance="@style/Text.Subtitle2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/diastolicTitle"
         app:layout_constraintTop_toTopOf="@id/systolicTitle" />
@@ -91,10 +88,30 @@
         android:id="@+id/pulse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textAppearance="@style/Text.Headline6"
         app:layout_constraintEnd_toEndOf="@id/pulseTitle"
         app:layout_constraintStart_toStartOf="@id/pulseTitle"
         app:layout_constraintTop_toBottomOf="@id/pulseTitle"
         tools:text="123" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/itemBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="pulse,systolic,diastolic,time" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:textAppearance="@style/Text.Subtitle2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemBarrier"
+        tools:text="Some very long description to see whats up when description is long" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

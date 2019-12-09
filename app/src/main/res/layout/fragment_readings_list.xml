@@ -9,18 +9,6 @@
     android:clipToPadding="false"
     app:layoutDescription="@xml/fragment_readings_list_scene">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="16dp"
-        android:importantForAccessibility="no"
-        android:transitionName="dot_animation"
-        app:layout_constraintBottom_toTopOf="@id/iconBarrier"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:src="@drawable/ic_e_beat_logo_dot" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/listContainer"
         android:layout_width="0dp"
@@ -50,6 +38,18 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="16dp"
+        android:importantForAccessibility="no"
+        android:transitionName="dot_animation"
+        app:layout_constraintBottom_toTopOf="@id/iconBarrier"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:src="@drawable/ic_e_beat_logo_dot" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/userSelector"
         android:layout_width="0dp"
@@ -76,9 +76,8 @@
             android:id="@+id/userChipContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:scrollbars="none"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toTopOf="@id/dismissUsers">
 
             <LinearLayout
                 android:id="@+id/chipGroup"
@@ -92,6 +91,15 @@
                 app:singleLine="true" />
 
         </HorizontalScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/dismissUsers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@string/answer_readings_exit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

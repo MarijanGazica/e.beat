@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:alpha="0"
         android:gravity="start"
-        android:textAppearance="@style/Text.Subtitle2"
+        android:textAppearance="@style/ReadingEntryDescription"
         app:layout_constraintEnd_toEndOf="@id/endGuide"
         app:layout_constraintStart_toStartOf="@id/startGuide"
         app:layout_constraintTop_toBottomOf="parent"
@@ -40,22 +40,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:alpha="0"
-        android:textAppearance="@style/Text.Body2"
+        android:textAppearance="@style/ReadingEntryDescription"
         app:layout_constraintEnd_toEndOf="@id/endGuide"
         app:layout_constraintStart_toStartOf="@id/startGuide"
         app:layout_constraintTop_toBottomOf="parent"
         tools:text="taken on 31.03.2019." />
-
-    <TextView
-        android:id="@+id/pressureText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:alpha="0"
-        android:text="@string/reading_pressure_title"
-        app:layout_constraintEnd_toEndOf="@id/endGuide"
-        app:layout_constraintStart_toStartOf="@id/startGuide"
-        app:layout_constraintTop_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/systolic"
@@ -63,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:alpha="0"
+        android:textAppearance="@style/ReadingEntryDescription"
         app:layout_constraintEnd_toEndOf="@id/endGuide"
         app:layout_constraintStart_toStartOf="@id/startGuide"
         app:layout_constraintTop_toBottomOf="parent"
@@ -74,6 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:alpha="0"
+        android:textAppearance="@style/ReadingEntryDescription"
         app:layout_constraintEnd_toEndOf="@id/endGuide"
         app:layout_constraintStart_toStartOf="@id/startGuide"
         app:layout_constraintTop_toBottomOf="parent"
@@ -85,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:alpha="0"
+        android:textAppearance="@style/ReadingEntryDescription"
         app:layout_constraintEnd_toEndOf="@id/endGuide"
         app:layout_constraintStart_toStartOf="@id/startGuide"
         app:layout_constraintTop_toBottomOf="parent"
@@ -96,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:alpha="0"
+        android:textAppearance="@style/ReadingEntryDescription"
         app:layout_constraintEnd_toEndOf="@id/endGuide"
         app:layout_constraintStart_toStartOf="@id/startGuide"
         app:layout_constraintTop_toBottomOf="parent"
@@ -216,6 +209,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:gravity="end"
+            android:hint="@string/bp_unit"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:maxLength="3"
@@ -226,12 +220,11 @@
 
         <ImageView
             android:id="@+id/systolicValueConfirm"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:contentDescription="@string/description_confirm"
             app:layout_constraintBottom_toBottomOf="@id/systolicValue"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/systolicValue"
             app:srcCompat="@drawable/ic_checkmark_icon" />
@@ -268,6 +261,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:gravity="end"
+            android:hint="@string/bp_unit"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:maxLength="3"
@@ -278,12 +272,11 @@
 
         <ImageView
             android:id="@+id/diastolicValueConfirm"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:contentDescription="@string/description_confirm"
             app:layout_constraintBottom_toBottomOf="@id/diastolicValue"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/diastolicValue"
             app:srcCompat="@drawable/ic_checkmark_icon" />
@@ -320,6 +313,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:gravity="end"
+            android:hint="@string/pulse_unit"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:maxLength="3"
@@ -330,12 +324,11 @@
 
         <ImageView
             android:id="@+id/pulseValueConfirm"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:contentDescription="@string/description_confirm"
             app:layout_constraintBottom_toBottomOf="@id/pulseValue"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/pulseValue"
             app:srcCompat="@drawable/ic_checkmark_icon" />
@@ -382,12 +375,11 @@
 
         <ImageView
             android:id="@+id/descriptionValueConfirm"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:contentDescription="@string/description_confirm"
             app:layout_constraintBottom_toBottomOf="@id/descriptionValue"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/descriptionValue"
             app:srcCompat="@drawable/ic_checkmark_icon" />
@@ -446,6 +438,48 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/discardSelector"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/discardQuestion"
+            style="@style/Question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/question_confirm_discard"
+            app:layout_constraintBottom_toTopOf="@id/actionDiscardConfirm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/actionDiscardConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@string/answer_discard_confirm"
+            app:layout_constraintBottom_toTopOf="@id/actionDiscardAbort"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/actionDiscardAbort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@string/answer_discard_decline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/doneSelector"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -497,6 +531,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="userSelector,dateSelector,systolicSelector,diastolicSelector,pulseSelector,descriptionSelector,actionSelector,doneSelector" />
+        app:constraint_referenced_ids="userSelector,dateSelector,systolicSelector,diastolicSelector,pulseSelector,descriptionSelector,actionSelector,doneSelector,discardSelector" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

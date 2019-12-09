@@ -22,7 +22,6 @@ import studio.nodroid.ebeat.R
 import studio.nodroid.ebeat.model.PressureDataDB
 import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.ui.dateTime.DatePickDialog
-import studio.nodroid.ebeat.ui.inputHistory.ReadingHistoryAdapter
 import studio.nodroid.ebeat.utils.dpPx
 import studio.nodroid.ebeat.utils.startDotAnimation
 
@@ -99,6 +98,7 @@ class ReadingsListFragment : Fragment() {
         emptyChangeSelection.setOnClickListener { viewModel.selectedChangeSelection() }
         emptyDismiss.setOnClickListener { it.findNavController().popBackStack() }
         dismiss.setOnClickListener { it.findNavController().popBackStack() }
+        dismissUsers.setOnClickListener { it.findNavController().popBackStack() }
     }
 
     private fun showUserPicker(list: List<User>) {

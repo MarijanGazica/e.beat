@@ -12,8 +12,8 @@
         <item name="materialButtonStyle">@style/ButtonStyle</item>
         <item name="android:listDivider">@drawable/list_divider</item>
 
-        <item name="fontFamily">@font/noto_sans</item>
-        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="fontFamily">@font/font</item>
+        <item name="android:fontFamily">@font/font</item>
 
         <item name="android:windowBackground">@drawable/ebeat_gradient</item>
 
@@ -133,6 +133,7 @@
         <item name="android:background">@color/transparent</item>
         <item name="android:backgroundTint">@color/transparent</item>
         <item name="android:textAppearance">@style/Text.Body1</item>
+        <item name="android:textColor">@color/colorPrimary</item>
         <item name="chipBackgroundColor">@color/transparent</item>
         <item name="chipStrokeWidth">0.8dp</item>
         <item name="chipStrokeColor">@color/colorPrimary</item>

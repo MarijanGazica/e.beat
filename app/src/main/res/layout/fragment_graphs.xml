@@ -47,9 +47,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:alpha="0"
-        android:paddingBottom="8dp"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toTopOf="@id/changeSelector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,9 +93,8 @@
             android:id="@+id/userChipContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:scrollbars="none"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toTopOf="@id/dismissUsers">
 
             <LinearLayout
                 android:id="@+id/chipGroup"
@@ -109,6 +108,15 @@
                 app:singleLine="true" />
 
         </HorizontalScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/dismissUsers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@string/answer_readings_exit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

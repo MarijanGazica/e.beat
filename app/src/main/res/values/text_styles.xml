@@ -54,8 +54,8 @@
     </style>
 
     <style name="Text.Body1" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="fontFamily">@font/noto_sans</item>
-        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="fontFamily">@font/font</item>
+        <item name="android:fontFamily">@font/font</item>
         <!--Your custom type style here-->
     </style>
 
@@ -90,5 +90,7 @@
     <style name="Question">
         <item name="android:textAppearance">@style/Text.Headline6</item>
     </style>
+
+    <style name="ReadingEntryDescription" parent="Text.Body1" />
 
 </resources>

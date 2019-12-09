@@ -1,5 +1,6 @@
 package studio.nodroid.ebeat.ui.flow.graphs
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,8 @@ import androidx.transition.TransitionInflater
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.LargeValueFormatter
 import com.google.android.material.chip.Chip
 import dev.chrisbanes.insetter.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_graphs.*
@@ -21,9 +24,6 @@ import org.koin.android.ext.android.inject
 import studio.nodroid.ebeat.R
 import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.ui.dateTime.DatePickDialog
-import studio.nodroid.ebeat.ui.graphs.generateDiastolicGraphLine
-import studio.nodroid.ebeat.ui.graphs.generatePulseGraphLine
-import studio.nodroid.ebeat.ui.graphs.generateSystolicGraphLine
 import studio.nodroid.ebeat.ui.view.DateAxisFormatter
 import studio.nodroid.ebeat.utils.DAY
 import studio.nodroid.ebeat.utils.dpPx
@@ -105,7 +105,7 @@ class GraphsFragment : Fragment() {
         emptyChangeSelection.setOnClickListener { viewModel.changeSelectionSelected() }
         emptyDismiss.setOnClickListener { it.findNavController().popBackStack() }
         dismiss.setOnClickListener { it.findNavController().popBackStack() }
-
+        dismissUsers.setOnClickListener { it.findNavController().popBackStack() }
     }
 
     private fun showUserPicker(list: List<User>) {
@@ -160,5 +160,45 @@ class GraphsFragment : Fragment() {
 
         lineChart.axisRight.isEnabled = false
 
+    }
+
+    private fun generateSystolicGraphLine(context: Context): LineDataSet {
+        val set = LineDataSet(mutableListOf(), context.resources.getString(R.string.systolic))
+        set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+        set.color = ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme)
+        set.setCircleColor(ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme))
+        set.valueTextSize = 10f
+        set.valueTextColor = ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme)
+        set.lineWidth = 2f
+        set.isHighlightEnabled = false
+        set.valueFormatter = LargeValueFormatter()
+        return set
+    }
+
+    private fun generateDiastolicGraphLine(context: Context): LineDataSet {
+        val set = LineDataSet(mutableListOf(), context.resources.getString(R.string.diastolic))
+        set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+        set.color = ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme)
+        set.setCircleColor(ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme))
+        set.valueTextColor = ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme)
+        set.lineWidth = 2f
+        set.valueTextSize = 10f
+        set.isHighlightEnabled = false
+        set.valueFormatter = LargeValueFormatter()
+        return set
+    }
+
+    private fun generatePulseGraphLine(context: Context): LineDataSet {
+        val set = LineDataSet(mutableListOf(), context.resources.getString(R.string.pulse))
+        set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+        set.color = ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme)
+        set.setCircleColor(ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme))
+        set.valueTextColor = ResourcesCompat.getColor(context.resources, R.color.color_on_background, context.theme)
+        set.valueTextSize = 10f
+        set.lineWidth = 1f
+        set.enableDashedLine(15f, 10f, 0f)
+        set.isHighlightEnabled = false
+        set.valueFormatter = LargeValueFormatter()
+        return set
     }
 }

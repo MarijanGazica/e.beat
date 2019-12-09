@@ -20,9 +20,10 @@
                 android:pathData="M35.5643,5.8856C34.0723,4.2517 32.0108,3.2625 29.8482,3.1429C27.6857,3.0233 25.6061,3.7834 24.0821,5.2504C18.7146,10.4168 8.5237,20.2269 8.5237,20.2269L20.0433,32.1936C20.0433,32.1936 30.0417,22.5689 35.4473,17.3652C38.5864,14.3433 38.6403,9.2573 35.5688,5.89C35.5672,5.8887 35.5658,5.8871 35.5643,5.8856Z"
                 android:strokeWidth="4"
                 android:strokeColor="#FFFFFF" />
+
             <path
                 android:name="dot"
-                android:fillAlpha="0"
+                android:fillAlpha="0.2"
                 android:fillColor="#FFFFFF"
                 android:fillType="evenOdd"
                 android:pathData="M36,34m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0"
@@ -38,7 +39,7 @@
                     android:duration="200"
                     android:propertyName="fillAlpha"
                     android:startOffset="0"
-                    android:valueFrom="0"
+                    android:valueFrom="0.4"
                     android:valueTo="1"
                     android:valueType="floatType" />
 
@@ -46,7 +47,7 @@
                     android:duration="200"
                     android:propertyName="fillAlpha"
                     android:startOffset="200"
-                    android:valueFrom="1"
+                    android:valueFrom="0.8"
                     android:valueTo="0.2"
                     android:valueType="floatType" />
 
@@ -63,15 +64,15 @@
                     android:propertyName="fillAlpha"
                     android:startOffset="600"
                     android:valueFrom="0.8"
-                    android:valueTo="0"
+                    android:valueTo="0.4"
                     android:valueType="floatType" />
 
                 <objectAnimator
                     android:duration="400"
                     android:propertyName="fillAlpha"
                     android:startOffset="800"
-                    android:valueFrom="0"
-                    android:valueTo="0"
+                    android:valueFrom="0.4"
+                    android:valueTo="0.4"
                     android:valueType="floatType" />
             </set>
         </aapt:attr>

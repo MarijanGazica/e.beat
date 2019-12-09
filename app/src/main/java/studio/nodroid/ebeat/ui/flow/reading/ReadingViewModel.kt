@@ -40,7 +40,7 @@ class ReadingViewModel(userRepository: UserRepository, private val pressureRepo:
     }
 
     fun timeNotNowSelected() {
-        events.value = State.DATE_NEEDED
+        events.value = State.DateNeeded
     }
 
     fun timeSelected(time: Time) {
@@ -52,7 +52,7 @@ class ReadingViewModel(userRepository: UserRepository, private val pressureRepo:
 
     fun dateSelected(date: Date) {
         tempDate = date
-        events.value = State.TIME_NEEDED
+        events.value = State.TimeNeeded
     }
 
     fun systolicPressureEntered(value: String) {
@@ -95,27 +95,40 @@ class ReadingViewModel(userRepository: UserRepository, private val pressureRepo:
                     userId = selectedUser.value!!.id
                 )
             ).join()
-            events.value = State.SAVED
+            events.value = State.Saved
         }
 
         timer = scope.launch {
             withContext(Dispatchers.IO) {
                 delay(3000)
             }
-            events.value = State.DONE
+            events.value = State.Done
         }
     }
 
     fun discardReading() {
-        events.value = State.DONE
+        events.value = State.AskDiscard(selectedDescription.value?.isNotEmpty() ?: false)
     }
 
     fun savedNotificationDismissed() {
         timer?.cancel()
     }
 
-    enum class State {
-        TIME_NEEDED, DATE_NEEDED, SAVED, DONE
+    fun confirmedDiscard() {
+        events.value = State.Done
+    }
+
+    fun abortedDiscard() {
+        events.value = State.FinishedDiscard(selectedDescription.value?.isNotEmpty() ?: false)
+    }
+
+    sealed class State {
+        object TimeNeeded : State()
+        object DateNeeded : State()
+        object Saved : State()
+        object Done : State()
+        data class AskDiscard(val isDescriptionSet: Boolean) : State()
+        data class FinishedDiscard(val isDescriptionSet: Boolean) : State()
     }
 
 }

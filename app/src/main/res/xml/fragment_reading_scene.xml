@@ -6,7 +6,7 @@
 
     <ConstraintSet android:id="@+id/initial" />
 
-    <ConstraintSet android:id="@+id/start">
+    <ConstraintSet android:id="@+id/selectUser">
 
         <Constraint
             android:id="@+id/userSelector"
@@ -19,16 +19,18 @@
 
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/userSet">
+    <ConstraintSet android:id="@+id/selectDate">
 
         <Constraint
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:alpha="1"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:alpha="0.8"
+            motion:layout_constraintBottom_toTopOf="@id/icon"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/dateSelector"
@@ -41,26 +43,28 @@
 
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/dateSet">
+    <ConstraintSet android:id="@+id/enterSystolic">
 
         <Constraint
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:alpha="1"
+            android:layout_marginTop="32dp"
+            android:alpha="0.8"
+            motion:layout_constraintBottom_toTopOf="@id/dateTime"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/dateTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:layout_marginBottom="32dp"
+            android:alpha="0.8"
+            motion:layout_constraintBottom_toTopOf="@id/icon"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/user" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/systolicSelector"
@@ -73,52 +77,40 @@
 
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/systolicSet">
+    <ConstraintSet android:id="@+id/enterDiastolic">
 
         <Constraint
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:alpha="1"
+            android:layout_marginTop="32dp"
+            android:alpha="0.8"
+            motion:layout_constraintBottom_toTopOf="@id/dateTime"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/dateTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/systolic"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/user" />
-
-        <Constraint
-            android:id="@+id/pressureText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:alpha="1"
-            android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
-            motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/dateTime" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/systolic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:layout_marginBottom="32dp"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/icon"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/pressureText" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/diastolicSelector"
@@ -131,64 +123,51 @@
 
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/diastolicSet">
+    <ConstraintSet android:id="@+id/enterPulse">
 
         <Constraint
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:alpha="1"
+            android:layout_marginTop="32dp"
+            android:alpha="0.8"
+            motion:layout_constraintBottom_toTopOf="@id/dateTime"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/dateTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/systolic"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/user" />
-
-        <Constraint
-            android:id="@+id/pressureText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:alpha="1"
-            android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
-            motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/dateTime" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/systolic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/diastolic"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/pressureText" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/diastolic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:layout_marginBottom="32dp"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/icon"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/systolic" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/pulseSelector"
@@ -201,89 +180,62 @@
 
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/descriptionRequired">
+    <ConstraintSet android:id="@+id/enterDescription">
 
         <Constraint
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:alpha="1"
+            android:layout_marginTop="32dp"
+            android:alpha="0.8"
+            motion:layout_constraintBottom_toTopOf="@id/dateTime"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/dateTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/systolic"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/user" />
-
-        <Constraint
-            android:id="@+id/pressureText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:alpha="1"
-            android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
-            motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/dateTime" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/systolic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/diastolic"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/pressureText" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/diastolic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/pulse"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/systolic" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/pulse"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:layout_marginBottom="32dp"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/icon"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/diastolic" />
-
-        <Constraint
-            android:id="@+id/description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:alpha="0"
-            android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
-            motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="parent" />
-
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/descriptionSelector"
@@ -296,76 +248,62 @@
 
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/actionsPresented">
+    <ConstraintSet android:id="@+id/chooseActionNoDesc">
 
         <Constraint
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:alpha="1"
+            android:layout_marginTop="32dp"
+            android:alpha="0.8"
+            motion:layout_constraintBottom_toTopOf="@id/dateTime"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/dateTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/systolic"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/user" />
-
-        <Constraint
-            android:id="@+id/pressureText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:alpha="1"
-            android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
-            motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/dateTime" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/systolic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/diastolic"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/pressureText" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/diastolic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/pulse"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/systolic" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/pulse"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:layout_marginBottom="32dp"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/icon"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/diastolic" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/actionSelector"
@@ -378,91 +316,223 @@
 
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/descriptionSet">
+    <ConstraintSet android:id="@+id/discardNoDesc">
 
         <Constraint
             android:id="@+id/user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:alpha="1"
+            android:layout_marginTop="32dp"
+            android:alpha="0.8"
+            motion:layout_constraintBottom_toTopOf="@id/dateTime"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/dateTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/systolic"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/user" />
-
-        <Constraint
-            android:id="@+id/pressureText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:alpha="1"
-            android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
-            motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/dateTime" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/systolic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/diastolic"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/pressureText" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/diastolic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/pulse"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/systolic" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/pulse"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:layout_marginBottom="32dp"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/icon"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/diastolic" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/discardSelector"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/chooseActionDesc">
+
+        <Constraint
+            android:id="@+id/user"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:alpha="0.8"
+            motion:layout_constraintBottom_toTopOf="@id/dateTime"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/dateTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/systolic"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/systolic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/diastolic"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/diastolic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/pulse"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/pulse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/description"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:alpha="1"
+            android:layout_marginBottom="32dp"
+            android:alpha="0.8"
             android:gravity="start"
-            android:textAppearance="@style/Text.Body1"
+            motion:layout_constraintBottom_toTopOf="@id/icon"
             motion:layout_constraintEnd_toEndOf="@id/endGuide"
-            motion:layout_constraintStart_toStartOf="@id/startGuide"
-            motion:layout_constraintTop_toBottomOf="@id/pulse" />
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
 
         <Constraint
             android:id="@+id/actionSelector"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/discardDesc">
+
+        <Constraint
+            android:id="@+id/user"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:alpha="0.8"
+            motion:layout_constraintBottom_toTopOf="@id/dateTime"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/dateTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/systolic"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/systolic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/diastolic"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/diastolic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/pulse"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/pulse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/description"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            android:alpha="0.8"
+            android:gravity="start"
+            motion:layout_constraintBottom_toTopOf="@id/icon"
+            motion:layout_constraintEnd_toEndOf="@id/endGuide"
+            motion:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/discardSelector"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:alpha="1"
@@ -486,53 +556,78 @@
     </ConstraintSet>
 
     <Transition
-        motion:constraintSetEnd="@+id/start"
+        motion:constraintSetEnd="@+id/selectUser"
         motion:constraintSetStart="@+id/initial"
         motion:duration="600" />
 
     <Transition
-        motion:constraintSetEnd="@+id/userSet"
+        motion:constraintSetEnd="@+id/selectDate"
         motion:constraintSetStart="@+id/initial"
         motion:duration="600" />
 
     <Transition
-        motion:constraintSetEnd="@+id/userSet"
-        motion:constraintSetStart="@+id/start"
+        motion:constraintSetEnd="@+id/selectDate"
+        motion:constraintSetStart="@+id/selectUser"
         motion:duration="600" />
 
     <Transition
-        motion:constraintSetEnd="@+id/dateSet"
-        motion:constraintSetStart="@+id/userSet"
+        motion:constraintSetEnd="@+id/enterSystolic"
+        motion:constraintSetStart="@+id/selectDate"
         motion:duration="600" />
 
     <Transition
-        motion:constraintSetEnd="@+id/systolicSet"
-        motion:constraintSetStart="@+id/dateSet"
+        motion:constraintSetEnd="@+id/enterDiastolic"
+        motion:constraintSetStart="@+id/enterSystolic"
         motion:duration="600" />
 
     <Transition
-        motion:constraintSetEnd="@+id/diastolicSet"
-        motion:constraintSetStart="@+id/systolicSet"
+        motion:constraintSetEnd="@+id/enterPulse"
+        motion:constraintSetStart="@+id/enterDiastolic"
         motion:duration="600" />
 
     <Transition
-        motion:constraintSetEnd="@+id/actionsPresented"
-        motion:constraintSetStart="@+id/diastolicSet"
+        motion:constraintSetEnd="@+id/chooseActionNoDesc"
+        motion:constraintSetStart="@+id/enterPulse"
         motion:duration="600" />
 
     <Transition
         motion:constraintSetEnd="@+id/readingSaved"
-        motion:constraintSetStart="@+id/actionsPresented"
+        motion:constraintSetStart="@+id/chooseActionNoDesc"
         motion:duration="600" />
 
     <Transition
-        motion:constraintSetEnd="@+id/descriptionRequired"
-        motion:constraintSetStart="@+id/actionsPresented"
+        motion:constraintSetEnd="@+id/readingSaved"
+        motion:constraintSetStart="@+id/chooseActionDesc"
         motion:duration="600" />
 
     <Transition
-        motion:constraintSetEnd="@+id/descriptionSet"
-        motion:constraintSetStart="@+id/descriptionRequired"
+        motion:constraintSetEnd="@+id/discardDesc"
+        motion:constraintSetStart="@+id/chooseActionDesc"
+        motion:duration="600" />
+
+    <Transition
+        motion:constraintSetEnd="@+id/chooseActionDesc"
+        motion:constraintSetStart="@+id/discardDesc"
+        motion:duration="600" />
+
+    <Transition
+        motion:constraintSetEnd="@+id/enterDescription"
+        motion:constraintSetStart="@+id/chooseActionNoDesc"
+        motion:duration="600" />
+
+    <Transition
+        motion:constraintSetEnd="@+id/discardNoDesc"
+        motion:constraintSetStart="@+id/chooseActionNoDesc"
+        motion:duration="600" />
+
+    <Transition
+        motion:constraintSetEnd="@+id/chooseActionNoDesc"
+        motion:constraintSetStart="@+id/discardNoDesc"
+        motion:duration="600" />
+
+    <Transition
+        motion:constraintSetEnd="@+id/chooseActionDesc"
+        motion:constraintSetStart="@+id/enterDescription"
         motion:duration="600" />
 
 </MotionScene>

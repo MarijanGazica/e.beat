@@ -31,7 +31,6 @@ fun getPressureRating(systolic: Int, diastolic: Int): PressureSeverity {
     }
 }
 
-
 fun hideKeyboard(view: View) {
     val imm = view.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(view.windowToken, 0)

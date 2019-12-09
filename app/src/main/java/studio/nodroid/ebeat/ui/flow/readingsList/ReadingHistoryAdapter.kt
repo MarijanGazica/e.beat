@@ -1,4 +1,4 @@
-package studio.nodroid.ebeat.ui.inputHistory
+package studio.nodroid.ebeat.ui.flow.readingsList
 
 import android.view.LayoutInflater
 import android.view.View

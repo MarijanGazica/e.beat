@@ -1,5 +1,6 @@
 package studio.nodroid.ebeat.ui.flow.actions
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.transition.TransitionInflater
 import dev.chrisbanes.insetter.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_actions.*
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.ui.WebViewActivity
 import studio.nodroid.ebeat.utils.startDotAnimation
 
 class ActionsFragment : Fragment() {
@@ -61,6 +63,10 @@ class ActionsFragment : Fragment() {
                 icon to "dot_animation"
             )
             it.findNavController().navigate(R.id.action_actionsFragment_to_readingsListFragment, null, null, sharedElements)
+        }
+
+        actionEditSettings.setOnClickListener {
+            startActivity(Intent(requireContext(), WebViewActivity::class.java))
         }
     }
 }
