@@ -22,6 +22,8 @@ import dev.chrisbanes.insetter.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_graphs.*
 import org.koin.android.ext.android.inject
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsScreen
 import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.ui.dateTime.DatePickDialog
 import studio.nodroid.ebeat.ui.view.DateAxisFormatter
@@ -32,12 +34,16 @@ import studio.nodroid.ebeat.utils.startDotAnimation
 class GraphsFragment : Fragment() {
 
     private val viewModel by inject<GraphsViewModel>()
+    private val analytics by inject<Analytics>()
 
     private val systolicDataSet by lazy { generateSystolicGraphLine(requireContext()) }
     private val diastolicDataSet by lazy { generateDiastolicGraphLine(requireContext()) }
     private val pulseDataSet by lazy { generatePulseGraphLine(requireContext()) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (savedInstanceState == null) {
+            analytics.logScreenEvent(AnalyticsScreen.HISTORY_GRAPH)
+        }
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return inflater.inflate(R.layout.fragment_graphs, container, false)
     }

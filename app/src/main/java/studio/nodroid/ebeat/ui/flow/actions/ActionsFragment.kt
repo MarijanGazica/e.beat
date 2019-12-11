@@ -12,13 +12,21 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.transition.TransitionInflater
 import dev.chrisbanes.insetter.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_actions.*
+import org.koin.android.ext.android.inject
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsScreen
 import studio.nodroid.ebeat.ui.WebViewActivity
 import studio.nodroid.ebeat.utils.startDotAnimation
 
 class ActionsFragment : Fragment() {
 
+    private val analytics by inject<Analytics>()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (savedInstanceState == null) {
+            analytics.logScreenEvent(AnalyticsScreen.ACTIONS)
+        }
         sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return inflater.inflate(R.layout.fragment_actions, container, false)
     }

@@ -1,7 +1,10 @@
 package studio.nodroid.ebeat.ui.flow.reading
 
+import android.os.Bundle
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsEvent
 import studio.nodroid.ebeat.model.*
 import studio.nodroid.ebeat.room.PressureDataRepository
 import studio.nodroid.ebeat.room.UserRepository
@@ -10,7 +13,12 @@ import studio.nodroid.ebeat.utils.SingleLiveEvent
 import studio.nodroid.ebeat.utils.getPressureRating
 import studio.nodroid.ebeat.utils.timestampFromTime
 
-class ReadingViewModel(userRepository: UserRepository, private val pressureRepo: PressureDataRepository, private val timeProvider: TimeProvider) : ViewModel() {
+class ReadingViewModel(
+    userRepository: UserRepository,
+    private val pressureRepo: PressureDataRepository,
+    private val timeProvider: TimeProvider,
+    private val analytics: Analytics
+) : ViewModel() {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
@@ -28,6 +36,8 @@ class ReadingViewModel(userRepository: UserRepository, private val pressureRepo:
     private var tempDate: Date? = null
     private var timer: Job? = null
 
+    private val analyticsBundle = Bundle()
+
     private val severityCalc = Observer<Int> { readingSeverity.value = getPressureRating(selectedSystolic.value, selectedDiastolic.value) }
 
     init {
@@ -41,9 +51,11 @@ class ReadingViewModel(userRepository: UserRepository, private val pressureRepo:
 
     fun readingTakenNow() {
         selectedTime.value = timeProvider.getCurrentTime()
+        analyticsBundle.putString("time", "now")
     }
 
     fun timeNotNowSelected() {
+        analyticsBundle.putString("time", "custom")
         events.value = State.DateNeeded
     }
 
@@ -100,6 +112,9 @@ class ReadingViewModel(userRepository: UserRepository, private val pressureRepo:
                 )
             ).join()
             events.value = State.Saved
+            analyticsBundle.putString("description", (!selectedDescription.value.isNullOrBlank()).toString())
+            analyticsBundle.putString("severity", readingSeverity.value?.name)
+            analytics.logEvent(AnalyticsEvent.READING_ADDED, analyticsBundle)
         }
 
         timer = scope.launch {
@@ -107,6 +122,21 @@ class ReadingViewModel(userRepository: UserRepository, private val pressureRepo:
                 delay(3000)
             }
             events.value = State.Done
+        }
+    }
+
+    fun doRecord(sys: Int, dia: Int, p: Int, t: Long, De: String) {
+        scope.launch {
+            pressureRepo.addReading(
+                PressureDataDB(
+                    systolic = sys,
+                    diastolic = dia,
+                    pulse = p,
+                    timestamp = t,
+                    description = De,
+                    userId = 8
+                )
+            )
         }
     }
 
@@ -119,6 +149,7 @@ class ReadingViewModel(userRepository: UserRepository, private val pressureRepo:
     }
 
     fun confirmedDiscard() {
+        analytics.logEvent(AnalyticsEvent.READING_DISCARDED)
         events.value = State.Done
     }
 

@@ -14,14 +14,20 @@ import dev.chrisbanes.insetter.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_users.*
 import org.koin.android.ext.android.inject
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsScreen
 import studio.nodroid.ebeat.utils.boldFormat
 import studio.nodroid.ebeat.utils.hideKeyboard
 
 class UsersFragment : Fragment() {
 
     private val viewModel by inject<UsersViewModel>()
+    private val analytics by inject<Analytics>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (savedInstanceState == null) {
+            analytics.logScreenEvent(AnalyticsScreen.MANAGE_USERS)
+        }
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return inflater.inflate(R.layout.fragment_users, container, false)
     }
@@ -128,6 +134,7 @@ class UsersFragment : Fragment() {
         if (enteredText.isNotBlank()) {
             viewModel.newUserNameConfirmed(enteredText)
             hideKeyboard(view)
+            newUserValue.text.clear()
         }
     }
 

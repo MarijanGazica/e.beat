@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import org.koin.android.ext.koin.androidApplication
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 import studio.nodroid.ebeat.analytics.Analytics
 import studio.nodroid.ebeat.room.*
 import studio.nodroid.ebeat.sharedPrefs.SharedPrefs
@@ -39,9 +39,9 @@ val appModule = module {
     single<UserRepository> { UserRepositoryImpl(get()) }
     single<PressureDataRepository> { PressureDataRepositoryImpl(get()) }
 
-    viewModel { ReadingViewModel(get(), get(), get()) }
-    viewModel { UsersViewModel(get()) }
-    viewModel { GraphsViewModel(get(), get()) }
-    viewModel { ReadingsListViewModel(get(), get()) }
+    viewModel { ReadingViewModel(get(), get(), get(), get()) }
+    viewModel { UsersViewModel(get(), get()) }
+    viewModel { GraphsViewModel(get(), get(), get()) }
+    viewModel { ReadingsListViewModel(get(), get(), get()) }
 
 }

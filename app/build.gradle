@@ -39,7 +39,6 @@ android {
 
 dependencies {
     def room = "2.2.2"
-    def koin = '1.0.1'
     def navigation = "2.2.0-rc03"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -52,7 +51,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0-alpha02'
     implementation 'androidx.core:core-ktx:1.1.0'
 
-    implementation "org.koin:koin-androidx-viewmodel:$koin"
+    implementation "org.koin:koin-androidx-viewmodel:2.0.1"
 
     implementation "androidx.room:room-runtime:$room"
     kapt "androidx.room:room-compiler:$room"

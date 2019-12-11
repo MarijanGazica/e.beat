@@ -41,6 +41,7 @@ class ReadingHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         view.range.text = reading.timestamp.toDate()
         view.time.text = reading.timestamp.toTime()
+        view.description.text = reading.description
 
         view.setOnClickListener { onReadingSelected(reading) }
     }

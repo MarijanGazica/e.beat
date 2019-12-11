@@ -1,5 +1,6 @@
 package studio.nodroid.ebeat.ui.flow.graphs
 
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsEvent
 import studio.nodroid.ebeat.model.Date
 import studio.nodroid.ebeat.model.PressureDataDB
 import studio.nodroid.ebeat.model.User
@@ -16,7 +19,11 @@ import studio.nodroid.ebeat.utils.getPeriodTimestamps
 import studio.nodroid.ebeat.utils.toTimestampEnd
 import studio.nodroid.ebeat.utils.toTimestampStart
 
-class GraphsViewModel(userRepository: UserRepository, private val readingRepo: PressureDataRepository) : ViewModel() {
+class GraphsViewModel(
+    userRepository: UserRepository,
+    private val readingRepo: PressureDataRepository,
+    private val analytics: Analytics
+) : ViewModel() {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
@@ -52,6 +59,7 @@ class GraphsViewModel(userRepository: UserRepository, private val readingRepo: P
     }
 
     fun allReadingsSelected() {
+        periodSelected("all")
         scope.launch {
             readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id)
             events.value = Action.ShowReadingGraph(readings.value?.isEmpty() ?: true)
@@ -59,6 +67,7 @@ class GraphsViewModel(userRepository: UserRepository, private val readingRepo: P
     }
 
     fun time30selected() {
+        periodSelected("month")
         scope.launch {
             val period = getPeriodTimestamps(30)
             readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id).filter { it.timestamp in period.startStamp..period.endStamp }.sortedBy { it.timestamp }
@@ -81,6 +90,7 @@ class GraphsViewModel(userRepository: UserRepository, private val readingRepo: P
                     Pair(chosenDate.toTimestampStart(), firstDate!!.toTimestampEnd())
                 }
                 readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id).filter { it.timestamp in dateRange.first..dateRange.second }.sortedBy { it.timestamp }
+                periodSelected("custom")
                 firstDate = null
                 events.value = Action.ShowReadingGraph(readings.value?.isEmpty() ?: true)
             }
@@ -95,6 +105,12 @@ class GraphsViewModel(userRepository: UserRepository, private val readingRepo: P
         } else {
             events.value = Action.ShowRangePicker
         }
+    }
+
+    private fun periodSelected(period: String) {
+        val analyticsBundle = Bundle()
+        analyticsBundle.putString("period", period)
+        analytics.logEvent(AnalyticsEvent.VIEWED_GRAPH, analyticsBundle)
     }
 
     sealed class Action {

@@ -15,6 +15,8 @@ import dev.chrisbanes.insetter.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_reading.*
 import org.koin.android.ext.android.inject
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsScreen
 import studio.nodroid.ebeat.model.PressureSeverity
 import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.ui.dateTime.DatePickDialog
@@ -40,8 +42,12 @@ class ReadingFragment : Fragment() {
     }
 
     private val viewModel by inject<ReadingViewModel>()
+    private val analytics by inject<Analytics>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (savedInstanceState == null) {
+            analytics.logScreenEvent(AnalyticsScreen.ADD_READING)
+        }
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return inflater.inflate(R.layout.fragment_reading, container, false)
     }

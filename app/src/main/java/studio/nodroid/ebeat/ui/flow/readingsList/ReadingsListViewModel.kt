@@ -1,5 +1,6 @@
 package studio.nodroid.ebeat.ui.flow.readingsList
 
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsEvent
 import studio.nodroid.ebeat.model.Date
 import studio.nodroid.ebeat.model.PressureDataDB
 import studio.nodroid.ebeat.model.User
@@ -16,14 +19,17 @@ import studio.nodroid.ebeat.utils.getPeriodTimestamps
 import studio.nodroid.ebeat.utils.toTimestampEnd
 import studio.nodroid.ebeat.utils.toTimestampStart
 
-class ReadingsListViewModel(userRepository: UserRepository, private val readingRepo: PressureDataRepository) : ViewModel() {
+class ReadingsListViewModel(
+    userRepository: UserRepository,
+    private val readingRepo: PressureDataRepository,
+    private val analytics: Analytics
+) : ViewModel() {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
     val userList: LiveData<List<User>> = userRepository.getAllUsers()
     val readings = MutableLiveData<List<PressureDataDB>>()
-
     val events: MutableLiveData<Action> = MutableLiveData()
 
     private var selectedUser: User? = null
@@ -35,6 +41,7 @@ class ReadingsListViewModel(userRepository: UserRepository, private val readingR
     }
 
     fun allReadingsSelected() {
+        periodSelected("all")
         scope.launch {
             readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id)
             events.value = Action.ShowReadingList(readings.value?.isEmpty() ?: true)
@@ -42,6 +49,7 @@ class ReadingsListViewModel(userRepository: UserRepository, private val readingR
     }
 
     fun time30selected() {
+        periodSelected("month")
         scope.launch {
             val period = getPeriodTimestamps(30)
             readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id).filter { it.timestamp in period.startStamp..period.endStamp }.sortedBy { it.timestamp }
@@ -65,6 +73,7 @@ class ReadingsListViewModel(userRepository: UserRepository, private val readingR
                 }
                 readings.value = readingRepo.getAllReadingsFor(selectedUser!!.id).filter { it.timestamp in dateRange.first..dateRange.second }.sortedBy { it.timestamp }
                 firstDate = null
+                periodSelected("custom")
                 events.value = Action.ShowReadingList(readings.value?.isEmpty() ?: true)
             }
         }
@@ -78,6 +87,12 @@ class ReadingsListViewModel(userRepository: UserRepository, private val readingR
                 events.value = Action.ShowRangePicker
             }
         }
+    }
+
+    private fun periodSelected(period: String) {
+        val analyticsBundle = Bundle()
+        analyticsBundle.putString("period", period)
+        analytics.logEvent(AnalyticsEvent.VIEWED_LIST, analyticsBundle)
     }
 
     sealed class Action {

@@ -5,11 +5,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsEvent
 import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.room.UserRepository
 import studio.nodroid.ebeat.utils.SingleLiveEvent
 
-class UsersViewModel(private val userRepo: UserRepository) : ViewModel() {
+class UsersViewModel(
+    private val userRepo: UserRepository,
+    private val analytics: Analytics
+) : ViewModel() {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
@@ -19,6 +24,7 @@ class UsersViewModel(private val userRepo: UserRepository) : ViewModel() {
     private var markedUser: User? = null
 
     fun newUserNameConfirmed(name: String) {
+        analytics.logEvent(AnalyticsEvent.USER_ADDED)
         scope.launch {
             userRepo.addUser(User(name = name))
             state.value = State.SelectAction
@@ -46,6 +52,7 @@ class UsersViewModel(private val userRepo: UserRepository) : ViewModel() {
     }
 
     fun confirmedDeleteUser() {
+        analytics.logEvent(AnalyticsEvent.USER_DELETED)
         markedUser?.let { user ->
             scope.launch {
                 userRepo.deleteUser(user)

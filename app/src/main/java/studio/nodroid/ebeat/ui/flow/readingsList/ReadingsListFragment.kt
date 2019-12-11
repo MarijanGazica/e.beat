@@ -19,6 +19,8 @@ import kotlinx.android.synthetic.main.fragment_graphs.icon
 import kotlinx.android.synthetic.main.fragment_readings_list.*
 import org.koin.android.ext.android.inject
 import studio.nodroid.ebeat.R
+import studio.nodroid.ebeat.analytics.Analytics
+import studio.nodroid.ebeat.analytics.AnalyticsScreen
 import studio.nodroid.ebeat.model.PressureDataDB
 import studio.nodroid.ebeat.model.User
 import studio.nodroid.ebeat.ui.dateTime.DatePickDialog
@@ -29,6 +31,7 @@ import studio.nodroid.ebeat.utils.startDotAnimation
 class ReadingsListFragment : Fragment() {
 
     private val viewModel by inject<ReadingsListViewModel>()
+    private val analytics by inject<Analytics>()
 
     private val readingHistoryAdapter by lazy { ReadingHistoryAdapter(onReadingSelected) }
 
@@ -36,6 +39,9 @@ class ReadingsListFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (savedInstanceState == null) {
+            analytics.logScreenEvent(AnalyticsScreen.HISTORY_LIST)
+        }
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return inflater.inflate(R.layout.fragment_readings_list, container, false)
     }
