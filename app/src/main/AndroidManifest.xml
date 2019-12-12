@@ -38,6 +38,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name=".ui.flow.flowUpdateWelcome.FlowUpdateWelcomeActivity"
+            android:screenOrientation="portrait" />
+
         <!--        <meta-data-->
         <!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
         <!--            android:value="@string/admob_app_id" />-->

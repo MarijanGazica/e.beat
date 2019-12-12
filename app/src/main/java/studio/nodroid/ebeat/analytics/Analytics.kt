@@ -27,6 +27,7 @@ enum class AnalyticsScreen(val screenName: String) {
     HISTORY_GRAPH("History graph"),
     MANAGE_USERS("Manage users"),
     APP_INFO("App info"),
+    FLOW_UPDATE_WELCOME("Flow update welcome")
 }
 
 enum class AnalyticsEvent(val eventName: String) {

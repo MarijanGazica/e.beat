@@ -22,8 +22,6 @@ private const val SHARED_PREFS_NAME = "shared_prefs"
 
 val appModule = module {
 
-    viewModel { SplashViewModel(get()) }
-
     single<SharedPreferences> { androidApplication().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE) }
     single<SharedPrefs> { SharedPrefsImpl(get()) }
 
@@ -39,6 +37,7 @@ val appModule = module {
     single<UserRepository> { UserRepositoryImpl(get()) }
     single<PressureDataRepository> { PressureDataRepositoryImpl(get()) }
 
+    viewModel { SplashViewModel(get(), get()) }
     viewModel { ReadingViewModel(get(), get(), get(), get()) }
     viewModel { UsersViewModel(get(), get()) }
     viewModel { GraphsViewModel(get(), get(), get()) }

@@ -129,4 +129,10 @@
     <string name="severity_hypertension2">This indicates high blood pressure (second stage of hypertension)</string>
     <string name="severity_crisis">This indicates hypertensive crisis. If the reading is taken recently, consulting with your doctor is recommended.</string>
 
+
+    <!--    Update description strings-->
+
+    <string name="update_flow_description">Welcome back to e.beat!\nWe\'ve redesigned the app to make it even easier to use!\nWe hope you enjoy it and are looking forward to your feedback.</string>
+    <string name="update_flow_start">Let\'s start!</string>
+
 </resources>
