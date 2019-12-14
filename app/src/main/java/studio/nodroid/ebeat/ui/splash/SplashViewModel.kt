@@ -1,6 +1,6 @@
 package studio.nodroid.ebeat.ui.splash
 
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,19 +18,18 @@ class SplashViewModel(
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
-    val requirementsMet = MediatorLiveData<Event>()
+    val requirementsMet = MutableLiveData<Event>()
 
     init {
-        requirementsMet.addSource(userRepository.getAllUsers()) {
-            if (it == null || it.isEmpty()) {
-                scope.launch {
+        scope.launch {
+            val userList = userRepository.getAllUsersList()
+            when {
+                userList.isNullOrEmpty() -> {
                     userRepository.addUser(User(name = "Default")).join()
                     requirementsMet.value = Event.SHOW_MAIN
                 }
-            } else if (sharedPrefs.shouldShowFlowUpdateWelcome()) {
-                requirementsMet.value = Event.SHOW_FLOW_UPDATE_WELCOME
-            } else {
-                requirementsMet.value = Event.SHOW_MAIN
+                sharedPrefs.shouldShowFlowUpdateWelcome() -> requirementsMet.value = Event.SHOW_FLOW_UPDATE_WELCOME
+                else -> requirementsMet.value = Event.SHOW_MAIN
             }
         }
     }
