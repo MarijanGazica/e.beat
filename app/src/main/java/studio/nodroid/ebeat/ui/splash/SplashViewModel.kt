@@ -26,6 +26,7 @@ class SplashViewModel(
             when {
                 userList.isNullOrEmpty() -> {
                     userRepository.addUser(User(name = "Default")).join()
+                    sharedPrefs.setFlowUpdateWelcomeSeen()
                     requirementsMet.value = Event.SHOW_MAIN
                 }
                 sharedPrefs.shouldShowFlowUpdateWelcome() -> requirementsMet.value = Event.SHOW_FLOW_UPDATE_WELCOME

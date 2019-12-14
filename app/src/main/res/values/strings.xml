@@ -134,5 +134,6 @@
 
     <string name="update_flow_description">Welcome back to e.beat!\nWe\'ve redesigned the app to make it even easier to use!\nWe hope you enjoy it and are looking forward to your feedback.</string>
     <string name="update_flow_start">Let\'s start!</string>
+    <string name="closeScreen">Close</string>
 
 </resources>
