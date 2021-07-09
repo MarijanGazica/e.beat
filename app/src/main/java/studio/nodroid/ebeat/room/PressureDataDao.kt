@@ -27,4 +27,10 @@ interface PressureDataDao {
 
     @Query("SELECT * FROM PressureDataDB WHERE timestamp > :start AND timestamp < :end")
     fun getDataForRange(start: Long, end: Long): List<PressureDataDB>
+
+    @Query("SELECT * FROM PressureDataDB WHERE userId = :userId AND timestamp > :start AND timestamp < :end")
+    fun getDataForUserAndRange(userId: Int, start: Long, end: Long): LiveData<List<PressureDataDB>>
+
+    @Query("SELECT * FROM PressureDataDB WHERE id = :id")
+    fun getById(id: Int): PressureDataDB
 }

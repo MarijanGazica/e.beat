@@ -3,8 +3,6 @@ package studio.nodroid.ebeat.utils
 import android.app.Activity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.ColorRes
-import androidx.core.content.res.ResourcesCompat
 import studio.nodroid.ebeat.model.Date
 import studio.nodroid.ebeat.model.DateRange
 import studio.nodroid.ebeat.model.PressureSeverity
@@ -20,10 +18,9 @@ fun timestampFromTime(date: Date, time: Time): Long {
     return timestampDate.timeInMillis
 }
 
-fun getPressureRating(systolic: Int, diastolic: Int): PressureSeverity {
+fun getPressureRating(systolic: Int?, diastolic: Int?): PressureSeverity {
     return when {
-        systolic <= 0 || diastolic <= 0 -> PressureSeverity.AWAITING_INPUT
-        diastolic >= systolic -> PressureSeverity.ERROR
+        diastolic == null || systolic == null || diastolic >= systolic -> PressureSeverity.ERROR
         systolic > 180 || diastolic > 120 -> PressureSeverity.HYPERTENSION_CRISIS
         systolic >= 140 || diastolic >= 90 -> PressureSeverity.HYPERTENSION_2
         systolic in 130..139 || diastolic in 80..89 -> PressureSeverity.HYPERTENSION_1
@@ -32,9 +29,6 @@ fun getPressureRating(systolic: Int, diastolic: Int): PressureSeverity {
         else -> PressureSeverity.ERROR
     }
 }
-
-fun View.setBackgroundColorCompat(@ColorRes color: Int) =
-    setBackgroundColor(ResourcesCompat.getColor(resources, color, context.theme))
 
 fun hideKeyboard(view: View) {
     val imm = view.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager

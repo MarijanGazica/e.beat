@@ -8,31 +8,33 @@ class Analytics(app: Application) {
 
     private val firebase = FirebaseAnalytics.getInstance(app)
 
-    fun logEvent(event: AnalyticsEvent) {
+    fun logEvent(event: AnalyticsEvent, bundle: Bundle = Bundle()) {
+        bundle.putString("name", event.eventName)
+        firebase.logEvent("user_action", bundle)
+    }
+
+    fun logScreenEvent(event: AnalyticsScreen) {
         val bundle = Bundle()
-        bundle.putString(FirebaseAnalytics.Param.CONTENT, event.name)
-        firebase.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+        bundle.putString("name", event.screenName)
+        firebase.logEvent("screen_open", bundle)
     }
 }
 
-enum class AnalyticsEvent(value: String) {
-    USER_PICKER_OPEN("user_picker_open"),
-    USER_ADD("user_add"),
-    USER_CHANGE("user_change"),
-    READING_ADD("reading_add"),
-    READING_WITH_DESC("reading_with_desc"),
-    LIST_7("list_7"),
-    LIST_30("list_30"),
-    LIST_ALL("list_all"),
-    LIST_RANGE("list_range"),
-    GRAPHS_7("graphs_7"),
-    GRAPHS_30("graphs_30"),
-    GRAPHS_ALL("graphs_all"),
-    GRAPHS_RANGE("graphs_range"),
-    PRIVACY_POLICY("privacy_policy"),
-    AD_SETTINGS("ad_settings"),
-    AD_PERSONALISED("ad_personalised"),
-    AD_NOT_PERSONALISED("ad_not_personalised"),
-    AD_NOT_EEA("ad_not_eea"),
-    AD_CONSENT_ERROR("ad_consent_error")
+enum class AnalyticsScreen(val screenName: String) {
+    ACTIONS("Actions"),
+    ADD_READING("Add reading"),
+    HISTORY_LIST("History list"),
+    HISTORY_GRAPH("History graph"),
+    MANAGE_USERS("Manage users"),
+    APP_INFO("App info"),
+    FLOW_UPDATE_WELCOME("Flow update welcome")
+}
+
+enum class AnalyticsEvent(val eventName: String) {
+    READING_ADDED("Reading added"),
+    READING_DISCARDED("Reading discarded"),
+    VIEWED_LIST("Viewed list"),
+    VIEWED_GRAPH("Viewed graph"),
+    USER_ADDED("User added"),
+    USER_DELETED("User deleted")
 }

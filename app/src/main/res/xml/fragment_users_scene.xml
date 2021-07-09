@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/initial" />
+
+    <ConstraintSet android:id="@+id/actionQuestion">
+
+        <Constraint
+            android:id="@+id/userChips"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:alpha="1"
+            app:layout_constraintBottom_toTopOf="@id/contentBarrier"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/optionSelector"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/actionAddUser">
+
+        <Constraint
+            android:id="@+id/userChips"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:alpha="1"
+            app:layout_constraintBottom_toTopOf="@id/contentBarrier"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/addUserContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/actionDeleteUser">
+
+        <Constraint
+            android:id="@+id/userChips"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:alpha="1"
+            app:layout_constraintBottom_toTopOf="@id/contentBarrier"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/deleteUserContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/actionConfirmDeleteUser">
+
+        <Constraint
+            android:id="@+id/userChips"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:alpha="1"
+            app:layout_constraintBottom_toTopOf="@id/contentBarrier"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide" />
+
+        <Constraint
+            android:id="@+id/deleteUserConfirmContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide" />
+
+    </ConstraintSet>
+
+    <Transition
+        app:constraintSetEnd="@+id/actionQuestion"
+        app:constraintSetStart="@+id/initial"
+        app:duration="600" />
+
+    <Transition
+        app:constraintSetEnd="@+id/actionAddUser"
+        app:constraintSetStart="@+id/actionQuestion"
+        app:duration="600" />
+
+    <Transition
+        app:constraintSetEnd="@+id/actionDeleteUser"
+        app:constraintSetStart="@+id/actionQuestion"
+        app:duration="600" />
+
+    <Transition
+        app:constraintSetEnd="@+id/actionQuestion"
+        app:constraintSetStart="@+id/actionAddUser"
+        app:duration="600" />
+
+    <Transition
+        app:constraintSetEnd="@+id/actionQuestion"
+        app:constraintSetStart="@+id/actionDeleteUser"
+        app:duration="600" />
+
+    <Transition
+        app:constraintSetEnd="@+id/actionConfirmDeleteUser"
+        app:constraintSetStart="@+id/actionDeleteUser"
+        app:duration="600" />
+
+    <Transition
+        app:constraintSetEnd="@+id/actionQuestion"
+        app:constraintSetStart="@+id/actionConfirmDeleteUser"
+        app:duration="600" />
+
+</MotionScene>

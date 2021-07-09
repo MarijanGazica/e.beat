@@ -3,6 +3,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/ebeat_splash_logo" />
+            android:src="@drawable/ebeat_logo_splash" />
     </item>
 </layer-list>

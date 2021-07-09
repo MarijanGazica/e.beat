@@ -10,6 +10,12 @@ class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
         return userDao.getAllUsers()
     }
 
+    override suspend fun getAllUsersList(): List<User> {
+        return withContext(Dispatchers.IO) {
+            userDao.getAllUsersNow()
+        }
+    }
+
     override suspend fun deleteUser(user: User) = coroutineScope {
         withContext(Dispatchers.IO) {
             userDao.deleteUser(user)
@@ -33,6 +39,7 @@ class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
 interface UserRepository {
     suspend fun deleteUser(user: User)
     fun getAllUsers(): LiveData<List<User>>
+    suspend fun getAllUsersList(): List<User>
     suspend fun addUser(user: User): Job
     suspend fun updateUser(user: User)
 }

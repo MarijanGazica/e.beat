@@ -4,36 +4,30 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import org.koin.android.ext.koin.androidApplication
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 import studio.nodroid.ebeat.analytics.Analytics
 import studio.nodroid.ebeat.room.*
 import studio.nodroid.ebeat.sharedPrefs.SharedPrefs
 import studio.nodroid.ebeat.sharedPrefs.SharedPrefsImpl
+import studio.nodroid.ebeat.time.TimeProvider
+import studio.nodroid.ebeat.ui.flow.graphs.GraphsViewModel
+import studio.nodroid.ebeat.ui.flow.reading.ReadingViewModel
+import studio.nodroid.ebeat.ui.flow.readingsList.ReadingsListViewModel
+import studio.nodroid.ebeat.ui.flow.users.UsersViewModel
 import studio.nodroid.ebeat.ui.splash.SplashViewModel
-import studio.nodroid.ebeat.ui.view.UserListViewModel
-import studio.nodroid.ebeat.utils.KeyboardVisibilityProvider
-import studio.nodroid.ebeat.vm.AdSettingsViewModel
-import studio.nodroid.ebeat.vm.InputHistoryViewModel
-import studio.nodroid.ebeat.vm.PressureInputViewModel
-import studio.nodroid.ebeat.vm.UserPickerViewModel
 
 private const val DATABASE_NAME = "app_database"
 private const val SHARED_PREFS_NAME = "shared_prefs"
 
 val appModule = module {
 
-    viewModel { PressureInputViewModel(get(), get(), get()) }
-    viewModel { InputHistoryViewModel(get(), get()) }
-    viewModel { UserListViewModel(get(), get()) }
-    viewModel { UserPickerViewModel(get(), get(), get()) }
-    viewModel { SplashViewModel(get()) }
-    viewModel { AdSettingsViewModel(get(), get()) }
-
     single<SharedPreferences> { androidApplication().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE) }
     single<SharedPrefs> { SharedPrefsImpl(get()) }
 
     single { Analytics(androidApplication()) }
+
+    single { TimeProvider() }
 
     single { Room.databaseBuilder(androidApplication(), AppDatabase::class.java, DATABASE_NAME).build() }
 
@@ -43,6 +37,10 @@ val appModule = module {
     single<UserRepository> { UserRepositoryImpl(get()) }
     single<PressureDataRepository> { PressureDataRepositoryImpl(get()) }
 
-    factory { KeyboardVisibilityProvider(get()) }
+    viewModel { SplashViewModel(get(), get()) }
+    viewModel { ReadingViewModel(get(), get(), get(), get()) }
+    viewModel { UsersViewModel(get(), get()) }
+    viewModel { GraphsViewModel(get(), get(), get()) }
+    viewModel { ReadingsListViewModel(get(), get(), get()) }
 
 }

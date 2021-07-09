@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/hidden" />
+
+    <ConstraintSet android:id="@+id/visible">
+        <Constraint
+            android:id="@+id/optionContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:alpha="1"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+    </ConstraintSet>
+
+    <Transition
+        motion:constraintSetEnd="@+id/visible"
+        motion:constraintSetStart="@id/hidden"
+        motion:duration="600" />
+
+    <Transition
+        motion:constraintSetEnd="@+id/hidden"
+        motion:constraintSetStart="@id/visible"
+        motion:duration="600" />
+
+</MotionScene>
